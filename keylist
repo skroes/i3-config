@@ -1,0 +1,24 @@
+F1
+F2
+F3 XF86ScreenSaver
+F4
+F5 XF86WLAN
+F6 XF86WebCam
+F7 XF86Display
+F8 XF86MonBrightnessDown
+F9 XF86MonBrightnessUp
+F10 XF86AudioPrev
+F11 XF86AudioPlay
+F12 XF86AudioNext
+
+Mute XF86AudioMicMute
+Hotkey XF86Launch1
+
+PgUp Prior
+PgDn Next
+
+Fn XF86WakeUp (alleen als geen andere key wordt ingedruk)
+
+AltGr Alt_R
+PrtSc Print
+Ctrl  Control_R

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $UID -ne 0 ]; then
+  sudo $0 $@
+  exit
+fi
+
+INPUT=$@
+
+if [ "${INPUT//[0-9]*}" = "" ]; then
+  NEW=$INPUT
+else
+CURRENT=`cat /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/backlight/acpi_video0/brightness`
+  NEW=`echo "${CURRENT} $@" | bc`
+fi
+
+echo ${NEW} > /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/backlight/acpi_video0/brightness 2>/dev/null

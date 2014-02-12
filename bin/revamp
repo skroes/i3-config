@@ -1,0 +1,18 @@
+#!/usr/bin/python
+# close window and open new at the same place
+# https://faq.i3wm.org/question/289/how-how-to-close-window-and-instantly-open-new-on-the-same-place-closed/
+# uses i3-py, pip install i3-py
+import os
+import i3
+import sys
+
+def wait_for_new_window(windows):
+    return i3.get_tree() == windows
+
+if __name__ == '__main__':
+    os.system(sys.argv[1])
+    os.system('i3 split h')
+    windows = i3.get_tree()
+    while wait_for_new_window(windows): pass
+    os.system('i3 focus left')
+    os.system('i3 kill')

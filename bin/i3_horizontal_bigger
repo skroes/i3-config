@@ -1,0 +1,24 @@
+#! /bin/sh
+
+# When working with two containers (one left and one right) I use this
+# script to *grow* the current container horizontally.
+
+# Right position of the mouse. 30 pixel minus max-right is good.
+maxRight=1650
+
+winid=`xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)"| cut -d ' ' -f 5`
+upperleft_x=`xwininfo -id $winid | grep "Absolute upper-left X" | cut -d ' ' -f 7`
+mousepos_x=`xmousepos | cut -d ' ' -f1`
+
+# Example for mousepos y
+# mousepos_y=`xmousepos | cut -d ' ' -f2`
+
+if [ $upperleft_x -lt 10  ]; then
+    swarp 20 $mousepos_y
+    i3-msg resize grow right 4 px or 4 ppt
+else
+    swarp $maxRight $mousepos_y
+    i3-msg resize grow left 4 px or 4 ppt
+fi
+
+exit 0

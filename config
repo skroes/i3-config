@@ -11,6 +11,7 @@ focus_follows_mouse yes
 #don't move to neighbouring screen with hjkl
 force_focus_wrapping yes
 
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -36,11 +37,10 @@ floating_modifier $mod
 bindsym $mod+Return exec terminator
 
 # kill focused window
-#bindsym $mod+Shift+q kill
 bindsym $ALT+F4 kill
 
 # start program or applications
-# 
+#
 # start dmenu (a program launcher)
 bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
 
@@ -49,21 +49,15 @@ bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # filemanager
-#bindsym $mod+e exec --no-startup-id pcmanfm
-#bindsym $mod+Shift+e exec --no-startup-id nautilus
+bindsym $mod+e exec --no-startup-id pcmanfm
 
-# window switching
-#bindsym $ALT+$CTRL+Tab exec --no-startup-id /usr/bin/quickswitch.py
-#bindsym $ALT+Tab exec --no-startup-id /home/skroes/tabwin
-# /home/skroes/git/personal/i3-scripts/wrap /home/skroes/git/personal/i3-scripts/winmenu.py
 bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
-bindsym $mod+l       exec --no-startup-id gnome-screensaver-command -l
 
 # change focus
-#bindsym $mod+h focus left
-#bindsym $mod+j focus down
-#bindsym $mod+k focus up
-#bindsym $mod+l focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -72,10 +66,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+#bindsym $mod+Shift+h move left
+#bindsym $mod+Shift+j move down
+#bindsym $mod+Shift+k move up
+#bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -93,13 +87,12 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen
 
 # enter fullscreen inside the container
-#? fails bindsym $mod+$mod2+f focus parent; fullscreen; focus child
+bindsym $mod+$CTRL+f focus parent; fullscreen; focus child
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+a layout tabbed
 bindsym $mod+z layout toggle split
-# was +e
 
 # container navigation
 #bindsym $mod+d focus parent
@@ -162,21 +155,37 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 8
 
 # move view to workspace prev or next
-bindsym $CTRL+$ALT+Shift+Right exec i3-msg workspace next
-bindsym $CTRL+$ALT+Shift+Left  exec i3-msg workspace prev
+# $mod + PgUp or PgDown
+bindsym $mod+Next  exec i3-msg workspace next
+bindsym $mod+Prior exec i3-msg workspace prev
+#next_on_output
+#prev_on_output
 
-bindsym $CTRL+$ALT+Right exec i3-msg workspace next_on_output
-bindsym $CTRL+$ALT+Left  exec i3-msg workspace prev_on_output
+######
+######
+######
+#
+# i3
+#
 
 # reload the configuration file
 bindsym $CTRL+$ALT+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $CTRL+$ALT+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $CTRL+$ALT+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $CTRL+$ALT+Shift+e exec "i3-msg exit"
+#bindsym $CTRL+$ALT+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# mod+r resize mode
+######
+######
+######
+#
+# resize th!ng
+#
+
+# CTRL + ALT + r resize mode
 bindsym $CTRL+$ALT+r mode "resize"
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -211,19 +220,17 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
 # toggle with special key
 bindsym $mod+XF86Launch1 exec ~/bin/sk_trackpad_toggle
+bindsym XF86Display exec ~/.i3/bin/i3_display_swap_intern_extern
+#XF86Launch1?
 
 #bindsym XF86AudioPlay exec "~/.bin/player toggle"
 #bindsym XF86AudioStop exec "~/.bin/player stop"
 #bindsym XF86AudioNext exec "~/.bin/player next"
 #bindsym XF86AudioPrev exec "~/.bin/player previous"
 
-#bindsym XF86TouchpadToggle exec "synclient TouchpadOff=$(synclient | awk '/TouchpadOff/ {print ($3+1)%2}')"
-#bindsym XF86Launch1 exec /usr/bin/pactl play-sample that_was_easy
+bindsym XF86MonBrightnessUp exec "/home/skroes/.i3/bin/backlight +20"
+bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 
-bindsym XF86MonBrightnessUp exec /home/skroes/.i3/bin/backlight +20
-bindsym XF86MonBrightnessDown exec .i3/bin/backlight -20
-
-#redshift -l 54.35:18.65 -m randr -t 5500:4500 -g 0.75:0.75:0.75 &
 for_window [class="MPlayer"] floating enable
 for_window [instance="gimp"] floating enable
 for_window [class="Empathy"] floating enable
@@ -235,7 +242,7 @@ bar {
   status_command ~/.i3/conky
   #tray_output LVDS-1
   #output LVDS-1
-  colors { 
+  colors {
     statusline #AAAAAA
     background #333333
     focused_workspace $blue #00AAAA
@@ -246,22 +253,15 @@ bar {
 
 # AUTOSTART
 exec --no-startup-id xfce4-volumed
-exec --no-startup-id gnome-screensaver
 exec --no-startup-id nm-applet
-exec --no-startup-id gnome-keyring-daemon -s
-# background
-exec feh --bg-scale /home/skroes/.i3/Sochi-Shaun-White.jpg
-#/usr/share/backgrounds/gnome/Dark_Ivy.jpg
-# workspace
+
+# WORKSPACE
 #exec --no-startup-id i3-msg 'workspace 1; exec empathy;'
 #exec --no-startup-id i3-msg 'workspace 1; exec hipchat;'
 exec --no-startup-id i3-msg 'workspace 1; exec thunderbird;'
-exec --no-startup-id i3-msg 'workspace 2; exec xchat;'
-exec --no-startup-id i3-msg 'workspace 3; exec terminator;'
-exec --no-startup-id i3-msg 'workspace 4; exec firefox;'
-#exec nitrogen --restore
-
-# DPMS to blank your screen or to suspend/poweroff your monitor. Will suspend your monitor after xxx seconds
-exec --no-startup-id xset dpms 1200
+exec --no-startup-id i3-msg 'workspace 2; exec firefox; exec google-chrome;'
+exec --no-startup-id i3-msg 'workspace 3; exec xchat;'
+exec --no-startup-id i3-msg 'workspace 4; exec terminator;'
+exec --no-startup-id i3-msg 'workspace 5; exec pcmanfm;'
 
 # vim:filetype=i3 

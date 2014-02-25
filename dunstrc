@@ -4,7 +4,7 @@
     format = "%a: %s %b"
     sort = yes
     indicate_hidden = yes
-    alignment = left
+    alignment = center
     bounce_freq = 0
     show_age_threshold = 60;
 

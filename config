@@ -95,8 +95,6 @@ bindsym $mod+a layout tabbed
 bindsym $mod+z layout toggle split
 
 # container navigation
-#bindsym $mod+d focus parent
-#bindsym $mod+b focus child
 # focus the parent container
 #bindsym $mod+a focus parent
 # focus the child container
@@ -113,46 +111,46 @@ bindsym $mod+minus workspace back_and_forth
 # switch to last workspace when hitting same shortcutkey (actually i dont like this)
 #workspace_auto_back_and_forth yes
 
-set $ws1 1 main
-set $ws2 2 main
-set $ws3 3 main
-set $ws4 4 main
-set $ws5 5 main
-set $ws6 6 main
-set $ws7 7 main
-set $ws8 8 main
+set $WS1 "1 [ email ]"
+set $WS2 "2 [ www ]"
+set $WS3 "3 [ chat ]"
+set $WS4 "4 [ term]"
+set $WS5 "5 [ main ]"
+set $WS6 "6 [ main ]"
+set $WS7 "7 [ main ]"
+set $WS8 "8 [ main ]"
 
-workspace 1 output LVDS-1
-workspace 2 output LVDS-1
-workspace 3 output LVDS-1
-workspace 4 output LVDS-1
-workspace 5 output DP-1
-workspace 6 output DP-1
-workspace 7 output DP-1
-workspace 8 output DP-1
+workspace $WS1 output LVDS-1
+workspace $WS2 output LVDS-1
+workspace $WS3 output LVDS-1
+workspace $WS4 output LVDS-1
+workspace $WS5 output DP-1
+workspace $WS6 output DP-1
+workspace $WS7 output DP-1
+workspace $WS8 output DP-1
 
 # switch to workspace
 # 1 2 3 4
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
+bindsym $mod+3 workspace $WS3
+bindsym $mod+4 workspace $WS4
+bindsym $mod+5 workspace $WS5
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 8
+bindsym $mod+Shift+1 move container to workspace $WS1
+bindsym $mod+Shift+2 move container to workspace $WS2
+bindsym $mod+Shift+3 move container to workspace $WS3
+bindsym $mod+Shift+4 move container to workspace $WS4
+bindsym $mod+Shift+5 move container to workspace $WS5
+bindsym $mod+Shift+6 move container to workspace $WS6
+bindsym $mod+Shift+7 move container to workspace $WS7
+bindsym $mod+Shift+8 move container to workspace $WS8
+bindsym $mod+Shift+9 move container to workspace $WS8
 
 # move view to workspace prev or next
 # $mod + PgUp or PgDown
@@ -160,6 +158,26 @@ bindsym $mod+Next  exec i3-msg workspace next
 bindsym $mod+Prior exec i3-msg workspace prev
 #next_on_output
 #prev_on_output
+
+# HIDE EDGE BORDERS
+#hide_edge_borders <none|vertical|horizontal|both>
+hide_edge_borders both
+
+# CHANGING BORDER STYLE
+bindsym $mod+F9 border normal
+bindsym $mod+F10 border 1pixel
+bindsym $mod+F11 border none
+
+
+# SCRATCHPAD CREATE
+bindsym $MOD+SHIFT+plus move scratchpad
+
+# SCRATCHPAD SHOW
+bindsym $MOD+plus scratchpad show
+
+# HANDLE POPUPS
+#? ehh popup_during_fullscreen smart
+
 
 ######
 ######
@@ -218,10 +236,16 @@ bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '10%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '10%-'"
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
-# toggle with special key
+# XF86Launch toggle
+# $mod+XF86launch1 is toggle for trackpad
 bindsym $mod+XF86Launch1 exec ~/bin/sk_trackpad_toggle
+
+# mod+p or fn-F7 switch display back&forth
 bindsym XF86Display exec ~/.i3/bin/i3_display_swap_intern_extern
+bindsym $mod+p ~/.i3/bin/i3_display_swap_intern_extern
+
 #XF86Launch1?
+
 
 #bindsym XF86AudioPlay exec "~/.bin/player toggle"
 #bindsym XF86AudioStop exec "~/.bin/player stop"
@@ -234,14 +258,17 @@ bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 for_window [class="MPlayer"] floating enable
 for_window [instance="gimp"] floating enable
 for_window [class="Empathy"] floating enable
-for_window [class="HipChat"] floating enable
+#for_window [class="HipChat"] floating enable
 for_window [class="Gcr-prompter"] floating enable
+
+for_window [window_role="pop-up"] floating enable,move absolute center
 
 bar {
   position top
   status_command ~/.i3/conky
   #tray_output LVDS-1
   #output LVDS-1
+  mode dock
   colors {
     statusline #AAAAAA
     background #333333
@@ -256,12 +283,14 @@ exec --no-startup-id xfce4-volumed
 exec --no-startup-id nm-applet
 
 # WORKSPACE
-#exec --no-startup-id i3-msg 'workspace 1; exec empathy;'
-#exec --no-startup-id i3-msg 'workspace 1; exec hipchat;'
-exec --no-startup-id i3-msg 'workspace 1; exec thunderbird;'
-exec --no-startup-id i3-msg 'workspace 2; exec firefox; exec google-chrome;'
-exec --no-startup-id i3-msg 'workspace 3; exec xchat;'
-exec --no-startup-id i3-msg 'workspace 4; exec terminator;'
-exec --no-startup-id i3-msg 'workspace 5; exec pcmanfm;'
+#exec --no-startup-id i3-msg 'workspace $WS1; exec empathy;'
+#exec --no-startup-id i3-msg 'workspace $WS1; exec hipchat;'
+exec --no-startup-id i3-msg 'workspace $WS1; exec thunderbird;'
+exec --no-startup-id i3-msg 'workspace $WS2; exec firefox; exec google-chrome;'
+exec --no-startup-id i3-msg 'workspace $WS3; exec xchat;'
+exec --no-startup-id i3-msg 'workspace $WS4; exec terminator;'
+exec --no-startup-id i3-msg 'workspace $WS5; exec pcmanfm;'
+
+#? bindsym Print exec scrot 'Screenshot - %Y-%m-%d--%_$wx$h_scrot.png' -e 'mv $f ~/images/'
 
 # vim:filetype=i3 

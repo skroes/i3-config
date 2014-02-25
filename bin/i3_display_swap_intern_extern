@@ -49,3 +49,6 @@ else
   `$execute`
 fi
 echo -e "\n$(xrandr)"
+
+feh --bg-scale /home/skroes/.i3/Sochi-Shaun-White.jpg      
+

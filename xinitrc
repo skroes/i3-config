@@ -47,14 +47,14 @@ dunst -config ~/.i3/dunstrc &
 start-pulseaudio-x11 &
 
 #creating gpg agent?
-#GPG_ENVFILE="$HOME/.gnupg/gpg-agent.env"
-#if [ -x $(which gpg-agent) ]; then
-#    eval "$(gpg-agent --enable-ssh-support --daemon --write-env-file "$GPG_ENVFILE")"
-#    export GPG_AGENT_INFO
-#fi
+GPG_ENVFILE="$HOME/.gnupg/gpg-agent.env"
+if [ -x $(which gpg-agent) ]; then
+    eval "$(gpg-agent --enable-ssh-support --daemon --write-env-file "$GPG_ENVFILE")"
+    export GPG_AGENT_INFO
+fi
 
 # GPG Password Agent
-#/usr/bin/gnome-keyring-daemon --start --components=gpg &
+/usr/bin/gnome-keyring-daemon --start --components=gpg &
 # GNOME Keyring: GPG Agent
 
 # Certificate and Key Storage

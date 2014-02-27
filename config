@@ -281,6 +281,7 @@ bar {
 # AUTOSTART
 exec --no-startup-id xfce4-volumed
 exec --no-startup-id nm-applet
+exec --no-startup-id /usr/libexec/lxpolkit &
 
 # WORKSPACE
 #exec --no-startup-id i3-msg 'workspace $WS1; exec empathy;'

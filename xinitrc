@@ -54,17 +54,17 @@ if [ -x $(which gpg-agent) ]; then
 fi
 
 # GPG Password Agent
-/usr/bin/gnome-keyring-daemon --start --components=gpg &
+/usr/bin/gnome-keyring-daemon --start --components=gpg
 # GNOME Keyring: GPG Agent
 
 # Certificate and Key Storage
 # GNOME Keyring: PKCS#11 CompCertificate and Key Storageonent
-#/usr/bin/gnome-keyring-daemon --start --components=pkcs11 &
+/usr/bin/gnome-keyring-daemon --start --components=pkcs11
 #? gnome-keyring-daemon -s &
 
 # Secret Storage Service
 # GNOME Keyring: Secret Service
-#/usr/bin/gnome-keyring-daemon --start --components=secrets &
+/usr/bin/gnome-keyring-daemon --start --components=secrets
 
 # Spice vdagent
 # Agent for Spice guests

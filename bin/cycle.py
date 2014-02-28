@@ -9,7 +9,7 @@ def cycle():
     # focus each previously unfocused window for 0.5 seconds
     for window in other:
         i3.focus(con_id=window['id'])
-        time.sleep(0.2)
+        time.sleep(2)
     # focus the original windows
     for window in current:
         i3.focus(con_id=window['id'])

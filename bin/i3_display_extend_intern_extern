@@ -5,10 +5,18 @@ activeOutput=$(xrandr | grep -e " connected [^(]" | sed -e "s/\([A-Z0-9]\+\) con
 connected=$(echo $connectedOutputs | wc -w)
 
 # initialize variables
-execute="xrandr "
-default="xrandr "
+execute="echo xrandr "
+default="echo xrandr "
 i=1
 switch=0
+
+if [ $connected -eq 2 ]
+then
+  echo "x"
+fi
+/home/skroes/.i3/bin/i3_setbackground
+
+exit 0
 
 for display in $connectedOutputs
 do
@@ -50,4 +58,3 @@ else
 fi
 echo -e "\n$(xrandr)"
 
-/home/skroes/.i3/bin/i3_setbackground

@@ -125,6 +125,7 @@ set $WS5 "5 [ presentation ]"
 set $WS6 "6 [ www ]"
 set $WS7 "7 [ term ]"
 set $WS8 "8 [ other ]"
+set $WS9 "9 [ other ]"
 
 workspace $WS1 output LVDS-1
 workspace $WS2 output LVDS-1
@@ -135,7 +136,11 @@ workspace $WS6 output DP-1
 workspace $WS7 output DP-1
 workspace $WS8 output DP-1
 workspace $WS9 output DP-1
-
+#workspace $WS5 output VGA-1
+#workspace $WS6 output VGA-1
+#workspace $WS7 output VGA-1
+#workspace $WS8 output VGA-1
+#workspace $WS9 output VGA-1
 # switch to workspace
 # 1 2 3 4
 bindsym $mod+1 workspace $WS1
@@ -255,8 +260,8 @@ mode "command" {
 }
 
 # volume keys UP / DOWN / MUTE
-bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '10%+'"
-bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '10%-'"
+bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
+bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
 # XF86Launch toggle

@@ -1,5 +1,10 @@
 # i3 config file (v4)
 #
+#exec echo ".i3/config: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
+#exec echo "DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
+exec --no-startup-id ~/.i3/desktop_dbusregister.sh
+
+#
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 set $mod Mod4
 set $ALT Mod1
@@ -127,20 +132,20 @@ set $WS7 "7 [ term ]"
 set $WS8 "8 [ other ]"
 set $WS9 "9 [ other ]"
 
-workspace $WS1 output LVDS-1
-workspace $WS2 output LVDS-1
-workspace $WS3 output LVDS-1
-workspace $WS4 output LVDS-1
-workspace $WS5 output DP-1
-workspace $WS6 output DP-1
-workspace $WS7 output DP-1
-workspace $WS8 output DP-1
-workspace $WS9 output DP-1
-#workspace $WS5 output VGA-1
-#workspace $WS6 output VGA-1
-#workspace $WS7 output VGA-1
-#workspace $WS8 output VGA-1
-#workspace $WS9 output VGA-1
+workspace $WS1 output LVDS1
+workspace $WS2 output LVDS1
+workspace $WS3 output LVDS1
+workspace $WS4 output LVDS1
+#workspace $WS5 output DP-1
+#workspace $WS6 output DP-1
+#workspace $WS7 output DP-1
+#workspace $WS8 output DP-1
+#workspace $WS9 output DP-1
+workspace $WS5 output VGA1
+workspace $WS6 output VGA1
+workspace $WS7 output VGA1
+workspace $WS8 output VGA1
+workspace $WS9 output VGA1
 # switch to workspace
 # 1 2 3 4
 bindsym $mod+1 workspace $WS1
@@ -273,8 +278,8 @@ bindsym XF86Display exec ~/.i3/bin/i3_display_swap_intern_extern
 bindsym $mod+p exec ~/.i3/bin/i3_display_swap_intern_extern
 
 # mod+o or fn-F8(USB keyboard) extend display
-bindsym XF86TouchpadToggle exec ~/.i3/bin/2VGA_DP1.sh
-bindsym $mod+o exec ~/.i3/bin/2VGA_DP1.sh
+#bindsym XF86TouchpadToggle exec ~/.i3/bin/2VGA_DP1.sh
+#bindsym $mod+o exec ~/.i3/bin/2VGA_DP1.sh
 
 #XF86Launch1?
 
@@ -290,17 +295,17 @@ bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 for_window [class="MPlayer"] floating enable
 for_window [instance="gimp"] floating enable
 for_window [class="Empathy"] floating enable
-#for_window [class="HipChat"] floating enable
 for_window [class="Gcr-prompter"] floating enable
 
 for_window [window_role="pop-up"] floating enable,move absolute center
 
 bar {
-  position top
-  status_command ~/.i3/conky
-  #tray_output LVDS-1
+  position top # bottom
+  #status_command ~/.i3/conky
+  tray_output none #LVDS-1
   #output LVDS-1
-  mode dock
+  # mode dock
+  mode hide # mode <dock|hide|invisible>
   colors {
     statusline #AAAAAA
     background #333333
@@ -311,25 +316,19 @@ bar {
 
 
 # AUTOSTART
-exec --no-startup-id xfce4-volumed
-exec --no-startup-id nm-applet
-exec --no-startup-id /usr/libexec/lxpolkit &
+#?exec --no-startup-id xfce4-volumed
+#exec --no-startup-id nm-applet
+#?exec --no-startup-id /usr/libexec/lxpolkit &
 
 # WORKSPACE
-exec --no-startup-id i3-msg 'workspace $WS1; exec thunderbird;'
-exec --no-startup-id i3-msg 'workspace $WS2; exec google-chrome;'
-exec --no-startup-id i3-msg 'workspace $WS3; exec xchat;'
-exec --no-startup-id i3-msg 'workspace $WS4; exec terminator;'
+#exec --no-startup-id i3-msg 'workspace $WS1; exec thunderbird;'
+#exec --no-startup-id i3-msg 'workspace $WS2; exec google-chrome;'
+#exec --no-startup-id i3-msg 'workspace $WS4; exec terminator;'
 #
-exec --no-startup-id i3-msg 'workspace $WS5; exec go /opt/home/skroes/git/puppet-techtalk2014-Avisi/presentatie/1_vagrant-talk.ppt;'
-exec --no-startup-id i3-msg 'workspace $WS6; exec google-chrome;'
-exec --no-startup-id i3-msg 'workspace $WS7; exec terminator;'
-exec --no-startup-id i3-msg 'workspace $WS8; exec pcmanfm;'
-
-#OLD:
-#exec --no-startup-id i3-msg 'workspace $WS1; exec empathy;'
-#exec --no-startup-id i3-msg 'workspace $WS1; exec hipchat;'
-
+#exec --no-startup-id i3-msg 'workspace $WS5; exec go /opt/home/skroes/git/puppet-techtalk2014-Avisi/presentatie/1_vagrant-talk.ppt;'
+#exec --no-startup-id i3-msg 'workspace $WS6; exec google-chrome;'
+#exec --no-startup-id i3-msg 'workspace $WS7; exec terminator;'
+#exec --no-startup-id i3-msg 'workspace $WS8; exec pcmanfm;'
 
 #? bindsym Print exec scrot 'Screenshot - %Y-%m-%d--%_$wx$h_scrot.png' -e 'mv $f ~/images/'
 

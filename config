@@ -2,7 +2,14 @@
 #
 #exec echo ".i3/config: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
 #exec echo "DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
-exec --no-startup-id ~/.i3/desktop_dbusregister.sh
+#exec --no-startup-id ~/.i3/desktop_dbusregister.sh
+
+exec --no-startup-id xset dpms 1200
+#  xsetroot -solid "#e1dce0"
+
+exec --no-startup-id feh --bg-scale /home/skroes/.CleanlinesHDwallpapers1080p.jpg
+
+
 
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -119,33 +126,43 @@ bindsym $mod+m exec "~/bin/shot"
 
 # switch to last workspace
 bindsym $mod+minus workspace back_and_forth
+bindsym $ALT+Tab workspace back_and_forth
+bindsym $mod+Tab workspace back_and_forth
+
 # switch to last workspace when hitting same shortcutkey (actually i dont like this)
 #workspace_auto_back_and_forth yes
 
-set $WS1 "1 [ email ]"
-set $WS2 "2 [ www ]"
-set $WS3 "3 [ chat ]"
+set $WS1 "1 [ offline ]"
+set $WS2 "2 [ chrome ]"
+set $WS3 "3 [ social]"
 set $WS4 "4 [ term ]"
-set $WS5 "5 [ presentation ]"
-set $WS6 "6 [ www ]"
+set $WS5 "5 [ files ]"
+set $WS6 "6 [ read ]"
 set $WS7 "7 [ term ]"
-set $WS8 "8 [ other ]"
+set $WS8 "8 [ firefox ]"
 set $WS9 "9 [ other ]"
 
-workspace $WS1 output LVDS1
-workspace $WS2 output LVDS1
-workspace $WS3 output LVDS1
-workspace $WS4 output LVDS1
+# LVDS1 laptop display
+# DP1   DisplayPort
+# HDMI1 DVI on DPcable
+# VGA1  legacy
+#
+workspace $WS1 output HDMI1
+workspace $WS2 output HDMI1
+workspace $WS3 output HDMI1
+workspace $WS4 output HDMI1
+workspace $WS5 output HDMI2
+workspace $WS6 output HDMI2
+workspace $WS7 output HDMI2
+workspace $WS8 output HDMI2
+workspace $WS9 output HDMI2
+#
 #workspace $WS5 output DP-1
 #workspace $WS6 output DP-1
 #workspace $WS7 output DP-1
 #workspace $WS8 output DP-1
 #workspace $WS9 output DP-1
-workspace $WS5 output VGA1
-workspace $WS6 output VGA1
-workspace $WS7 output VGA1
-workspace $WS8 output VGA1
-workspace $WS9 output VGA1
+
 # switch to workspace
 # 1 2 3 4
 bindsym $mod+1 workspace $WS1
@@ -159,15 +176,15 @@ bindsym $mod+8 workspace $WS8
 bindsym $mod+9 workspace $WS9
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $WS1
-bindsym $mod+Shift+2 move container to workspace $WS2
-bindsym $mod+Shift+3 move container to workspace $WS3
-bindsym $mod+Shift+4 move container to workspace $WS4
-bindsym $mod+Shift+5 move container to workspace $WS5
-bindsym $mod+Shift+6 move container to workspace $WS6
-bindsym $mod+Shift+7 move container to workspace $WS7
-bindsym $mod+Shift+8 move container to workspace $WS8
-bindsym $mod+Shift+9 move container to workspace $WS9
+bindsym $mod+Shift+1 move container to workspace $WS1, exec i3-msg workspace $WS1, focus
+bindsym $mod+Shift+2 move container to workspace $WS2, exec i3-msg workspace $WS2, focus
+bindsym $mod+Shift+3 move container to workspace $WS3, exec i3-msg workspace $WS3, focus
+bindsym $mod+Shift+4 move container to workspace $WS4, exec i3-msg workspace $WS4, focus
+bindsym $mod+Shift+5 move container to workspace $WS5, exec i3-msg workspace $WS5, focus
+bindsym $mod+Shift+6 move container to workspace $WS6, exec i3-msg workspace $WS6, focus
+bindsym $mod+Shift+7 move container to workspace $WS7, exec i3-msg workspace $WS7, focus
+bindsym $mod+Shift+8 move container to workspace $WS8, exec i3-msg workspace $WS8, focus
+bindsym $mod+Shift+9 move container to workspace $WS9, exec i3-msg workspace $WS9, focus
 
 # move view to workspace prev or next
 # $mod + PgUp or PgDown
@@ -193,7 +210,8 @@ bindsym $MOD+SHIFT+plus move scratchpad
 bindsym $MOD+plus scratchpad show
 
 # HANDLE POPUPS
-#? ehh popup_during_fullscreen smart
+#? ehh 
+popup_during_fullscreen smart
 
 
 ######
@@ -292,20 +310,47 @@ bindsym $mod+p exec ~/.i3/bin/i3_display_swap_intern_extern
 bindsym XF86MonBrightnessUp exec "/home/skroes/.i3/bin/backlight +20"
 bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 
+
+# for_window: match new windows and modify there behaviour:
+#
 for_window [class="MPlayer"] floating enable
 for_window [instance="gimp"] floating enable
 for_window [class="Empathy"] floating enable
 for_window [class="Gcr-prompter"] floating enable
 
-for_window [window_role="pop-up"] floating enable,move absolute center
+for_window [window_role="pop-up"] floating enable
+
+# WS2
+
+
+# WS3
+### Hangouts floats as they are 'pop-up' but we move them to WS3
+###
+#for_window [class="Google-chrome"] floating disable
+#for_window [title="^Hangouts$"] floating disable
+#assign [title="^Hangouts$"] $WS3
+#for_window [title="Hangouts"] focus
+for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating disable
+assign [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
+
+###
+###
+
+
+# testing assign for 'evince' pdf vieuwe open in $WS
+assign [class="^Evince$"] $WS6
+for_window [class="^Evince$"] focus
+#i3-msg [class="xyz"] move to workspace abc
+
+# move absolute center
 
 bar {
-  position top # bottom
-  #status_command ~/.i3/conky
+  position bottom # top # bottom
+  #status_command /opt/home/skroes/mifistatus #i3status
+  #status command ~/.i3/conky
   tray_output none #LVDS-1
   #output LVDS-1
-  # mode dock
-  mode hide # mode <dock|hide|invisible>
+  mode dock# mode <dock|hide|invisible>
   colors {
     statusline #AAAAAA
     background #333333
@@ -315,20 +360,11 @@ bar {
 }
 
 
-# AUTOSTART
-#?exec --no-startup-id xfce4-volumed
-#exec --no-startup-id nm-applet
-#?exec --no-startup-id /usr/libexec/lxpolkit &
-
-# WORKSPACE
-#exec --no-startup-id i3-msg 'workspace $WS1; exec thunderbird;'
-#exec --no-startup-id i3-msg 'workspace $WS2; exec google-chrome;'
-#exec --no-startup-id i3-msg 'workspace $WS4; exec terminator;'
-#
-#exec --no-startup-id i3-msg 'workspace $WS5; exec go /opt/home/skroes/git/puppet-techtalk2014-Avisi/presentatie/1_vagrant-talk.ppt;'
-#exec --no-startup-id i3-msg 'workspace $WS6; exec google-chrome;'
-#exec --no-startup-id i3-msg 'workspace $WS7; exec terminator;'
-#exec --no-startup-id i3-msg 'workspace $WS8; exec pcmanfm;'
+# SESSION START WORKSPACE
+#exec --no-startup-id i3-msg 'workspace $WS2; exec google-chrome'
+exec --no-startup-id i3-msg 'workspace $WS4; exec terminator'
+#exec --no-startup-id i3-msg 'workspace $WS5; exec nautilus'
+#exec --no-startup-id i3-msg 'workspace $WS8; exec firefox'
 
 #? bindsym Print exec scrot 'Screenshot - %Y-%m-%d--%_$wx$h_scrot.png' -e 'mv $f ~/images/'
 

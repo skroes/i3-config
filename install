@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# packages
+if [ ! `dpkg -l | grep -w 'i3-wm' | wc -l` -eq 0 ]; then
+  echo "already installed"
+  exit 1
+fi
+
+# ubuntu 1404
+sudo apt-get install dmenu i3-wm 
+# optional i3status
+
+# https://faq.i3wm.org/question/1/how-can-i-get-rid-of-the-nautilus-desktop-window/
+gsettings set org.gnome.desktop.background show-desktop-icons false
+gconftool-2 \
+--type bool \
+--set /apps/nautilus/preferences/show_desktop false

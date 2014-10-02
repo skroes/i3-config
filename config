@@ -201,12 +201,14 @@ bindsym $mod+XF86Back    exec i3-msg workspace prev
 # HIDE EDGE BORDERS
 #hide_edge_borders <none|vertical|horizontal|both>
 hide_edge_borders both
+#both
 
 # CHANGING BORDER STYLE
 bindsym $mod+F9 border normal
 bindsym $mod+F10 border 1pixel
 bindsym $mod+F11 border none
 
+for_window [class="^Chrome$" title=" - Chromium$"] border none
 
 # SCRATCHPAD CREATE
 bindsym $MOD+SHIFT+plus move scratchpad

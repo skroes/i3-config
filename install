@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # packages
-if [ ! `dpkg -l | grep -w 'i3-wm' | wc -l` -eq 0 ]; then
-  echo "already installed"
-  exit 1
-fi
+#if [ ! `dpkg -l | grep -w 'i3-wm' | wc -l` -eq 0 ]; then
+#  echo "already installed"
+#  exit 1
+#fi
 
 # ubuntu 1404
 sudo apt-get install dmenu i3-wm 
@@ -15,3 +15,6 @@ gsettings set org.gnome.desktop.background show-desktop-icons false
 gconftool-2 \
 --type bool \
 --set /apps/nautilus/preferences/show_desktop false
+
+sudo apt-get install python-pip -y
+sudo pip install i3-py

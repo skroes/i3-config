@@ -361,10 +361,10 @@ for_window [class="^totem$"] focus
 # If you'r not prepared to be wrong - you will never come up with anything original
 
 bar {
-  position bottom # top # bottom
-  #status_command /opt/home/skroes/mifistatus #i3status
-  #status command ~/.i3/conky
-  tray_output none #LVDS-1
+  position top 
+  #status_command i3status
+  status_command ~/.i3/conky
+  #tray_output none #LVDS-1
   #output LVDS-1
   mode dock# mode <dock|hide|invisible>
   colors {

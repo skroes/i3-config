@@ -55,7 +55,8 @@ bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
 
 # i3-dmenu-desktop which only displays applications shipping a .desktop file.
 # It is a wrapper around dmenu, so you need that installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
+#i3-dmenu-desktop
 
 # filemanager and other shortcuts
 bindsym $mod+e exec --no-startup-id pcmanfm
@@ -361,7 +362,7 @@ for_window [class="^totem$"] focus
 # If you'r not prepared to be wrong - you will never come up with anything original
 
 bar {
-  position top 
+  position bottom #top 
   #status_command i3status
   status_command ~/.i3/conky
   #tray_output none #LVDS-1

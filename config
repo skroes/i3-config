@@ -35,7 +35,8 @@ set $blue #005588
 set $gray1 #484848
 set $gray2 #333333
 
-client.focused            $gray1   $gray1   #FFFFFF   #333333
+client.focused            $gray1   $gray1   #FFFFFF   #005588
+#333333
 client.focused_inactive   $gray2   $gray2   #FFFFFF   #000000
 client.unfocused          $gray2   $gray2   #FFFFFF   #000000
 
@@ -75,22 +76,22 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+#bindsym $mod+Left focus left
+#bindsym $mod+Down focus down
+#bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
 
 # move focused window
-#bindsym $mod+Shift+h move left
-#bindsym $mod+Shift+j move down
-#bindsym $mod+Shift+k move up
-#bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+#bindsym $mod+Shift+Left move left
+#bindsym $mod+Shift+Down move down
+#bindsym $mod+Shift+Up move up
+#bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
 bindsym $mod+g split h
@@ -201,7 +202,7 @@ bindsym $mod+XF86Back    exec i3-msg workspace prev
 
 # HIDE EDGE BORDERS
 #hide_edge_borders <none|vertical|horizontal|both>
-hide_edge_borders both
+hide_edge_borders none #both
 #both
 
 # CHANGING BORDER STYLE
@@ -374,6 +375,9 @@ bar {
     inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
+
+exec --no-startup-id nm-applet
+exec volumeicon
 
 
 # SESSION START WORKSPACE

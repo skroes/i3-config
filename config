@@ -122,7 +122,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # shot
-bindsym $mod+m exec "~/bin/shot"
+#bindsym $mod+m exec "~/bin/shot"
 #bindsym $mod+backslash exec "~/bin/shot"
 #bindsym $XF86Launch1 exec ~/bin/shot
 
@@ -209,7 +209,7 @@ bindsym $mod+F9 border normal
 bindsym $mod+F10 border 1pixel
 bindsym $mod+F11 border none
 
-for_window [class="^Chrome$" title=" - Chromium$"] border none
+#for_window [class="^Chrome$" title=" - Chromium$"] border none
 
 # SCRATCHPAD CREATE
 bindsym $MOD+SHIFT+plus move scratchpad
@@ -218,7 +218,6 @@ bindsym $MOD+SHIFT+plus move scratchpad
 bindsym $MOD+plus scratchpad show
 
 # HANDLE POPUPS
-#? ehh 
 popup_during_fullscreen smart
 
 
@@ -230,7 +229,7 @@ popup_during_fullscreen smart
 #
 
 # reload the configuration file
-bindsym $CTRL+$ALT+Shift+c reload
+#bindsym $CTRL+$ALT+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $CTRL+$ALT+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -362,7 +361,7 @@ for_window [class="^totem$"] focus
 # If you'r not prepared to be wrong - you will never come up with anything original
 
 bar {
-  position bottom #top 
+  position top
   #status_command i3status
   status_command ~/.i3/conky
   #tray_output none #LVDS-1

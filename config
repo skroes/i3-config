@@ -389,7 +389,7 @@ for_window [class="^totem$"] focus
 # HDMI1 output
 bar {
   #output HDMI1
-  mode hide
+  mode dock
   hidden_state show
   position top
   #tray_output LVDS1

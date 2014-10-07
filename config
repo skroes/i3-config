@@ -13,7 +13,6 @@ set $mod Mod4
 set $ALT Mod1
 set $CTRL Control
 
-new_window pixel 1
 focus_follows_mouse yes
 
 #allow move to neighbouring screen with hjkl
@@ -33,11 +32,21 @@ set $blue #005588
 set $gray1 #484848
 set $gray1b #343434
 set $gray2 #333333
+set $darkorage #CB4B16
 
-client.focused            $gray1   $gray1b   #FFFFFF   #005588
-#333333
-client.focused_inactive   $gray2   $gray2   #FFFFFF   #000000
-client.unfocused          $gray2   $gray2   #FFFFFF   #000000
+# class                   border   backgr.    text      indicator
+client.focused            $gray1   $darkorage #FFFFFF   #007F7F
+client.focused_inactive   $gray2   $gray2     #FFFFFF   #000000
+client.unfocused          $gray2   $gray2     #FFFFFF   #000000
+client.urgent             #2f343a  #900000    #FFFFFF   #900000
+
+# defaults:?!
+# class                 border  backgr. text    indicator
+#client.focused          #4c7899 #285577 #ffffff #2e9ef4
+#client.focused_inactive #333333 #5f676a #ffffff #484e50
+#client.unfocused        #333333 #222222 #888888 #292d2e
+#client.urgent           #2f343a #900000 #ffffff #900000
+#client.placeholder      #000000 #0c0c0c #ffffff #000000
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -204,12 +213,26 @@ bindsym $mod+XF86Back    exec i3-msg workspace prev
 hide_edge_borders none #both
 #both
 
+###
+### borders
+###
+
 # CHANGING BORDER STYLE
 bindsym $mod+F9 border normal
 bindsym $mod+F10 border 1pixel
 bindsym $mod+F11 border none
 
-#for_window [class="^Chrome$" title=" - Chromium$"] border none
+# for newly arrived windows or popups:
+new_window 1pixel
+new_float normal
+#pixel 1
+
+# app specifics:
+# fails... for_window [instance="terminator"] border none
+
+###
+###
+###
 
 # SCRATCHPAD CREATE
 bindsym $MOD+SHIFT+plus move scratchpad
@@ -363,13 +386,15 @@ for_window [class="^totem$"] focus
 
 # If you'r not prepared to be wrong - you will never come up with anything original
 
+# HDMI1 output
 bar {
+  #output HDMI1
+  mode hide
+  hidden_state show
   position top
+  #tray_output LVDS1
   #status_command i3status
   status_command ~/.i3/conky
-  #tray_output none #LVDS-1
-  #output LVDS-1
-  mode dock# mode <dock|hide|invisible>
   colors {
     statusline #AAAAAA
     background #333333
@@ -378,13 +403,27 @@ bar {
   }
 }
 
-exec --no-startup-id nm-applet
-exec volumeicon
+#bar {
+#  mode hide
+#  hidden_state hide
+#  position bottom
+#  #tray_output none
+#  #status_command ~/.i3/conky
+#    workspace_buttons no
+#  colors {
+#    statusline #AAAAAA
+#    background #333333
+#    focused_workspace $blue #00AAAA
+#    inactive_workspace $gray1 $gray1 #AAAAAA
+#  }
+#}
 
+#exec --no-startup-id nm-applet
+exec volumeicon
 
 # SESSION START WORKSPACE
 #exec --no-startup-id i3-msg 'workspace $WS2; exec google-chrome'
-exec --no-startup-id i3-msg 'workspace $WS4; exec terminator'
+#exec --no-startup-id i3-msg 'workspace $WS4; exec terminator'
 #exec --no-startup-id i3-msg 'workspace $WS5; exec nautilus'
 #exec --no-startup-id i3-msg 'workspace $WS8; exec firefox'
 

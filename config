@@ -5,7 +5,6 @@
 #exec --no-startup-id ~/.i3/desktop_dbusregister.sh
 
 exec --no-startup-id xset dpms 1200
-exec --no-startup-id nm-applet
 exec --no-startup-id /home/skroes/.i3/bin/i3_setbackground
 
 #
@@ -14,12 +13,11 @@ set $mod Mod4
 set $ALT Mod1
 set $CTRL Control
 
-new_window pixel 2
+new_window pixel 1
 focus_follows_mouse yes
 
-#don't move to neighbouring screen with hjkl
-force_focus_wrapping yes
-
+#allow move to neighbouring screen with hjkl
+force_focus_wrapping no
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -33,9 +31,10 @@ font pango:DejaVu Sans Mono 10
 
 set $blue #005588
 set $gray1 #484848
+set $gray1b #343434
 set $gray2 #333333
 
-client.focused            $gray1   $gray1   #FFFFFF   #005588
+client.focused            $gray1   $gray1b   #FFFFFF   #005588
 #333333
 client.focused_inactive   $gray2   $gray2   #FFFFFF   #000000
 client.unfocused          $gray2   $gray2   #FFFFFF   #000000
@@ -294,6 +293,9 @@ mode "command" {
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
 bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
+# /usr/bin/pactl set-sink-volume 0 -- '-5%'
+#bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -- '-5%'
+#bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -- '+5%'
 
 # XF86Launch toggle
 # $mod+XF86launch1 is toggle for trackpad
@@ -338,11 +340,11 @@ for_window [class="file_progress"] floating enable
 ###
 assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
 for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating disable
-for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] focus
+#for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] focus
 
 assign     [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] $WS3
 for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] floating disable
-for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] focus
+#for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] focus
 # google+ instance: crx_dlppkpafhbajpcmmoheippocdidnckmm
 
 ###

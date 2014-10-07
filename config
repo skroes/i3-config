@@ -150,7 +150,7 @@ set $WS4 "4 [ term ]"
 set $WS5 "5 [ files ]"
 set $WS6 "6 [ read ]"
 set $WS7 "7 [ term ]"
-set $WS8 "8 [ firefox ]"
+set $WS8 "8 [ chrome ]"
 set $WS9 "9 [ video ]"
 
 # LVDS1 laptop display

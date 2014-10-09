@@ -1,0 +1,9 @@
+#!/bin/bash
+
+TOGGLESWITCH=`i3-msg -t get_bar_config bar-0|grep "\"mode\":\"dock\"" | wc -l`
+
+if [ $TOGGLESWITCH -eq 1 ]; then
+  i3-msg bar mode hide
+else
+  i3-msg bar mode dock
+fi

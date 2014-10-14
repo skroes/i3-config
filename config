@@ -131,7 +131,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # shot
-#bindsym $mod+m exec "~/bin/shot"
+bindsym $mod+n exec "~/bin/shot"
 #bindsym $mod+backslash exec "~/bin/shot"
 #bindsym $XF86Launch1 exec ~/bin/shot
 
@@ -222,6 +222,9 @@ bindsym $mod+F9 border normal
 bindsym $mod+F10 border 1pixel
 bindsym $mod+F11 border none
 
+# F12 toggles the i3bar
+bindsym $mod+F12 exec ~/.i3/bin/toggbar
+
 # for newly arrived windows or popups:
 new_window 1pixel
 new_float normal
@@ -251,12 +254,13 @@ popup_during_fullscreen smart
 # i3
 #
 
+bindsym $CTRL+$ALT+Shift+r reload
 # reload the configuration file
 #bindsym $CTRL+$ALT+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $CTRL+$ALT+Shift+r restart
+#bindsym $CTRL+$ALT+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $CTRL+$ALT+Shift+e exec "i3-msg exit"
+bindsym $CTRL+$ALT+Shift+e exec "sudo kill -15 X"
 #bindsym $CTRL+$ALT+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 ######
@@ -351,8 +355,8 @@ for_window [instance="gimp"] floating enable
 for_window [class="Empathy"] floating enable
 for_window [class="Gcr-prompter"] floating enable
 
-for_window [window_role="pop-up"] floating enable
-for_window [window_role="pop-up"] floating enable
+#for_window [window_role="pop-up"] floating enable
+#for_window [window_role="pop-up"] floating enable
 
 for_window [class="file_progress"] floating enable
 # WS2
@@ -365,8 +369,8 @@ assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
 for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating disable
 #for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] focus
 
-assign     [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] $WS3
-for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] floating disable
+#assign     [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] $WS3
+#for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] floating disable
 #for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] focus
 # google+ instance: crx_dlppkpafhbajpcmmoheippocdidnckmm
 
@@ -390,7 +394,7 @@ for_window [class="^totem$"] focus
 bar {
   #output HDMI1
   mode dock
-  hidden_state show
+  hidden_state hide
   position top
   #tray_output LVDS1
   #status_command i3status

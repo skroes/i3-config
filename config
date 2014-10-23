@@ -68,14 +68,17 @@ bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
 #i3-dmenu-desktop
 
 # filemanager and other shortcuts
-bindsym $mod+e exec --no-startup-id pcmanfm
+#bindsym $mod+e exec --no-startup-id pcmanfm
 
 bindsym $ALT+$CTRL+End exec sudo poweroff
 bindsym $ALT+$CTRL+PgUp exec lock-keyboard-for-baby-20080706.pl -w
 bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
 
-bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
-bindsym XF86ScreenSaver exec --no-startup-id gnome-screensaver-command -l
+bindsym $ALT+$CTRL+l exec --no-startup-id ~/bin/sk_lock_mousekeyboard
+bindsym XF86ScreenSaver exec --no-startup-id ~/bin/sk_lock_mousekeyboard
+
+#bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
+#bindsym XF86ScreenSaver exec --no-startup-id gnome-screensaver-command -l
 
 # change focus
 bindsym $mod+h focus left
@@ -152,6 +155,10 @@ set $WS6 "6 [ read ]"
 set $WS7 "7 [ term ]"
 set $WS8 "8 [ chrome ]"
 set $WS9 "9 [ video ]"
+set $WS10 "10 [ extra ]"
+set $WS11 "11 [ extra ]"
+set $WS12 "12 [ extra ]"
+set $WS13 "13 [ extra ]"
 
 # LVDS1 laptop display
 # DP1   DisplayPort
@@ -167,12 +174,10 @@ workspace $WS6 output HDMI2
 workspace $WS7 output HDMI2
 workspace $WS8 output HDMI2
 workspace $WS9 output HDMI2
-#
-#workspace $WS5 output DP-1
-#workspace $WS6 output DP-1
-#workspace $WS7 output DP-1
-#workspace $WS8 output DP-1
-#workspace $WS9 output DP-1
+workspace $WS10 output LVDS1
+workspace $WS11 output LVDS1
+workspace $WS12 output LVDS1
+workspace $WS13 output LVDS1
 
 # switch to workspace
 # 1 2 3 4
@@ -185,6 +190,10 @@ bindsym $mod+6 workspace $WS6
 bindsym $mod+7 workspace $WS7
 bindsym $mod+8 workspace $WS8
 bindsym $mod+9 workspace $WS9
+bindsym $mod+q workspace $WS10
+bindsym $mod+w workspace $WS11
+bindsym $mod+e workspace $WS12
+bindsym $mod+r workspace $WS13
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $WS1, exec i3-msg workspace $WS1, focus
@@ -196,6 +205,10 @@ bindsym $mod+Shift+6 move container to workspace $WS6, exec i3-msg workspace $WS
 bindsym $mod+Shift+7 move container to workspace $WS7, exec i3-msg workspace $WS7, focus
 bindsym $mod+Shift+8 move container to workspace $WS8, exec i3-msg workspace $WS8, focus
 bindsym $mod+Shift+9 move container to workspace $WS9, exec i3-msg workspace $WS9, focus
+bindsym $mod+Shift+q move container to workspace $WS10, exec i3-msg workspace $WS10, focus
+bindsym $mod+Shift+w move container to workspace $WS11, exec i3-msg workspace $WS11, focus
+bindsym $mod+Shift+e move container to workspace $WS12, exec i3-msg workspace $WS12, focus
+bindsym $mod+Shift+r move container to workspace $WS13, exec i3-msg workspace $WS13, focus
 
 # move view to workspace prev or next
 # $mod + PgUp or PgDown
@@ -259,7 +272,7 @@ bindsym $CTRL+$ALT+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $CTRL+$ALT+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $CTRL+$ALT+Shift+e exec "sudo kill -15 X"
+#bindsym $CTRL+$ALT+Shift+e exec "sudo kill -15 X"
 #bindsym $CTRL+$ALT+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 ######
@@ -364,8 +377,8 @@ for_window [class="file_progress"] floating enable
 # WS3
 ### Hangouts floats as they are 'pop-up' but we move them to WS3
 ###
-assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
 for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating disable
+assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
 #for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] focus
 
 #assign     [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] $WS3

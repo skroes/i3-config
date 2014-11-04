@@ -74,7 +74,8 @@ bindsym $ALT+$CTRL+End exec sudo poweroff
 bindsym $ALT+$CTRL+PgUp exec lock-keyboard-for-baby-20080706.pl -w
 bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
 
-bindsym $ALT+$CTRL+l exec --no-startup-id ~/bin/sk_lock_mousekeyboard
+#bindsym $ALT+$CTRL+l exec --no-startup-id ~/bin/sk_lock_mousekeyboard
+bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
 bindsym XF86ScreenSaver exec --no-startup-id ~/bin/sk_lock_mousekeyboard
 
 #bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
@@ -367,7 +368,7 @@ for_window [instance="gimp"] floating enable
 for_window [class="Empathy"] floating enable
 for_window [class="Gcr-prompter"] floating enable
 
-#for_window [window_role="pop-up"] floating enable
+for_window [window_role="pop-up"] floating enable
 #for_window [window_role="pop-up"] floating enable
 
 for_window [class="file_progress"] floating enable
@@ -377,7 +378,7 @@ for_window [class="file_progress"] floating enable
 # WS3
 ### Hangouts floats as they are 'pop-up' but we move them to WS3
 ###
-for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating disable
+#for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating disable
 assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
 #for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] focus
 

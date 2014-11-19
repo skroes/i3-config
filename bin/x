@@ -1,0 +1,11 @@
+--2014-11-10 22:01:49--  https://github.com/fhaun/config-misc/blob/master/i3-stuff/auto-start-for-i3
+Resolving github.com (github.com)... 192.30.252.128
+Connecting to github.com (github.com)|192.30.252.128|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: ‘auto-start-for-i3’
+
+     0K .......... .......... .......... .......... .........   155K=0,3s
+
+2014-11-10 22:01:52 (155 KB/s) - ‘auto-start-for-i3’ saved [51052]
+

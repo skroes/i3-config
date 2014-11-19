@@ -1,8 +1,7 @@
 # i3 config file (v4)
-#
-#exec echo ".i3/config: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
-#exec echo "DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.gnome.SessionManager"
-#exec --no-startup-id ~/.i3/desktop_dbusregister.sh
+
+#autostart
+#exec $HOME/.i3/bin/desktop_startup
 
 exec --no-startup-id xset dpms 1200
 exec --no-startup-id /home/skroes/.i3/bin/i3_setbackground
@@ -71,12 +70,12 @@ bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
 #bindsym $mod+e exec --no-startup-id pcmanfm
 
 bindsym $ALT+$CTRL+End exec sudo poweroff
-bindsym $ALT+$CTRL+PgUp exec lock-keyboard-for-baby-20080706.pl -w
-bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
+#bindsym $ALT+$CTRL+PgUp exec lock-keyboard-for-baby-20080706.pl -w
+#bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
 
 #bindsym $ALT+$CTRL+l exec --no-startup-id ~/bin/sk_lock_mousekeyboard
 bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
-bindsym XF86ScreenSaver exec --no-startup-id ~/bin/sk_lock_mousekeyboard
+#bindsym XF86ScreenSaver exec --no-startup-id ~/bin/sk_lock_mousekeyboard
 
 #bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
 #bindsym XF86ScreenSaver exec --no-startup-id gnome-screensaver-command -l
@@ -147,19 +146,19 @@ bindsym $mod+Tab workspace back_and_forth
 # switch to last workspace when hitting same shortcutkey (actually i dont like this)
 #workspace_auto_back_and_forth yes
 
-set $WS1 "1 [ offline ]"
-set $WS2 "2 [ chrome ]"
-set $WS3 "3 [ social]"
-set $WS4 "4 [ term ]"
-set $WS5 "5 [ files ]"
-set $WS6 "6 [ read ]"
-set $WS7 "7 [ term ]"
-set $WS8 "8 [ chrome ]"
-set $WS9 "9 [ video ]"
-set $WS10 "10 [ extra ]"
-set $WS11 "11 [ extra ]"
-set $WS12 "12 [ extra ]"
-set $WS13 "13 [ extra ]"
+set $WS1 "[ 1 ]"
+set $WS2 "[ 2 ]"
+set $WS3 "[ 3:chat ]"
+set $WS4 "[ 4 ]"
+set $WS5 "[ 5 ]"
+set $WS6 "[ 6:term ]"
+set $WS7 "[ 7:term ]"
+set $WS8 "[ 8:web ]"
+set $WS9 "[ 9:media ]"
+set $WS10 "[ 10 ]"
+set $WS11 "[ 11 ]"
+set $WS12 "[ 12 ]"
+set $WS13 "[ 13 ]"
 
 # LVDS1 laptop display
 # DP1   DisplayPort
@@ -224,7 +223,7 @@ bindsym $mod+XF86Back    exec i3-msg workspace prev
 
 # HIDE EDGE BORDERS
 #hide_edge_borders <none|vertical|horizontal|both>
-hide_edge_borders none #both
+hide_edge_borders horizontal # both # vertical #both
 #both
 
 ###
@@ -240,8 +239,8 @@ bindsym $mod+F11 border none
 bindsym $mod+F12 exec ~/.i3/bin/toggbar
 
 # for newly arrived windows or popups:
-new_window 1pixel
 new_float normal
+new_window 1pixel
 #pixel 1
 
 # app specifics:
@@ -345,6 +344,11 @@ bindsym $mod+XF86Launch1 exec ~/bin/sk_trackpad_toggle
 bindsym XF86Display exec ~/.i3/bin/i3_display_swap_intern_extern
 bindsym $mod+p exec ~/.i3/bin/i3_display_swap_intern_extern
 
+# mod+BackSpace
+# BackSpace
+bindsym $mod+BackSpace exec ~/.i3/bin/desktop_startup
+
+
 # mod+o or fn-F8(USB keyboard) extend display
 #bindsym XF86TouchpadToggle exec ~/.i3/bin/2VGA_DP1.sh
 #bindsym $mod+o exec ~/.i3/bin/2VGA_DP1.sh
@@ -369,10 +373,11 @@ for_window [class="Empathy"] floating enable
 for_window [class="Gcr-prompter"] floating enable
 
 for_window [window_role="pop-up"] floating enable
-#for_window [window_role="pop-up"] floating enable
 
 for_window [class="file_progress"] floating enable
-# WS2
+
+# apps from chrome are marked as pop-up, bu we need them non floating
+for_window [class="Google-chrome"] floating disable
 
 
 # WS3
@@ -381,6 +386,7 @@ for_window [class="file_progress"] floating enable
 #for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating disable
 assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
 #for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] focus
+for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] border 1pixel
 
 #assign     [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] $WS3
 #for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] floating disable
@@ -392,16 +398,14 @@ assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
 #i3-msg [class="xyz"] move to workspace abc
 
 # testing assign for 'evince'
-assign [class="^Evince$"] $WS6
-for_window [class="^Evince$"] focus
+#assign [class="^Evince$"] $WS6
+#for_window [class="^Evince$"] focus
 
 # testing assign for 'video'
 assign [class="^xbmc.bin$"] $WS9
 for_window [class="^xbmc.bin$"] focus
 assign [class="^totem$"] $WS9
 for_window [class="^totem$"] focus
-
-# If you'r not prepared to be wrong - you will never come up with anything original
 
 # HDMI1 output
 bar {
@@ -420,29 +424,12 @@ bar {
   }
 }
 
-#bar {
-#  mode hide
-#  hidden_state hide
-#  position bottom
-#  #tray_output none
-#  #status_command ~/.i3/conky
-#    workspace_buttons no
-#  colors {
-#    statusline #AAAAAA
-#    background #333333
-#    focused_workspace $blue #00AAAA
-#    inactive_workspace $gray1 $gray1 #AAAAAA
-#  }
-#}
-
-#exec --no-startup-id nm-applet
+#
+# systray
+#
+#no need # exec --no-startup-id nm-applet
 exec volumeicon
-
-# SESSION START WORKSPACE
-#exec --no-startup-id i3-msg 'workspace $WS2; exec google-chrome'
-#exec --no-startup-id i3-msg 'workspace $WS4; exec terminator'
-#exec --no-startup-id i3-msg 'workspace $WS5; exec nautilus'
-#exec --no-startup-id i3-msg 'workspace $WS8; exec firefox'
+exec --no-startup-id synergy
 
 #? bindsym Print exec scrot 'Screenshot - %Y-%m-%d--%_$wx$h_scrot.png' -e 'mv $f ~/images/'
 

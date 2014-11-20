@@ -87,10 +87,14 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-#bindsym $mod+Left focus left
-#bindsym $mod+Down focus down
-#bindsym $mod+Up focus up
-#bindsym $mod+Right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# set focus parent
+bindsym $mod+$ALT+Up focus parent
+bindsym $mod+$ALT+k focus parent
 
 # move focused window
 bindsym $mod+Shift+h move left

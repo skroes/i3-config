@@ -5,6 +5,11 @@
 
 exec --no-startup-id xset dpms 1200
 exec --no-startup-id /home/skroes/.i3/bin/i3_setbackground
+exec gnome-settings-daemon
+
+# packages:
+# gnome-settings-daemon
+# thunar
 
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!

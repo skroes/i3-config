@@ -19,8 +19,8 @@ set $CTRL Control
 
 focus_follows_mouse yes
 
-#allow move to neighbouring screen with hjkl
-force_focus_wrapping no
+#FIXME allow move to neighbouring screen with hjkl
+force_focus_wrapping yes
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -60,6 +60,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $ALT+F4 kill
+bindsym $CTRL+Shift+q kill
+#bindsym $CTRL+Shift+w xyz
 
 # start program or applications
 #
@@ -72,7 +74,7 @@ bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
 #i3-dmenu-desktop
 
 # filemanager and other shortcuts
-#bindsym $mod+e exec --no-startup-id pcmanfm
+bindsym $mod+b exec --no-startup-id pcmanfm
 
 bindsym $ALT+$CTRL+End exec sudo poweroff
 #bindsym $ALT+$CTRL+PgUp exec lock-keyboard-for-baby-20080706.pl -w
@@ -85,6 +87,13 @@ bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
 #bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
 #bindsym XF86ScreenSaver exec --no-startup-id gnome-screensaver-command -l
 
+#
+bindsym $CTRL+Shift+o focus parent, split v, exec gnome-terminal, focus
+bindsym $CTRL+Shift+e focus parent, split h, exec gnome-terminal, focus
+
+# focus last urgent window
+bindsym $mod+x [urgent=latest] focus
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -92,10 +101,16 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
+
+# SPECIAL ALT+cursors also change focus
+bindsym $ALT+Left  focus left
+bindsym $ALT+Down  focus down
+bindsym $ALT+Up    focus up
+bindsym $ALT+Right focus right
 
 # set focus parent
 bindsym $mod+$ALT+Up focus parent
@@ -107,6 +122,7 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+# move focused window
 # alternatively, you can use the cursor keys:
 #bindsym $mod+Shift+Left move left
 #bindsym $mod+Shift+Down move down
@@ -120,10 +136,12 @@ bindsym $mod+g split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
+bindsym $CTRL+Shift+z fullscreen
 bindsym $mod+f fullscreen
 
 # enter fullscreen inside the container
 bindsym $mod+$CTRL+f focus parent; fullscreen; focus child
+bindsym $CTRL+Shift+x focus parent; fullscreen; focus child
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -291,6 +309,12 @@ bindsym $CTRL+$ALT+Shift+r restart
 # resize th!ng
 #
 
+bindsym $CTRL+Shift+h resize shrink width  5 px or 5 ppt
+bindsym $CTRL+Shift+j resize shrink height 5 px or 5 ppt
+bindsym $CTRL+Shift+k resize grow   height 5 px or 5 ppt
+bindsym $CTRL+Shift+l resize grow   width  5 px or 5 ppt
+
+
 # CTRL + ALT + r resize mode
 bindsym $CTRL+$ALT+r mode "resize"
 
@@ -302,10 +326,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym l resize shrink width  10 px or 10 ppt
-        bindsym k resize grow   height 10 px or 10 ppt
-        bindsym j resize shrink height 10 px or 10 ppt
-        bindsym h resize grow   width  10 px or 10 ppt
+        bindsym l resize shrink width  5 px or 5 ppt
+        bindsym k resize grow   height 5 px or 5 ppt
+        bindsym j resize shrink height 5 px or 5 ppt
+        bindsym h resize grow   width  5 px or 5 ppt
 
         # same bindings, but for the arrow keys
         bindsym Right resize shrink width  10 px or 10 ppt

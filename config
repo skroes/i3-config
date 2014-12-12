@@ -414,29 +414,48 @@ for_window [class="Google-chrome"] floating disable
 
 
 # WS3
+#
+
+###
+### Hangouts chrome apps
+###
+# new hangouts crx_knipolnnllmklapflnccelgolnpehhpl
+for_window [instance="crx_knipolnnllmklapflnccelgolnpehhpl"] floating enable
+assign     [instance="crx_knipolnnllmklapflnccelgolnpehhpl"] $WS3
+#for_window [instance="crx_knipolnnllmklapflnccelgolnpehhpl"] border 1pixel
+
+###
+### telegram
+###
+for_window [instance="telegram"] floating enable
+assign     [instance="telegram"] $WS3
+for_window [instance="telegram"] border 1pixel
+
+###
+### old apps
+###
+
+###
 ### Hangouts floats as they are 'pop-up' but we move them to WS3
 ###
-#for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating disable
-assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
-#for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] focus
-for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] border 1pixel
-
-#assign     [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] $WS3
-#for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] floating disable
-#for_window [instance="crx_dlppkpafhbajpcmmoheippocdidnckmm"] focus
-# google+ instance: crx_dlppkpafhbajpcmmoheippocdidnckmm
-
-###
-###
+#for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] floating enable
+#assign     [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] $WS3
+#for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] border 1pixel
+#google+ instance: crx_dlppkpafhbajpcmmoheippocdidnckmm
 #i3-msg [class="xyz"] move to workspace abc
-
 # testing assign for 'evince'
 #assign [class="^Evince$"] $WS6
 #for_window [class="^Evince$"] focus
 
+###
+### WS9 video
+###
+
 # testing assign for 'video'
+
 assign [class="^xbmc.bin$"] $WS9
 for_window [class="^xbmc.bin$"] focus
+
 assign [class="^totem$"] $WS9
 for_window [class="^totem$"] focus
 
@@ -460,7 +479,6 @@ bar {
 #
 # systray
 #
-#no need # exec --no-startup-id nm-applet
 exec volumeicon
 exec --no-startup-id synergy
 

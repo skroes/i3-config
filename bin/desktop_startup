@@ -1,5 +1,5 @@
 #!/bin/bash -x
-
+exit 0
 # Wait for the last command sent to background to create a window
 wait_for_program () {
   local c=0; until [ $((++c)) -eq 15 ]; do
@@ -9,44 +9,42 @@ wait_for_program () {
   [ $c -eq 15 ] && echo "timeout... Error on executing $0 script"
 }
 
-WS1="1 [ gtd ]"
-WS2="2 [ gmail ]"
-WS3="3 [ social ]"
-WS4="4 [ cal ]"
-WS5="5 [ files ]"
-WS6="6 [ term ]"
-WS7="7 [ term ]"
-WS8="8 [ chrome ]"
-WS9="9 [ media ]"
-#WS10="10 [ extra ]"
-#WS11="11 [ extra ]"
-#WS12="12 [ extra ]"
-#WS13="13 [ extra ]"
+
+WS1="1::"
+WS2="2::"
+WS3="3:chat::"
+WS4="4::"
+WS5="5::"
+WS6="6:term::"
+WS7="7:term::"
+WS8="8:web::"
+WS9="9:media::"
+WS10="q::"
+WS11="w::"
+WS12="e::"
+WS13="r::"
+
 
 # find chrome apps
 # egrep -Hri 'Name|Exec' * ~/.gnome/apps/
 
+
 i3-msg workspace $WS8
 google-chrome &
 xdotool search --sync --onlyvisible --class 'google-chrome'
+sleep .3
+
+i3-msg workspace $WS3
+telegram &
+xdotool search --sync --onlyvisible --class 'telegram'
+sleep .3
 
 i3-msg workspace $WS7
-terminator &
-xdotool search --sync --onlyvisible --class 'terminator'
+gnome-terminal &
+gnome-terminal &
+xdotool search --sync --onlyvisible --class 'gnome-terminal'
+sleep .3
 
-# hangouts
-#i3-msg workspace $WS3
-#/opt/google/chrome/google-chrome --profile-directory=Default --app-id=nckgahadagoaajjgafhacjanaoiihapd
-#HITIT=`xdotool search --sync --onlyvisible --class 'terminator'`
-# xkill -id ``
-
-#/opt/google/chrome/google-chrome --profile-directory=Default --app-id=fnibmbcdeepaahjmddiihohjanlimlmj &
-#wait_for_program
-
-# synergy
-
-#i3-msg workspace $WS8
-#i3-msg exec terminator
-#i3-msg split v
-#i3-msg exec gnome-terminal
-
+synergy &
+xdotool search --sync --onlyvisible --class 'synergy'
+sleep .3

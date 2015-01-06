@@ -189,10 +189,10 @@ set $WS6 "6:term::"
 set $WS7 "7:term::"
 set $WS8 "8:web::"
 set $WS9 "9:media::"
-set $WS10 "q::"
-set $WS11 "w::"
-set $WS12 "e::"
-set $WS13 "r::"
+#set $WS10 "q::"
+#set $WS11 "w::"
+#set $WS12 "e::"
+#set $WS13 "r::"
 
 # LVDS1 laptop display
 # DP1   DisplayPort
@@ -208,10 +208,10 @@ workspace $WS6 output HDMI2
 workspace $WS7 output HDMI2
 workspace $WS8 output HDMI2
 workspace $WS9 output HDMI2
-workspace $WS10 output LVDS1
-workspace $WS11 output LVDS1
-workspace $WS12 output LVDS1
-workspace $WS13 output LVDS1
+#workspace $WS10 output LVDS1
+#workspace $WS11 output LVDS1
+#workspace $WS12 output LVDS1
+#workspace $WS13 output LVDS1
 
 # switch to workspace
 # 1 2 3 4
@@ -224,10 +224,10 @@ bindsym $mod+6 workspace $WS6
 bindsym $mod+7 workspace $WS7
 bindsym $mod+8 workspace $WS8
 bindsym $mod+9 workspace $WS9
-bindsym $mod+q workspace $WS10
-bindsym $mod+w workspace $WS11
-bindsym $mod+e workspace $WS12
-bindsym $mod+r workspace $WS13
+#bindsym $mod+q workspace $WS10
+#bindsym $mod+w workspace $WS11
+#bindsym $mod+e workspace $WS12
+#bindsym $mod+r workspace $WS13
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $WS1, exec i3-msg workspace $WS1, focus
@@ -239,10 +239,10 @@ bindsym $mod+Shift+6 move container to workspace $WS6, exec i3-msg workspace $WS
 bindsym $mod+Shift+7 move container to workspace $WS7, exec i3-msg workspace $WS7, focus
 bindsym $mod+Shift+8 move container to workspace $WS8, exec i3-msg workspace $WS8, focus
 bindsym $mod+Shift+9 move container to workspace $WS9, exec i3-msg workspace $WS9, focus
-bindsym $mod+Shift+q move container to workspace $WS10, exec i3-msg workspace $WS10, focus
-bindsym $mod+Shift+w move container to workspace $WS11, exec i3-msg workspace $WS11, focus
-bindsym $mod+Shift+e move container to workspace $WS12, exec i3-msg workspace $WS12, focus
-bindsym $mod+Shift+r move container to workspace $WS13, exec i3-msg workspace $WS13, focus
+#bindsym $mod+Shift+q move container to workspace $WS10, exec i3-msg workspace $WS10, focus
+#bindsym $mod+Shift+w move container to workspace $WS11, exec i3-msg workspace $WS11, focus
+#bindsym $mod+Shift+e move container to workspace $WS12, exec i3-msg workspace $WS12, focus
+#bindsym $mod+Shift+r move container to workspace $WS13, exec i3-msg workspace $WS13, focus
 
 # move view to workspace prev or next
 # $mod + PgUp or PgDown

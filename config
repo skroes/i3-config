@@ -196,18 +196,18 @@ set $WS9 "9:media::"
 
 # LVDS1 laptop display
 # DP1   DisplayPort
-# HDMI1 DVI on DPcable
-# VGA1  legacy
+# HDMI1 DVI on DPcable          LEFT
+# VGA1  legacy                  RIGHT
 #
 workspace $WS1 output HDMI1
 workspace $WS2 output HDMI1
 workspace $WS3 output HDMI1
 workspace $WS4 output HDMI1
-workspace $WS5 output HDMI2
-workspace $WS6 output HDMI2
-workspace $WS7 output HDMI2
-workspace $WS8 output HDMI2
-workspace $WS9 output HDMI2
+workspace $WS5 output VGA1
+workspace $WS6 output VGA1
+workspace $WS7 output VGA1
+workspace $WS8 output VGA1
+workspace $WS9 output VGA1
 #workspace $WS10 output LVDS1
 #workspace $WS11 output LVDS1
 #workspace $WS12 output LVDS1

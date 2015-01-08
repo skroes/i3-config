@@ -7,7 +7,9 @@
 #fi
 
 # ubuntu 1404
-sudo apt-get install dmenu i3-wm 
+sudo apt-get update
+sudo apt-get install dmenu i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session
+
 # optional i3status
 
 # https://faq.i3wm.org/question/1/how-can-i-get-rid-of-the-nautilus-desktop-window/
@@ -18,3 +20,7 @@ gconftool-2 \
 
 sudo apt-get install python-pip -y
 sudo pip install i3-py
+
+mkdir ~/git/personal -p
+cd ~/git/personal
+

@@ -78,7 +78,7 @@ bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
 # filemanager and other shortcuts
 #bindsym $mod+b exec --no-startup-id pcmanfm
 
-bindsym $ALT+$CTRL+End exec sudo poweroff
+#bindsym $ALT+$CTRL+End exec sudo poweroff
 #bindsym $ALT+$CTRL+PgUp exec lock-keyboard-for-baby-20080706.pl -w
 #bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
 
@@ -174,7 +174,7 @@ bindsym $mod+n exec "~/bin/shot"
 
 # switch to last workspace
 bindsym $mod+minus workspace back_and_forth
-bindsym $ALT+Tab workspace back_and_forth
+#bindsym $ALT+Tab workspace back_and_forth
 bindsym $mod+Tab workspace back_and_forth
 
 # switch to last workspace when hitting same shortcutkey (actually i dont like this)

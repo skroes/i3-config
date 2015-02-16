@@ -1,4 +1,4 @@
-# i3 config file (v4)
+## i3 config file (v4)
 
 #autostart
 #exec $HOME/.i3/bin/desktop_startup
@@ -108,16 +108,10 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left  focus left
-bindsym $mod+Down  focus down
-bindsym $mod+Up    focus up
-bindsym $mod+Right focus right
-
-# SPECIAL ALT+cursors also change focus
-#bindsym $ALT+Left  focus left
-#bindsym $ALT+Down  focus down
-#bindsym $ALT+Up    focus up
-#bindsym $ALT+Right focus right
+#bindsym $mod+Left  focus left
+#bindsym $mod+Down  focus down
+#bindsym $mod+Up    focus up
+#bindsym $mod+Right focus right
 
 # set focus parent
 #? bindsym $mod+$ALT+Up focus parent
@@ -339,10 +333,10 @@ mode "resize" {
         bindsym h resize grow   width  5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Right resize shrink width  10 px or 10 ppt
-        bindsym Up    resize grow   height 10 px or 10 ppt
-        bindsym Down  resize shrink height 10 px or 10 ppt
-        bindsym Left  resize grow   width  10 px or 10 ppt
+        #bindsym Right resize shrink width  10 px or 10 ppt
+        #bindsym Up    resize grow   height 10 px or 10 ppt
+        #bindsym Down  resize shrink height 10 px or 10 ppt
+        #bindsym Left  resize grow   width  10 px or 10 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -424,11 +418,12 @@ for_window [class="com-edgytech-umongo-UMongo"] floating enable
 #for_window [class="Google-chrome"] floating disable
 
 
-# WS3
-# Hangouts, telegram
+# WS3 chat applications
+# Hangouts, telegram, whatsapp
 #
 for_window [instance="crx_knipolnnllmklapflnccelgolnpehhpl"] border normal, floating disable, move to workspace $WS3
 for_window [instance="telegram"]                             border normal, floating disable, move to workspace $WS3
+for_window [class="web.whatsapp.com"]                        border normal, floating disable, move to workspace $WS3
 
 ###
 ### WS9 video

@@ -1,0 +1,2 @@
+#!/bin/bash
+autorandr --change 2>&1 | pipe_notify 

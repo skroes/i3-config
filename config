@@ -375,8 +375,8 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 bindsym $mod+XF86Launch1 exec ~/bin/sk_trackpad_toggle
 
 # mod+p or fn-F7 switch display back&forth
-bindsym XF86Display exec ~/.i3/bin/i3_display_swap_intern_extern
-bindsym $mod+p exec ~/.i3/bin/i3_display_swap_intern_extern
+bindsym XF86Display exec ~/.i3/bin/display_change
+bindsym $mod+p exec ~/.i3/bin/display_change
 
 # mod+BackSpace
 # BackSpace

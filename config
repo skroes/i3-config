@@ -58,7 +58,7 @@ client.background #ff0000
 floating_modifier $mod
 
 # start a i3-sensible-terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $ALT+F4 kill
@@ -416,13 +416,17 @@ for_window [instance="gnome-screenshot"] floating enable
 for_window [class="com-edgytech-umongo-UMongo"] floating enable
 
 # apps from chrome are marked as pop-up, bu we need them non floating
-#for_window [class="Google-chrome"] floating disable
+for_window [class="Google-chrome"] floating disable
 
+#old style hangouts:
 
 # WS3 chat applications
 # Hangouts, telegram, whatsapp
 #
+# new~
 for_window [instance="crx_knipolnnllmklapflnccelgolnpehhpl"] border normal, floating disable, move to workspace $WS3
+# new-1
+for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] border normal, floating disable, move to workspace $WS3
 for_window [instance="telegram"]                             border normal, floating disable, move to workspace $WS3
 for_window [class="web.whatsapp.com"]                        border normal, floating disable, move to workspace $WS3
 

@@ -114,8 +114,10 @@ bindsym $mod+l focus right
 #bindsym $mod+Right focus right
 
 # set focus parent
-#? bindsym $mod+$ALT+Up focus parent
-#? bindsym $mod+$ALT+k focus parent
+bindsym $mod+$ALT+Up focus parent
+bindsym $mod+$ALT+k focus parent
+bindsym $mod+$ALT+Down focus parent
+bindsym $mod+$ALT+j focus parent
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -175,37 +177,41 @@ bindsym $mod+Tab workspace back_and_forth
 #workspace_auto_back_and_forth yes
 
 set $WS1 "1::"
-set $WS2 "2:web:"
-set $WS3 "3:chat::"
-set $WS4 "4:term:"
+set $WS2 "2::"
+set $WS3 "3::"
+set $WS4 "4::"
+
 set $WS5 "5::"
+
 set $WS6 "6::"
 set $WS7 "7::"
 set $WS8 "8::"
 set $WS9 "9::"
-#set $WS10 "q::"
-#set $WS11 "w::"
-#set $WS12 "e::"
-#set $WS13 "r::"
+
+set $WS10 "q::"
+set $WS11 "w::"
+set $WS12 "e::"
+set $WS13 "r::"
+
+# HDMI1 workstation
+workspace $WS1 output HDMI1
+workspace $WS2 output HDMI1
+workspace $WS3 output HDMI1
+workspace $WS4 output HDMI1
+
+#workspace $WS5 output VGA1
+
+# HDMI2 DP (with adaptor DVI) from docking
+workspace $WS6 output HDMI2
+workspace $WS7 output HDMI2
+workspace $WS8 output HDMI2
+workspace $WS9 output HDMI2
 
 # LVDS1 laptop display
-# DP1   DisplayPort
-# HDMI1 DVI on DPcable          LEFT
-# VGA1  legacy                  RIGHT
-#
-#workspace $WS1 output HDMI1
-#workspace $WS2 output HDMI1
-#workspace $WS3 output HDMI1
-#workspace $WS4 output HDMI1
-#workspace $WS5 output VGA1
-#workspace $WS6 output VGA1
-#workspace $WS7 output VGA1
-#workspace $WS8 output VGA1
-#workspace $WS9 output VGA1
-#workspace $WS10 output LVDS1
-#workspace $WS11 output LVDS1
-#workspace $WS12 output LVDS1
-#workspace $WS13 output LVDS1
+workspace $WS10 output LVDS1
+workspace $WS11 output LVDS1
+workspace $WS12 output LVDS1
+workspace $WS13 output LVDS1
 
 # switch to workspace
 # 1 2 3 4

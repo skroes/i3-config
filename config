@@ -114,10 +114,12 @@ bindsym $mod+l focus right
 #bindsym $mod+Right focus right
 
 # set focus parent
-bindsym $mod+$ALT+Up focus parent
-bindsym $mod+$ALT+k focus parent
-bindsym $mod+$ALT+Down focus parent
-bindsym $mod+$ALT+j focus parent
+bindsym $mod+u focus parent
+bindsym $mod+i focus child
+#bindsym $mod+$ALT+Up focus parent
+#bindsym $mod+$ALT+k focus parent
+#bindsym $mod+$ALT+Down focus parent
+#bindsym $mod+$ALT+j focus parent
 
 # move focused window
 bindsym $mod+Shift+h move left

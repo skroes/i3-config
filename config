@@ -143,6 +143,7 @@ bindsym $mod+v split v
 # enter fullscreen mode for the focused container
 bindsym $CTRL+Shift+z fullscreen
 bindsym $mod+f fullscreen
+# span all outputs: ? fullscreen toggle global
 
 # enter fullscreen inside the container
 bindsym $mod+$CTRL+f focus parent; fullscreen; focus child

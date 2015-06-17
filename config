@@ -4,7 +4,7 @@
 #exec $HOME/.i3/bin/desktop_startup
 
 exec --no-startup-id xset dpms 1200
-exec --no-startup-id /home/skroes/.i3/bin/i3_setbackground
+exec /home/skroes/.i3/bin/i3_setbackground
 exec gnome-settings-daemon
 
 # packages:

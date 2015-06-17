@@ -1,4 +1,2 @@
 #!/bin/bash
-#feh -B black --bg-scale /home/skroes/.i3/Sochi-Shaun-White.jpg
-#feh -B black --bg-scale /home/skroes/.CleanlinesHDwallpapers1080p.jpg
-feh -B black --bg-scale /home/skroes/.White_Stripe_by_cythean.png
+feh -B black --bg-scale /home/skroes/.i3/backgrounds/White_Stripe_by_cythean.png

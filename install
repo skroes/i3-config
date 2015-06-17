@@ -6,6 +6,10 @@
 #  exit 1
 #fi
 
+# sudo ln ~skroes/.i3/files/usr/share/xsessions/gnome-i3.desktop /usr/share/xsessions/gnome-i3.desktop 
+# sudo ln ~skroes/.i3/files/usr/share/gnome-session/sessions/i3.session /usr/share/gnome-session/sessions/i3.session
+
+
 # ubuntu 1404
 sudo apt-get update
 sudo apt-get install dmenu i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session

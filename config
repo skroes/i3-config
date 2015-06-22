@@ -1,17 +1,12 @@
-## i3 config file (v4)
+## i3 config file
 
-#autostart
-#exec $HOME/.i3/bin/desktop_startup
-
-exec --no-startup-id xset dpms 1200
-exec /home/skroes/.i3/bin/i3_setbackground
-exec gnome-settings-daemon
+exec xset dpms 1200
+exec --no-startup-id /home/skroes/.i3/bin/i3_setbackground
+exec --no-startup-id gnome-settings-daemon
 
 # packages:
 # gnome-settings-daemon
-# thunar
 
-#
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 set $mod Mod4
 set $ALT Mod1
@@ -83,11 +78,11 @@ bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
 #bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
 
 #bindsym $ALT+$CTRL+l exec --no-startup-id ~/bin/sk_lock_mousekeyboard
-bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
+bindsym $ALT+$CTRL+l exec --no-startup-id xscreensaver-command -l
 #bindsym XF86ScreenSaver exec --no-startup-id ~/bin/sk_lock_mousekeyboard
 
-#bindsym $ALT+$CTRL+l exec --no-startup-id gnome-screensaver-command -l
-#bindsym XF86ScreenSaver exec --no-startup-id gnome-screensaver-command -l
+#bindsym $ALT+$CTRL+l exec --no-startup-id xscreensaver-command -l
+#bindsym XF86ScreenSaver exec --no-startup-id xscreensaver-command -l
 
 #
 #bindsym $CTRL+Shift+o focus parent, split v, exec gnome-terminal, focus
@@ -458,8 +453,12 @@ bar {
   hidden_state hide
   position top
   #tray_output LVDS1
-  #status_command i3status
-  status_command ~/.i3/conky
+  status_command .i3/bin/myi3status.sh
+  #/home/skroes/drive/notes/status.sh
+  #i3status
+  #status_command ~/.i3/conky
+  #wheel_up_cmd nop
+  #wheel_down_cmd exec ~/.i3/scripts/custom_wheel_down
   colors {
     statusline #AAAAAA
     background #333333

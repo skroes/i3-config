@@ -1,7 +1,8 @@
 ## i3 config file
 
 exec xset dpms 1200
-exec --no-startup-id /home/skroes/.i3/bin/i3_setbackground
+exec /home/skroes/.i3/bin/i3_setbackground
+exec /home/skroes/.i3/bin/middlebutton
 exec --no-startup-id gnome-settings-daemon
 
 # packages:

@@ -78,12 +78,9 @@ bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
 #bindsym $ALT+$CTRL+PgUp exec lock-keyboard-for-baby-20080706.pl -w
 #bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
 
-#bindsym $ALT+$CTRL+l exec --no-startup-id ~/bin/sk_lock_mousekeyboard
-bindsym $ALT+$CTRL+l exec --no-startup-id xscreensaver-command -l
-#bindsym XF86ScreenSaver exec --no-startup-id ~/bin/sk_lock_mousekeyboard
-
-#bindsym $ALT+$CTRL+l exec --no-startup-id xscreensaver-command -l
-#bindsym XF86ScreenSaver exec --no-startup-id xscreensaver-command -l
+#bindsym $ALT+$CTRL+l    exec --no-startup-id ~/bin/sk_lock_mousekeyboard
+bindsym $ALT+$CTRL+l    exec --no-startup-id xscreensaver-command -l
+bindsym XF86ScreenSaver exec --no-startup-id xscreensaver-command -l
 
 #
 #bindsym $CTRL+Shift+o focus parent, split v, exec gnome-terminal, focus
@@ -164,8 +161,9 @@ bindsym $mod+space focus mode_toggle
 
 # shot
 bindsym $mod+n exec "~/bin/shot"
-#bindsym $mod+backslash exec "~/bin/shot"
-#bindsym $XF86Launch1 exec ~/bin/shot
+bindsym XF86Launch1 exec "~/bin/headshot -a"
+bindsym XF86Cut exec "~/bin/headshot -a"
+bindsym $mod+XF86Launch1 exec ~/bin/headshot
 
 # switch to last workspace
 bindsym $mod+minus workspace back_and_forth
@@ -229,26 +227,27 @@ bindsym $mod+e workspace $WS12
 bindsym $mod+r workspace $WS13
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $WS1, exec i3-msg workspace $WS1, focus
-bindsym $mod+Shift+2 move container to workspace $WS2, exec i3-msg workspace $WS2, focus
-bindsym $mod+Shift+3 move container to workspace $WS3, exec i3-msg workspace $WS3, focus
-bindsym $mod+Shift+4 move container to workspace $WS4, exec i3-msg workspace $WS4, focus
-#bindsym $mod+Shift+5 move container to workspace $WS5, exec i3-msg workspace $WS5, focus
-bindsym $mod+Shift+6 move container to workspace $WS6, exec i3-msg workspace $WS6, focus
-bindsym $mod+Shift+7 move container to workspace $WS7, exec i3-msg workspace $WS7, focus
-bindsym $mod+Shift+8 move container to workspace $WS8, exec i3-msg workspace $WS8, focus
-bindsym $mod+Shift+9 move container to workspace $WS9, exec i3-msg workspace $WS9, focus
-bindsym $mod+Shift+q move container to workspace $WS10, exec i3-msg workspace $WS10, focus
-bindsym $mod+Shift+w move container to workspace $WS11, exec i3-msg workspace $WS11, focus
-bindsym $mod+Shift+e move container to workspace $WS12, exec i3-msg workspace $WS12, focus
-bindsym $mod+Shift+r move container to workspace $WS13, exec i3-msg workspace $WS13, focus
+bindsym $mod+Shift+1 move container to workspace $WS1, workspace $WS1
+#, focus
+bindsym $mod+Shift+2 move container to workspace $WS2, workspace $WS2, focus
+bindsym $mod+Shift+3 move container to workspace $WS3, workspace $WS3, focus
+bindsym $mod+Shift+4 move container to workspace $WS4, workspace $WS4, focus
+#bindsym $mod+Shift+5 move container to workspace $WS5, workspace $WS5, focus
+bindsym $mod+Shift+6 move container to workspace $WS6, workspace $WS6, focus
+bindsym $mod+Shift+7 move container to workspace $WS7, workspace $WS7, focus
+bindsym $mod+Shift+8 move container to workspace $WS8, workspace $WS8, focus
+bindsym $mod+Shift+9 move container to workspace $WS9, workspace $WS9, focus
+bindsym $mod+Shift+q move container to workspace $WS10, workspace $WS10, focus
+bindsym $mod+Shift+w move container to workspace $WS11, workspace $WS11, focus
+bindsym $mod+Shift+e move container to workspace $WS12, workspace $WS12, focus
+bindsym $mod+Shift+r move container to workspace $WS13, workspace $WS13, focus
 
 # move view to workspace prev or next
 # $mod + PgUp or PgDown
-bindsym $mod+Next        exec i3-msg workspace next
-bindsym $mod+XF86Forward exec i3-msg workspace next
-bindsym $mod+Prior       exec i3-msg workspace prev
-bindsym $mod+XF86Back    exec i3-msg workspace prev
+bindsym $mod+Next        workspace next
+bindsym $mod+XF86Forward workspace next
+bindsym $mod+Prior       workspace prev
+bindsym $mod+XF86Back    workspace prev
 
 
 #next_on_output
@@ -308,6 +307,7 @@ bindsym $CTRL+$ALT+Shift+r restart
 #bindsym $CTRL+$ALT+Shift+e exec "sudo kill -15 X"
 #bindsym $CTRL+$ALT+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+
 ######
 ######
 ######
@@ -357,9 +357,20 @@ mode "resize" {
 # CTRL + ALT + e command mode
 bindsym $CTRL+$ALT+e mode "command"
 
-# command window (you can also use the mouse for that)
+###
+### command window
+###
 mode "command" {
         # These bindings trigger as soon as you enter the command mode
+
+        # m for set the MiddleButton for scrolling, a thinkpad thingy
+        bindsym m exec ~/.i3/bin/middlebutton
+
+        # b for Background fix
+        bindsym b exec ~/.i3/bin/i3_setbackground
+
+        # t for Trackpad toggle
+        bindsym t exec ~/bin/sk_trackpad_toggle
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -375,9 +386,6 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 #bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -- '-5%'
 #bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -- '+5%'
 
-# XF86Launch toggle
-# $mod+XF86launch1 is toggle for trackpad
-bindsym $mod+XF86Launch1 exec ~/bin/sk_trackpad_toggle
 
 # mod+p or fn-F7 switch display back&forth
 bindsym XF86Display exec ~/.i3/bin/display_change
@@ -391,9 +399,6 @@ bindsym $mod+BackSpace exec ~/.i3/bin/desktop_startup
 # mod+o or fn-F8(USB keyboard) extend display
 #bindsym XF86TouchpadToggle exec ~/.i3/bin/2VGA_DP1.sh
 #bindsym $mod+o exec ~/.i3/bin/2VGA_DP1.sh
-
-#XF86Launch1?
-
 
 #bindsym XF86AudioPlay exec "~/.bin/player toggle"
 #bindsym XF86AudioStop exec "~/.bin/player stop"
@@ -435,6 +440,7 @@ for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] border normal, floa
 for_window [instance="telegram"]                             border normal, floating disable, move to workspace $WS3
 for_window [class="web.whatsapp.com"]                        border normal, floating disable, move to workspace $WS3
 
+
 ###
 ### WS9 video
 ###
@@ -453,7 +459,7 @@ bar {
   mode dock
   hidden_state hide
   position top
-  #tray_output LVDS1
+  #tray_output all
   status_command .i3/bin/myi3status.sh
   #/home/skroes/drive/notes/status.sh
   #i3status

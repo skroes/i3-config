@@ -10,13 +10,19 @@ xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
 #xinput set-prop pointer:14 "Evdev Wheel Emulation" 1
 #xinput set-prop "Lite-On Technology Corp. ThinkPad USB Keyboard with TrackPoint" "Evdev Wheel Emulation Button" 2
 #xinput set-prop "Lite-On Technology Corp. ThinkPad USB Keyboard with TrackPoint" "Evdev Wheel Emulation Timeout" 200
-xinput set-prop 14 "Evdev Wheel Emulation" 1
-xinput set-prop 14 "Evdev Wheel Emulation Button" 2
-xinput set-prop 14 "Evdev Wheel Emulation Axes" 6 7 4 5
 
-xinput set-prop 13 "Evdev Wheel Emulation" 1
-xinput set-prop 13 "Evdev Wheel Emulation Button" 2
-xinput set-prop 13 "Evdev Wheel Emulation Axes" 6 7 4 5
+for INPUT in `xinput -list|grep -i keyboard | grep USB|awk -F= {'print $2'} | awk {'print $1'}`
+  do
+  xinput set-prop ${INPUT} "Evdev Wheel Emulation" 1
+  xinput set-prop ${INPUT} "Evdev Wheel Emulation Button" 2
+  xinput set-prop ${INPUT} "Evdev Wheel Emulation Axes" 6 7 4 5
+done
+
+
+#xinput set-prop 13 "Evdev Wheel Emulation" 1
+#xinput set-prop 13 "Evdev Wheel Emulation Button" 2
+#xinput set-prop 13 "Evdev Wheel Emulation Axes" 6 7 4 5
+
 # Lite-On Technology Corp. ThinkPad USB Keyboard with TrackPoint
 #
 # To enable horizontal scrolling in addition to vertical scrolling :

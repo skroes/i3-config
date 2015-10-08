@@ -10,9 +10,11 @@
 # sudo ln ~skroes/.i3/files/usr/share/gnome-session/sessions/i3.session /usr/share/gnome-session/sessions/i3.session
 
 
-# ubuntu 1404
+# debian based zjizz
 sudo apt-get update
-sudo apt-get install dmenu i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session
+sudo apt-get install -y dmenu i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session alsa-utils volumeicon-alsa disper libnotify-bin
+
+# alsa-utils for amixer
 
 # optional i3status
 
@@ -24,6 +26,10 @@ gconftool-2 \
 
 sudo apt-get install python-pip -y
 sudo pip install i3-py
+
+# mouse cursur
+gsettings set org.gnome.settings-daemon.plugins.cursor active false  
+
 
 mkdir ~/git/personal -p
 cd ~/git/personal

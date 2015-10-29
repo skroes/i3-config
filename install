@@ -14,6 +14,8 @@
 sudo apt-get update
 sudo apt-get install -y dmenu i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session alsa-utils volumeicon-alsa disper libnotify-bin
 
+# meld s3cmd
+
 # alsa-utils for amixer
 
 # optional i3status

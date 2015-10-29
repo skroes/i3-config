@@ -3,6 +3,8 @@
 exec xset dpms 1200
 exec /home/skroes/.i3/bin/i3_setbackground
 exec /home/skroes/.i3/bin/middlebutton
+exec --no-startup-id nm-applet
+exec --no-startup-id rescuetime
 exec --no-startup-id gnome-settings-daemon
 
 # packages:
@@ -55,6 +57,7 @@ floating_modifier $mod
 
 # start a i3-sensible-terminal
 bindsym $mod+Return exec i3-sensible-terminal
+bindsym Shift+$CTRL+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $ALT+F4 kill
@@ -85,8 +88,8 @@ bindsym XF86ScreenSaver exec --no-startup-id xscreensaver-command -l
 #
 #bindsym $CTRL+Shift+o focus parent, split v, exec gnome-terminal, focus
 #bindsym $CTRL+Shift+e focus parent, split h, exec gnome-terminal, focus
-bindsym $CTRL+Shift+o split v, exec gnome-terminal, focus
-bindsym $CTRL+Shift+e split h, exec gnome-terminal, focus
+#bindsym $CTRL+Shift+o split v, exec gnome-terminal, focus
+#bindsym $CTRL+Shift+e split h, exec gnome-terminal, focus
 
 # focus last urgent window
 bindsym $mod+x [urgent=latest] focus
@@ -129,9 +132,11 @@ bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
 bindsym $mod+g split h
+bindsym $CTRL+Shift+e split h
 
 # split in vertical orientation
 bindsym $mod+v split v
+bindsym $CTRL+Shift+o split v
 
 # enter fullscreen mode for the focused container
 bindsym $CTRL+Shift+z fullscreen
@@ -160,10 +165,13 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # shot
-bindsym $mod+n exec "~/bin/shot"
-bindsym XF86Launch1 exec "~/bin/headshot -a"
-bindsym XF86Cut exec "~/bin/headshot -a"
-bindsym $mod+XF86Launch1 exec ~/bin/headshot
+#shutter -s
+bindsym XF86Launch1 exec "shutter -s"
+bindsym $mod+XF86Launch1 exec "shutter -s"
+bindsym $mod+Shift+XF86Launch1 exec "shutter -w"
+
+#bindsym $mod+n exec "~/bin/shot"
+#bindsym XF86Cut exec "~/bin/headshot -a"
 
 # switch to last workspace
 bindsym $mod+minus workspace back_and_forth
@@ -429,17 +437,20 @@ for_window [class="com-edgytech-umongo-UMongo"] floating enable
 for_window [class="Google-chrome"] floating disable
 
 #old style hangouts:
-
 # WS3 chat applications
 # Hangouts, telegram, whatsapp
 #
 # new~
-for_window [instance="crx_knipolnnllmklapflnccelgolnpehhpl"] border normal, floating disable, move to workspace $WS3
+#for_window [instance="crx_knipolnnllmklapflnccelgolnpehhpl"] border normal, floating disable, move to workspace $WS3
 # new-1
-for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] border normal, floating disable, move to workspace $WS3
-for_window [instance="telegram"]                             border normal, floating disable, move to workspace $WS3
-for_window [class="web.whatsapp.com"]                        border normal, floating disable, move to workspace $WS3
+#for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] border normal, floating disable, move to workspace $WS3
+#for_window [instance="telegram"]                             border normal, floating disable, move to workspace $WS3
+#for_window [class="web.whatsapp.com"]                        border normal, floating disable, move to workspace $WS3
 
+# shutter on 8
+for_window [class="Shutter"]                                 move to workspace $WS8
+#assign [class="^xbmc.bin$"] $WS9
+#for_window [class="^xbmc.bin$"] focus
 
 ###
 ### WS9 video
@@ -447,19 +458,21 @@ for_window [class="web.whatsapp.com"]                        border normal, floa
 
 # testing assign for 'video'
 
-assign [class="^xbmc.bin$"] $WS9
-for_window [class="^xbmc.bin$"] focus
+#assign [class="^xbmc.bin$"] $WS9
+#for_window [class="^xbmc.bin$"] focus
 
-assign [class="^totem$"] $WS9
-for_window [class="^totem$"] focus
+##assign [class="^totem$"] $WS9
+##for_window [class="^totem$"] focus
 
 # HDMI1 output
 bar {
   #output HDMI1
+  #output LVDS1
   mode dock
   hidden_state hide
   position top
-  #tray_output all
+  #tray_output both
+  #all
   status_command .i3/bin/myi3status.sh
   #/home/skroes/drive/notes/status.sh
   #i3status

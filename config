@@ -4,6 +4,7 @@ exec xset dpms 1200
 exec /home/skroes/.i3/bin/i3_setbackground
 exec /home/skroes/.i3/bin/middlebutton
 exec --no-startup-id nm-applet
+exec --no-startup-id slack
 exec --no-startup-id rescuetime
 exec --no-startup-id gnome-settings-daemon
 

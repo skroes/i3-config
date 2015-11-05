@@ -1,0 +1,4 @@
+#Change blank time to 30 min
+xset s 1800 1800
+#enable dpms
+xset dpms

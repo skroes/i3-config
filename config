@@ -267,7 +267,8 @@ bindsym $mod+XF86Back    workspace prev
 # HIDE EDGE BORDERS
 # fullscreen?
 #hide_edge_borders <none|vertical|horizontal|both>
-hide_edge_borders both
+hide_edge_borders none
+#both
 
 ###
 ### borders
@@ -285,10 +286,9 @@ bindsym $mod+F11 exec ~/.i3/bin/toggbar
 
 # for newly arrived windows or popups:
 new_float normal
-new_window 1pixel
-
-# app specifics:
-# fails... for_window [instance="terminator"] border none
+new_window normal
+#1pixel
+#new_window 1pixel
 
 ###
 ###
@@ -332,6 +332,7 @@ mode "display" {
   bindsym 4 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
   bindsym 5 exec autorandr --load external, exec ~/.i3/bin/i3_setbackground
   bindsym 6 exec autorandr --load externalbig, exec ~/.i3/bin/i3_setbackground
+  bindsym 7 exec autorandr --load externaldp, exec ~/.i3/bin/i3_setbackground
 
   # b for Background fix
   bindsym b exec ~/.i3/bin/i3_setbackground
@@ -462,6 +463,10 @@ for_window [window_role="pop-up"] floating enable
 for_window [class="file_progress"] floating enable, border 1pixel
 for_window [class="Yad"] floating enable
 for_window [instance="gnome-screenshot"] floating enable
+
+# ICA seamless citrix
+for_window [class="Wfica_Seamless"] floating enable
+
 
 # com-edgytech-umongo-UMongo mongodb viewer
 for_window [class="com-edgytech-umongo-UMongo"] floating enable

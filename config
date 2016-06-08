@@ -1,5 +1,16 @@
 ## i3 config file
 
+# desktop packages req
+# gnome-settings-daemon
+# feh
+# xinput
+
+#git clone https://github.com/enkore/j4-dmenu-desktop
+#sudo apt-get install build-essential cmake make -y
+#cmake .
+#make
+#sudo make install
+
 exec /home/skroes/.i3/bin/xset
 exec /home/skroes/.i3/bin/i3_setbackground
 exec /home/skroes/.i3/bin/middlebutton
@@ -11,10 +22,8 @@ exec --no-startup-id /usr/bin/insync start
 #exec --no-startup-id rescuetime
 exec --no-startup-id xscreensaver
 exec --no-startup-id sleep 0.5; xscreensaver-command-l
-exec --no-startup-id gnome-settings-daemon
+exec gnome-settings-daemon
 
-# packages:
-# gnome-settings-daemon
 
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 set $mod Mod4
@@ -84,8 +93,7 @@ bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
 
 # i3-dmenu-desktop which only displays applications shipping a .desktop file.
 # It is a wrapper around dmenu, so you need that installed.
-bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
-#i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
 # filemanager and other shortcuts
 #bindsym $mod+b exec --no-startup-id pcmanfm
@@ -522,9 +530,9 @@ bar {
   #output HDMI1
   #output LVDS1
   mode dock
-  hidden_state hide
+  hidden_state show
   position top
-  tray_output LVDS1
+  #tray_output LVDS1
   #all
   status_command .i3/bin/myi3status.sh
   #/home/skroes/drive/notes/status.sh

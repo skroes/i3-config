@@ -5,9 +5,12 @@ exec /home/skroes/.i3/bin/i3_setbackground
 exec /home/skroes/.i3/bin/middlebutton
 exec --no-startup-id nm-applet
 exec --no-startup-id slack
+exec --no-startup-id parcellite
+exec --no-startup-id workrave
 exec --no-startup-id /usr/bin/insync start
-exec --no-startup-id rescuetime
+#exec --no-startup-id rescuetime
 exec --no-startup-id xscreensaver
+exec --no-startup-id sleep 0.5; xscreensaver-command-l
 exec --no-startup-id gnome-settings-daemon
 
 # packages:
@@ -22,6 +25,13 @@ focus_follows_mouse yes
 
 #FIXME allow move to neighbouring screen with hjkl
 force_focus_wrapping yes
+
+#new_window normal|none|pixel
+#new_window normal|pixel <px>
+#new_float normal|none|pixel
+#new_float normal|pixel <px>
+new_window pixel 1
+new_float pixel 1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -163,6 +173,7 @@ bindsym $mod+z layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+#bindsym $mod+Shift+s toggle sticky
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -172,6 +183,7 @@ bindsym $mod+space focus mode_toggle
 bindsym XF86Launch1 exec "shutter -s"
 bindsym $mod+XF86Launch1 exec "shutter -s"
 bindsym $mod+Shift+XF86Launch1 exec "shutter -w"
+bindsym Print exec "shutter -s"
 
 #bindsym $mod+n exec "~/bin/shot"
 #bindsym XF86Cut exec "~/bin/headshot -a"
@@ -202,18 +214,17 @@ set $WS12 "e::"
 set $WS13 "r::"
 
 # HDMI1 workstation
-workspace $WS1 output HDMI1
-workspace $WS2 output HDMI1
-workspace $WS3 output HDMI1
-workspace $WS4 output HDMI1
-
-#workspace $WS5 output VGA1
+# workspace $WS1 output HDMI1
+# workspace $WS2 output HDMI1
+# workspace $WS3 output HDMI1
+# workspace $WS4 output HDMI1
+# workspace $WS5 output VGA1
 
 # HDMI2 DP (with adaptor DVI) from docking
-workspace $WS6 output HDMI2
-workspace $WS7 output HDMI2
-workspace $WS8 output HDMI2
-workspace $WS9 output HDMI2
+workspace $WS6 output HDMI1
+workspace $WS7 output HDMI1
+workspace $WS8 output HDMI1
+workspace $WS9 output HDMI1
 
 # LVDS1 laptop display
 workspace $WS10 output LVDS1
@@ -267,7 +278,8 @@ bindsym $mod+XF86Back    workspace prev
 # HIDE EDGE BORDERS
 # fullscreen?
 #hide_edge_borders <none|vertical|horizontal|both>
-hide_edge_borders none
+hide_edge_borders both
+#none
 #both
 
 ###
@@ -276,7 +288,8 @@ hide_edge_borders none
 
 #bindsym $mod+F9 border normal
 #bindsym $mod+F10 border 1pixel
-#border none
+
+#border 1pixel
 
 # F12 toggles the window border style, (cycle normal, none, 1pixel)
 bindsym $mod+F12 border toggle
@@ -333,6 +346,8 @@ mode "display" {
   bindsym 5 exec autorandr --load external, exec ~/.i3/bin/i3_setbackground
   bindsym 6 exec autorandr --load externalbig, exec ~/.i3/bin/i3_setbackground
   bindsym 7 exec autorandr --load externaldp, exec ~/.i3/bin/i3_setbackground
+
+  bindsym 9 exec autorandr --load extenddocking, exec ~/.i3/bin/i3_setbackground, mode default
 
   # b for Background fix
   bindsym b exec ~/.i3/bin/i3_setbackground
@@ -435,7 +450,7 @@ bindsym $mod+p exec ~/.i3/bin/display_change
 
 # mod+BackSpace
 # BackSpace
-bindsym $mod+BackSpace exec ~/.i3/bin/desktop_startup
+#bindsym $mod+BackSpace exec ~/.i3/bin/desktop_startup
 
 
 # mod+o or fn-F8(USB keyboard) extend display
@@ -509,7 +524,7 @@ bar {
   mode dock
   hidden_state hide
   position top
-  #tray_output both
+  tray_output LVDS1
   #all
   status_command .i3/bin/myi3status.sh
   #/home/skroes/drive/notes/status.sh

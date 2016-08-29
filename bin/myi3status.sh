@@ -4,6 +4,6 @@
 i3status | while :
 do
         read line
-        lala=`/home/skroes/drive/notes/status.sh`
+        lala=`test -x /home/skroes/drive/notes/status.sh && /home/skroes/drive/notes/status.sh || echo "N"`
         echo "$lala | $line" || exit 1
 done

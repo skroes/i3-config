@@ -1,4 +1,4 @@
 #!/bin/bash
 #feh -B black --bg-scale /home/skroes/.i3/backgrounds/White_Stripe_by_cythean.png
 feh -B black --bg-scale ~/.i3/backgrounds/CleanlinesHDwallpapers1080p.jpg
-echo "echo 2600 > /sys/class/backlight/intel_backlight/brightness" | sudo su -
+#echo "echo 2600 > /sys/class/backlight/intel_backlight/brightness" | sudo su -

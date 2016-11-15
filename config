@@ -11,6 +11,10 @@
 #make
 #sudo make install
 
+# one big screen?
+#force_xinerama yes
+#fake-outputs 3840x1080+0+0
+
 exec /home/skroes/.i3/bin/xset
 exec /home/skroes/.i3/bin/i3_setbackground
 exec /home/skroes/.i3/bin/middlebutton
@@ -130,10 +134,10 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-#bindsym $mod+Left  focus left
-#bindsym $mod+Down  focus down
-#bindsym $mod+Up    focus up
-#bindsym $mod+Right focus right
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -201,22 +205,22 @@ bindsym $mod+Tab workspace back_and_forth
 # switch to last workspace when hitting same shortcutkey (actually i dont like this)
 #workspace_auto_back_and_forth yes
 
-set $WS1 "1::"
-set $WS2 "2::"
-set $WS3 "3::"
-set $WS4 "4::"
+set $WS1 "1:www"
+set $WS2 "2:term"
+set $WS3 "3:chat"
+set $WS4 "4:special"
 
 #set $WS5 "5::"
 
-set $WS6 "6::"
-set $WS7 "7::"
-set $WS8 "8::"
-set $WS9 "9::"
+#set $WS6 "6::"
+#set $WS7 "7::"
+#set $WS8 "8::"
+#set $WS9 "9::"
 
-set $WS10 "q::"
-set $WS11 "w::"
-set $WS12 "e::"
-set $WS13 "r::"
+#set $WS10 "q::"
+#set $WS11 "w::"
+#set $WS12 "e::"
+#set $WS13 "r::"
 
 set $WSF1 "F1::"
 set $WSF2 "F2::"
@@ -255,20 +259,25 @@ bindsym $mod+2 workspace $WS2
 bindsym $mod+3 workspace $WS3
 bindsym $mod+4 workspace $WS4
 #bindsym $mod+5 workspace $WS5
-bindsym $mod+6 workspace $WS6
-bindsym $mod+7 workspace $WS7
-bindsym $mod+8 workspace $WS8
-bindsym $mod+9 workspace $WS9
+#bindsym $mod+6 workspace $WS6
+#bindsym $mod+7 workspace $WS7
+#bindsym $mod+8 workspace $WS8
+#bindsym $mod+9 workspace $WS9
 
-bindsym $mod+q workspace $WS10
-bindsym $mod+w workspace $WS11
-bindsym $mod+e workspace $WS12
-bindsym $mod+r workspace $WS13
+#bindsym $mod+q workspace $WS10
+#bindsym $mod+w workspace $WS11
+#bindsym $mod+e workspace $WS12
+#bindsym $mod+r workspace $WS13
 
 bindsym $mod+F1 workspace $WSF1
 bindsym $mod+F2 workspace $WSF2
 bindsym $mod+F3 workspace $WSF3
 bindsym $mod+F4 workspace $WSF4
+
+# https://www.reddit.com/r/i3wm/comments/3zebq9/anyone_running_i3_on_multimonitor_desktop_is_it/
+# Move focused workspace to monitor
+bindsym $mod+Shift+bracketleft move workspace to output left
+bindsym $mod+Shift+bracketright move workspace to output right
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $WS1, workspace $WS1
@@ -277,15 +286,15 @@ bindsym $mod+Shift+2 move container to workspace $WS2, workspace $WS2, focus
 bindsym $mod+Shift+3 move container to workspace $WS3, workspace $WS3, focus
 bindsym $mod+Shift+4 move container to workspace $WS4, workspace $WS4, focus
 #bindsym $mod+Shift+5 move container to workspace $WS5, workspace $WS5, focus
-bindsym $mod+Shift+6 move container to workspace $WS6, workspace $WS6, focus
-bindsym $mod+Shift+7 move container to workspace $WS7, workspace $WS7, focus
-bindsym $mod+Shift+8 move container to workspace $WS8, workspace $WS8, focus
-bindsym $mod+Shift+9 move container to workspace $WS9, workspace $WS9, focus
+#bindsym $mod+Shift+6 move container to workspace $WS6, workspace $WS6, focus
+#bindsym $mod+Shift+7 move container to workspace $WS7, workspace $WS7, focus
+#bindsym $mod+Shift+8 move container to workspace $WS8, workspace $WS8, focus
+#bindsym $mod+Shift+9 move container to workspace $WS9, workspace $WS9, focus
 #
-bindsym $mod+Shift+q move container to workspace $WS10, workspace $WS10, focus
-bindsym $mod+Shift+w move container to workspace $WS11, workspace $WS11, focus
-bindsym $mod+Shift+e move container to workspace $WS12, workspace $WS12, focus
-bindsym $mod+Shift+r move container to workspace $WS13, workspace $WS13, focus
+#bindsym $mod+Shift+q move container to workspace $WS10, workspace $WS10, focus
+#bindsym $mod+Shift+w move container to workspace $WS11, workspace $WS11, focus
+#bindsym $mod+Shift+e move container to workspace $WS12, workspace $WS12, focus
+#bindsym $mod+Shift+r move container to workspace $WS13, workspace $WS13, focus
 #
 bindsym $mod+Shift+F1 move container to workspace $WSF1, workspace $WSF1, focus
 bindsym $mod+Shift+F2 move container to workspace $WSF2, workspace $WSF2, focus
@@ -341,6 +350,20 @@ new_window 1pixel
 # SCRATCHPAD SHOW
 #bindsym $MOD+plus scratchpad show
 
+
+# https://i3wm.org/docs/userguide.html#_scratchpad
+#
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+backslash move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+backslash scratchpad show
+
+# Show the sup-mail scratchpad window, if any.
+#bindsym mod4+s [title="^Sup ::"] scratchpad show
+
+
+
 # HANDLE POPUPS
 popup_during_fullscreen smart
 
@@ -368,15 +391,25 @@ bindsym $CTRL+$ALT+d mode "display"
 
 # resize window (you can also use the mouse for that)
 mode "display" {
-  bindsym 1 exec autorandr --load default, exec ~/.i3/bin/i3_setbackground
-  bindsym 2 exec autorandr --load extendleft, exec ~/.i3/bin/i3_setbackground
-  bindsym 3 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
-  bindsym 4 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
-  bindsym 5 exec autorandr --load external, exec ~/.i3/bin/i3_setbackground
-  bindsym 6 exec autorandr --load externalbig, exec ~/.i3/bin/i3_setbackground
-  bindsym 7 exec autorandr --load externaldp, exec ~/.i3/bin/i3_setbackground
+  # focus 1 2 3
+  bindsym 1 exec ~/bin/lala_focus_laptop.sh
+  bindsym 2 exec ~/bin/lala_focus.sh
+  bindsym 3 exec ~/bin/lala_focus_DP12.sh
 
-  bindsym 9 exec autorandr --load extenddocking, exec ~/.i3/bin/i3_setbackground, mode default
+  bindsym 4 exec ~/bin/lala_laptop_links.sh
+  bindsym 6 exec ~/bin/lala_laptop_rechts.sh
+
+  bindsym 9 exec bin/lala_laptop_corner1.sh
+
+  #bindsym 1 exec autorandr --load default, exec ~/.i3/bin/i3_setbackground
+  #bindsym 2 exec autorandr --load extendleft, exec ~/.i3/bin/i3_setbackground
+  #bindsym 3 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
+  #bindsym 4 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
+  #bindsym 5 exec autorandr --load external, exec ~/.i3/bin/i3_setbackground
+  #bindsym 6 exec autorandr --load externalbig, exec ~/.i3/bin/i3_setbackground
+  #bindsym 7 exec autorandr --load externaldp, exec ~/.i3/bin/i3_setbackground
+
+  #bindsym 9 exec autorandr --load extenddocking, exec ~/.i3/bin/i3_setbackground, mode default
 
   # b for Background fix
   bindsym b exec ~/.i3/bin/i3_setbackground
@@ -548,6 +581,7 @@ for_window [class="Shutter"]                                 move to workspace $
 
 # HDMI1 output
 bar {
+  strip_workspace_numbers yes
   #output HDMI1
   #output LVDS1
   mode dock

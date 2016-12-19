@@ -1,0 +1,553 @@
+## i3 config file
+
+exec /home/skroes/.i3/bin/xset
+exec /home/skroes/.i3/bin/i3_setbackground
+exec /home/skroes/.i3/bin/middlebutton
+exec --no-startup-id nm-applet
+exec --no-startup-id slack
+exec --no-startup-id parcellite
+exec --no-startup-id workrave
+exec --no-startup-id /usr/bin/insync start
+#exec --no-startup-id rescuetime
+exec --no-startup-id xscreensaver
+exec --no-startup-id sleep 0.5; xscreensaver-command-l
+exec --no-startup-id gnome-settings-daemon
+
+# packages:
+# gnome-settings-daemon
+
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+set $mod Mod4
+set $ALT Mod1
+set $CTRL Control
+
+focus_follows_mouse yes
+
+#FIXME allow move to neighbouring screen with hjkl
+force_focus_wrapping yes
+
+#new_window normal|none|pixel
+#new_window normal|pixel <px>
+#new_float normal|none|pixel
+#new_float normal|pixel <px>
+new_window pixel 1
+new_float pixel 1
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below. ISO 10646 = Unicode
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# ck
+# clear in small sizes. However, if you need a lot of unicode glyphs or
+# right-to-left text rendering, you should instead use pango for rendering and
+# chose a FreeType font, such as:
+font pango:DejaVu Sans Mono 10
+
+set $blue #005588
+set $gray1 #484848
+set $gray1b #343434
+set $gray2 #333333
+set $darkorage #CB4B16
+
+# class                   border   backgr.    text      indicator
+client.focused            $gray1   $darkorage #FFFFFF   #007F7F
+client.focused_inactive   $gray2   $gray2     #FFFFFF   #000000
+client.unfocused          $gray2   $gray2     #FFFFFF   #000000
+client.urgent             #2f343a  #900000    #FFFFFF   #900000
+
+# defaults for colours
+# class                 border  backgr. text    indicator
+#client.focused          #4c7899 #285577 #ffffff #2e9ef4
+#client.focused_inactive #333333 #5f676a #ffffff #484e50
+#client.unfocused        #333333 #222222 #888888 #292d2e
+#client.urgent           #2f343a #900000 #ffffff #900000
+#client.placeholder      #000000 #0c0c0c #ffffff #000000
+
+client.background #ff0000
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a i3-sensible-terminal
+bindsym $mod+Return exec i3-sensible-terminal
+bindsym Shift+$CTRL+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $ALT+F4 kill
+bindsym $CTRL+Shift+q kill
+#bindsym $CTRL+Shift+w xyz
+
+# start program or applications
+#
+# start dmenu (a program launcher)
+bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
+
+# i3-dmenu-desktop which only displays applications shipping a .desktop file.
+# It is a wrapper around dmenu, so you need that installed.
+bindsym $mod+d exec --no-startup-id /usr/local/bin/j4-dmenu-desktop
+#i3-dmenu-desktop
+
+# filemanager and other shortcuts
+#bindsym $mod+b exec --no-startup-id pcmanfm
+
+#bindsym $ALT+$CTRL+End exec sudo poweroff
+#bindsym $ALT+$CTRL+PgUp exec lock-keyboard-for-baby-20080706.pl -w
+#bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
+
+#bindsym $ALT+$CTRL+l    exec --no-startup-id ~/bin/sk_lock_mousekeyboard
+bindsym $ALT+$CTRL+l    exec --no-startup-id xscreensaver-command -l
+bindsym XF86ScreenSaver exec --no-startup-id xscreensaver-command -l
+
+#
+#bindsym $CTRL+Shift+o focus parent, split v, exec gnome-terminal, focus
+#bindsym $CTRL+Shift+e focus parent, split h, exec gnome-terminal, focus
+#bindsym $CTRL+Shift+o split v, exec gnome-terminal, focus
+#bindsym $CTRL+Shift+e split h, exec gnome-terminal, focus
+
+# focus last urgent window
+bindsym $mod+x [urgent=latest] focus
+# ignore urgent window
+# focus last urgent window, but directly go back to current workspace
+bindsym $mod+Shift+x [urgent=latest] focus, workspace back_and_forth
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Left  focus left
+#bindsym $mod+Down  focus down
+#bindsym $mod+Up    focus up
+#bindsym $mod+Right focus right
+
+# set focus parent
+bindsym $mod+u focus parent
+bindsym $mod+i focus child
+#bindsym $mod+$ALT+Up focus parent
+#bindsym $mod+$ALT+k focus parent
+#bindsym $mod+$ALT+Down focus parent
+#bindsym $mod+$ALT+j focus parent
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# move focused window
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Shift+Left move left
+#bindsym $mod+Shift+Down move down
+#bindsym $mod+Shift+Up move up
+#bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+g split h
+bindsym $CTRL+Shift+e split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+bindsym $CTRL+Shift+o split v
+
+# enter fullscreen mode for the focused container
+bindsym $CTRL+Shift+z fullscreen
+bindsym $mod+f fullscreen
+# span all outputs: ? fullscreen toggle global
+
+# enter fullscreen inside the container
+bindsym $mod+$CTRL+f focus parent; fullscreen; focus child
+bindsym $CTRL+Shift+x focus parent; fullscreen; focus child
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+a layout tabbed
+bindsym $mod+z layout toggle split
+
+# container navigation
+# focus the parent container
+#bindsym $mod+a focus parent
+# focus the child container
+#bindsym $mod+d focus child
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+#bindsym $mod+Shift+s toggle sticky
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# shot
+#shutter -s
+bindsym XF86Launch1 exec "shutter -s"
+bindsym $mod+XF86Launch1 exec "shutter -s"
+bindsym $mod+Shift+XF86Launch1 exec "shutter -w"
+bindsym Print exec "shutter -s"
+
+#bindsym $mod+n exec "~/bin/shot"
+#bindsym XF86Cut exec "~/bin/headshot -a"
+
+# switch to last workspace
+bindsym $mod+minus workspace back_and_forth
+#bindsym $ALT+Tab workspace back_and_forth
+bindsym $mod+Tab workspace back_and_forth
+
+# switch to last workspace when hitting same shortcutkey (actually i dont like this)
+#workspace_auto_back_and_forth yes
+
+set $WS1 "1::"
+set $WS2 "2::"
+set $WS3 "3::"
+set $WS4 "4::"
+
+#set $WS5 "5::"
+
+set $WS6 "6::"
+set $WS7 "7::"
+set $WS8 "8::"
+set $WS9 "9::"
+
+set $WS10 "q::"
+set $WS11 "w::"
+set $WS12 "e::"
+set $WS13 "r::"
+
+# HDMI1 workstation
+# workspace $WS1 output HDMI-1
+# workspace $WS2 output HDMI-1
+# workspace $WS3 output HDMI-1
+# workspace $WS4 output HDMI-1
+# workspace $WS5 output VGA-1
+
+# HDMI2 DP (with adaptor DVI) from docking
+workspace $WS6 output HDMI-1
+workspace $WS7 output HDMI-1
+workspace $WS8 output HDMI-1
+workspace $WS9 output HDMI-1
+
+# LVDS-1 laptop display
+workspace $WS10 output LVDS-1
+workspace $WS11 output LVDS-1
+workspace $WS12 output LVDS-1
+workspace $WS13 output LVDS-1
+
+# switch to workspace
+# 1 2 3 4
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
+bindsym $mod+3 workspace $WS3
+bindsym $mod+4 workspace $WS4
+#bindsym $mod+5 workspace $WS5
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
+bindsym $mod+q workspace $WS10
+bindsym $mod+w workspace $WS11
+bindsym $mod+e workspace $WS12
+bindsym $mod+r workspace $WS13
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $WS1, workspace $WS1
+#, focus
+bindsym $mod+Shift+2 move container to workspace $WS2, workspace $WS2, focus
+bindsym $mod+Shift+3 move container to workspace $WS3, workspace $WS3, focus
+bindsym $mod+Shift+4 move container to workspace $WS4, workspace $WS4, focus
+#bindsym $mod+Shift+5 move container to workspace $WS5, workspace $WS5, focus
+bindsym $mod+Shift+6 move container to workspace $WS6, workspace $WS6, focus
+bindsym $mod+Shift+7 move container to workspace $WS7, workspace $WS7, focus
+bindsym $mod+Shift+8 move container to workspace $WS8, workspace $WS8, focus
+bindsym $mod+Shift+9 move container to workspace $WS9, workspace $WS9, focus
+bindsym $mod+Shift+q move container to workspace $WS10, workspace $WS10, focus
+bindsym $mod+Shift+w move container to workspace $WS11, workspace $WS11, focus
+bindsym $mod+Shift+e move container to workspace $WS12, workspace $WS12, focus
+bindsym $mod+Shift+r move container to workspace $WS13, workspace $WS13, focus
+
+# move view to workspace prev or next
+# $mod + PgUp or PgDown
+bindsym $mod+Next        workspace next
+bindsym $mod+XF86Forward workspace next
+bindsym $mod+Prior       workspace prev
+bindsym $mod+XF86Back    workspace prev
+
+
+#next_on_output
+#prev_on_output
+
+# HIDE EDGE BORDERS
+# fullscreen?
+#hide_edge_borders <none|vertical|horizontal|both>
+hide_edge_borders both
+#none
+#both
+
+###
+### borders
+###
+
+#bindsym $mod+F9 border normal
+#bindsym $mod+F10 border 1pixel
+
+#border 1pixel
+
+# F12 toggles the window border style, (cycle normal, none, 1pixel)
+bindsym $mod+F12 border toggle
+
+# F11 toggles the i3bar, effectivly this puts the window fullscreen
+bindsym $mod+F11 exec ~/.i3/bin/toggbar
+
+# for newly arrived windows or popups:
+new_float normal
+new_window normal
+#1pixel
+#new_window 1pixel
+
+###
+###
+###
+
+# SCRATCHPAD CREATE
+#bindsym $MOD+SHIFT+plus move scratchpad
+# SCRATCHPAD SHOW
+#bindsym $MOD+plus scratchpad show
+
+# HANDLE POPUPS
+popup_during_fullscreen smart
+
+
+######
+######
+######
+#
+# i3
+#
+
+# reload the configuration file
+bindsym $CTRL+$ALT+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $CTRL+$ALT+Shift+r restart
+# exit i3 (logs you out of your X session)
+#bindsym $CTRL+$ALT+Shift+e exec "sudo kill -15 X"
+#bindsym $CTRL+$ALT+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+###
+### Display mode
+###
+# CTRL + ALT + d display mode
+bindsym $CTRL+$ALT+d mode "display"
+
+# resize window (you can also use the mouse for that)
+mode "display" {
+  bindsym 1 exec autorandr --load default, exec ~/.i3/bin/i3_setbackground
+  bindsym 2 exec autorandr --load extendleft, exec ~/.i3/bin/i3_setbackground
+  bindsym 3 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
+  bindsym 4 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
+  bindsym 5 exec autorandr --load external, exec ~/.i3/bin/i3_setbackground
+  bindsym 6 exec autorandr --load externalbig, exec ~/.i3/bin/i3_setbackground
+  bindsym 7 exec autorandr --load externaldp, exec ~/.i3/bin/i3_setbackground
+
+  bindsym 9 exec autorandr --load extenddocking, exec ~/.i3/bin/i3_setbackground, mode default
+
+  # b for Background fix
+  bindsym b exec ~/.i3/bin/i3_setbackground
+
+  #extendleftbig (detected)
+  #external
+  #extendleft
+  #default
+
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym q mode "default"
+}
+
+
+
+######
+######
+######
+#
+# resize th!ng
+#
+
+bindsym $CTRL+Shift+h resize shrink width  5 px or 5 ppt
+bindsym $CTRL+Shift+j resize shrink height 5 px or 5 ppt
+bindsym $CTRL+Shift+k resize grow   height 5 px or 5 ppt
+bindsym $CTRL+Shift+l resize grow   width  5 px or 5 ppt
+
+
+# CTRL + ALT + r resize mode
+#bindsym $CTRL+$ALT+r mode "resize"
+#
+## resize window (you can also use the mouse for that)
+#mode "resize" {
+#        # These bindings trigger as soon as you enter the resize mode
+#
+#        # Pressing left will shrink the window’s width.
+#        # Pressing right will grow the window’s width.
+#        # Pressing up will shrink the window’s height.
+#        # Pressing down will grow the window’s height.
+#        bindsym l resize shrink width  5 px or 5 ppt
+#        bindsym k resize grow   height 5 px or 5 ppt
+#        bindsym j resize shrink height 5 px or 5 ppt
+#        bindsym h resize grow   width  5 px or 5 ppt
+#
+#        # same bindings, but for the arrow keys
+#        #bindsym Right resize shrink width  10 px or 10 ppt
+#        #bindsym Up    resize grow   height 10 px or 10 ppt
+#        #bindsym Down  resize shrink height 10 px or 10 ppt
+#        #bindsym Left  resize grow   width  10 px or 10 ppt
+#
+#        # back to normal: Enter or Escape
+#        bindsym Return mode "default"
+#        bindsym Escape mode "default"
+#        bindsym q mode "default"
+#        #?bindcode Control+34 mode "default"
+#}
+
+#
+# command th!ng
+#
+
+# CTRL + ALT + e command mode
+bindsym $CTRL+$ALT+e mode "command"
+
+###
+### command window
+###
+mode "command" {
+        # These bindings trigger as soon as you enter the command mode
+
+        # m for set the MiddleButton for scrolling, a thinkpad thingy
+        bindsym m exec ~/.i3/bin/middlebutton
+
+        # b for Background fix
+        bindsym b exec ~/.i3/bin/i3_setbackground
+
+        # t for Trackpad toggle
+        bindsym t exec ~/bin/sk_trackpad_toggle
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym q mode "default"
+}
+
+# volume keys UP / DOWN / MUTE
+bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
+bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master '5%-'"
+bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
+# /usr/bin/pactl set-sink-volume 0 -- '-5%'
+#bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -- '-5%'
+#bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -- '+5%'
+
+
+# mod+p or fn-F7 switch display back&forth
+bindsym XF86Display exec ~/.i3/bin/display_change
+bindsym $mod+p exec ~/.i3/bin/display_change
+
+# mod+BackSpace
+# BackSpace
+#bindsym $mod+BackSpace exec ~/.i3/bin/desktop_startup
+
+
+# mod+o or fn-F8(USB keyboard) extend display
+#bindsym XF86TouchpadToggle exec ~/.i3/bin/2VGA_DP1.sh
+#bindsym $mod+o exec ~/.i3/bin/2VGA_DP1.sh
+
+#bindsym XF86AudioPlay exec "~/.bin/player toggle"
+#bindsym XF86AudioStop exec "~/.bin/player stop"
+#bindsym XF86AudioNext exec "~/.bin/player next"
+#bindsym XF86AudioPrev exec "~/.bin/player previous"
+
+bindsym XF86MonBrightnessUp exec "/home/skroes/.i3/bin/backlight +20"
+bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
+
+
+# for some windows match new windows and modify there behaviour:
+#
+for_window [class="MPlayer"] floating enable
+for_window [instance="gimp"] floating enable
+for_window [class="Empathy"] floating enable
+for_window [class="Pidgin"] floating enable
+for_window [class="wync"] floating enable
+for_window [class="Gcr-prompter"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [class="file_progress"] floating enable, border 1pixel
+for_window [class="Yad"] floating enable
+for_window [instance="gnome-screenshot"] floating enable
+
+# ICA seamless citrix
+for_window [class="Wfica_Seamless"] floating enable
+
+
+# com-edgytech-umongo-UMongo mongodb viewer
+for_window [class="com-edgytech-umongo-UMongo"] floating enable
+
+# apps from chrome are marked as pop-up, bu we need them non floating
+for_window [class="Google-chrome"] floating disable
+
+#old style hangouts:
+# WS3 chat applications
+# Hangouts, telegram, whatsapp
+#
+# new~
+#for_window [instance="crx_knipolnnllmklapflnccelgolnpehhpl"] border normal, floating disable, move to workspace $WS3
+# new-1
+#for_window [instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] border normal, floating disable, move to workspace $WS3
+#for_window [instance="telegram"]                             border normal, floating disable, move to workspace $WS3
+#for_window [class="web.whatsapp.com"]                        border normal, floating disable, move to workspace $WS3
+
+# shutter on 8
+for_window [class="Shutter"]                                 move to workspace $WS8
+#assign [class="^xbmc.bin$"] $WS9
+#for_window [class="^xbmc.bin$"] focus
+
+###
+### WS9 video
+###
+
+# testing assign for 'video'
+
+#assign [class="^xbmc.bin$"] $WS9
+#for_window [class="^xbmc.bin$"] focus
+
+##assign [class="^totem$"] $WS9
+##for_window [class="^totem$"] focus
+
+# HDMI1 output
+bar {
+  #output HDMI-1
+  #output LVDS-1
+  mode dock
+  hidden_state show
+  position top
+  #tray_output all
+   #LVDS-1 #all
+  status_command .i3/bin/myi3status.sh
+  #/home/skroes/drive/notes/status.sh
+  #i3status
+  #status_command ~/.i3/conky
+  #wheel_up_cmd nop
+  #wheel_down_cmd exec ~/.i3/scripts/custom_wheel_down
+  colors {
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
+  }
+}
+
+#
+# systray
+#
+exec volumeicon
+#exec --no-startup-id synergy
+
+#? bindsym Print exec scrot 'Screenshot - %Y-%m-%d--%_$wx$h_scrot.png' -e 'mv $f ~/images/'
+
+# TODO: xprop grep
+# WM_CLASS(STRING) = "Wfica", "Wfica"
+# vim:filetype=i3

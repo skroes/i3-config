@@ -5,6 +5,8 @@
 # feh
 # xinput
 
+# textsuggest --auto-selection
+
 #git clone https://github.com/enkore/j4-dmenu-desktop
 #sudo apt-get install build-essential cmake make -y
 #cmake .
@@ -104,6 +106,10 @@ bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
 # It is a wrapper around dmenu, so you need that installed.
 bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
+bindsym $mod+x exec textlucky
+#wrap
+#bindsym $mod+Shift+x exec textsuggest --auto-selection
+
 # filemanager and other shortcuts
 #bindsym $mod+b exec --no-startup-id pcmanfm
 
@@ -122,7 +128,7 @@ bindsym XF86ScreenSaver exec --no-startup-id xscreensaver-command -l
 #bindsym $CTRL+Shift+e split h, exec gnome-terminal, focus
 
 # focus last urgent window
-bindsym $mod+x [urgent=latest] focus
+#in use bindsym $mod+x [urgent=latest] focus
 # ignore urgent window
 # focus last urgent window, but directly go back to current workspace
 bindsym $mod+Shift+x [urgent=latest] focus, workspace back_and_forth
@@ -209,8 +215,7 @@ set $WS1 "1:www"
 set $WS2 "2:term"
 set $WS3 "3:chat"
 set $WS4 "4:special"
-
-#set $WS5 "5::"
+set $WS5 "5:alt"
 
 #set $WS6 "6::"
 #set $WS7 "7::"
@@ -258,7 +263,7 @@ bindsym $mod+1 workspace $WS1
 bindsym $mod+2 workspace $WS2
 bindsym $mod+3 workspace $WS3
 bindsym $mod+4 workspace $WS4
-#bindsym $mod+5 workspace $WS5
+bindsym $mod+5 workspace $WS5
 #bindsym $mod+6 workspace $WS6
 #bindsym $mod+7 workspace $WS7
 #bindsym $mod+8 workspace $WS8
@@ -285,7 +290,7 @@ bindsym $mod+Shift+1 move container to workspace $WS1, workspace $WS1
 bindsym $mod+Shift+2 move container to workspace $WS2, workspace $WS2, focus
 bindsym $mod+Shift+3 move container to workspace $WS3, workspace $WS3, focus
 bindsym $mod+Shift+4 move container to workspace $WS4, workspace $WS4, focus
-#bindsym $mod+Shift+5 move container to workspace $WS5, workspace $WS5, focus
+bindsym $mod+Shift+5 move container to workspace $WS5, workspace $WS5, focus
 #bindsym $mod+Shift+6 move container to workspace $WS6, workspace $WS6, focus
 #bindsym $mod+Shift+7 move container to workspace $WS7, workspace $WS7, focus
 #bindsym $mod+Shift+8 move container to workspace $WS8, workspace $WS8, focus

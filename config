@@ -1,21 +1,12 @@
 ## i3 config file
 
 # desktop packages req
-# dnf install -y feh xinput gnome-settings-daemon
-
+# dnf
+# apt-get
+# install -y feh xinput gnome-settings-daemon j4-dmenu-desktop xscreensaver-command dmenu i3status
 # FIXME
 # textsuggest --auto-selection
 # textlucky
-
-# j4 hints
-#git clone https://github.com/enkore/j4-dmenu-desktop
-#sudo apt-get install build-essential cmake make -y
-#cmake .
-#make
-#sudo make install
-
-#sudo dnf install -y cmake make
-#cmake .
 
 # one big screen?
 #force_xinerama yes
@@ -27,11 +18,11 @@ exec /home/skroes/.i3/bin/middlebutton
 exec /home/skroes/.i3/bin/logitech_usb_laser
 
 exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 exec --no-startup-id slack
-exec --no-startup-id parcellite
-exec --no-startup-id workrave
-exec --no-startup-id /usr/bin/insync start
+#exec --no-startup-id parcellite
+#exec --no-startup-id workrave
+#exec --no-startup-id /usr/bin/insync start
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id sleep 0.5; xscreensaver-command-l
 exec gnome-settings-daemon
@@ -110,6 +101,7 @@ bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
 # i3-dmenu-desktop which only displays applications shipping a .desktop file.
 # It is a wrapper around dmenu, so you need that installed.
 bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
+#FIXME bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="(cat ; (/usr/bin/stest -flx $(echo $PATH | tr : ' ') | sort -u)) | dmenu"
 
 ###
 ### textlucky

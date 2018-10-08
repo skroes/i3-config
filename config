@@ -18,7 +18,7 @@ exec /home/skroes/.i3/bin/middlebutton
 exec /home/skroes/.i3/bin/logitech_usb_laser
 
 exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
-#exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 exec --no-startup-id slack
 #exec --no-startup-id parcellite
 #exec --no-startup-id workrave
@@ -296,6 +296,34 @@ bindsym $mod+F1 workspace $WSF1
 bindsym $mod+F2 workspace $WSF2
 bindsym $mod+F3 workspace $WSF3
 bindsym $mod+F4 workspace $WSF4
+
+
+# extend mode MOD+E
+set $mode_ws "workspaces"
+mode $mode_ws {
+    bindsym 1 workspace $WS1; mode "default"
+    bindsym Shift+1 move container to workspace $WS1; mode "default"
+    bindsym 2 workspace $WS2; mode "default"
+    bindsym Shift+2 move container to workspace $WS2; mode "default"
+    bindsym 3 workspace $WS3; mode "default"
+    bindsym Shift+3 move container to workspace $WS3; mode "default"
+    bindsym 4 workspace $WS4; mode "default"
+    bindsym Shift+4 move container to workspace $WS4; mode "default"
+    bindsym 5 workspace $WS5; mode "default"
+    bindsym Shift+5 move container to workspace $WS5; mode "default"
+
+    # […]
+    bindsym a workspace a; mode "default"
+    bindsym Shift+a move container to workspace a; mode "default"
+    bindsym b workspace b; mode "default"
+    bindsym Shift+b move container to workspace b; mode "default"
+    # […]
+    bindsym Escape mode "default"
+}
+bindsym $mod+e mode $mode_ws
+
+
+
 
 # https://www.reddit.com/r/i3wm/comments/3zebq9/anyone_running_i3_on_multimonitor_desktop_is_it/
 # Move focused workspace to monitor

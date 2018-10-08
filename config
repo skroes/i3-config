@@ -299,6 +299,7 @@ bindsym $mod+F4 workspace $WSF4
 
 
 # extend mode MOD+E
+# https://unix.stackexchange.com/questions/338228/i3wm-more-than-10-workspaces-with-double-modifier-key
 set $mode_ws "workspaces"
 mode $mode_ws {
     bindsym 1 workspace $WS1; mode "default"
@@ -318,6 +319,10 @@ mode $mode_ws {
     bindsym b workspace b; mode "default"
     bindsym Shift+b move container to workspace b; mode "default"
     # […]
+
+    bindsym q exec i3-input -F 'workspace %s' -P 'go to workspace: '; mode "default"
+    bindsym w exec i3-input -F 'move container to workspace %s' -P 'move to workspace: '; mode "default"
+
     bindsym Escape mode "default"
 }
 bindsym $mod+e mode $mode_ws

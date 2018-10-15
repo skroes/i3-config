@@ -20,28 +20,47 @@
 #exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nm-applet
 exec --no-startup-id slack
+exec --no-startup-id dunst
 #exec --no-startup-id parcellite
 #exec --no-startup-id workrave
 #exec --no-startup-id /usr/bin/insync start
 exec --no-startup-id xscreensaver -no-splash
 #exec --no-startup-id sleep 0.5; xscreensaver-command-l
-exec gnome-settings-daemon
+#exec gnome-settings-daemon
 
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
 set $ALT Mod1
 set $CTRL Control
+
 # Mod4 = command key
 # Mod1 = ALT
 # CTRL = CTRL
 
+#bindsym $mod+c exec xdotool key "ctrl+shift+c"
+
+# command bindings, ala mac does
+bindsym --release $mod+c exec --no-startup-id xdotool key --clearmodifiers ctrl+c
+bindsym --release $mod+v exec --no-startup-id xdotool key --clearmodifiers ctrl+v
+bindsym --release $mod+p exec --no-startup-id xdotool key --clearmodifiers ctrl+p
+bindsym --release $mod+z exec --no-startup-id xdotool key --clearmodifiers ctrl+z
+bindsym --release $mod+s exec --no-startup-id xdotool key --clearmodifiers ctrl+s
+bindsym --release $mod+w exec --no-startup-id xdotool key --clearmodifiers ctrl+w
+bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+x
+bindsym $mod+q kill
+
+# TEST
+#bindsym $mod+Caps_Lock exec notify-send "press"
+#bindsym --release $mod+Caps_Lock exec notify-send "release"
+
 # mac ala bindings
+# Rdio Next
+#bindsym $mod+control+n exec xdotool search --name Rdio && xdotool key --window $(xdotool search --name Rdio) Right
 
-#mod +c # copy
-#mod +w # ctrl+w
-#mod +q # kill window
-
+# move a window sticky 
+bindsym $mod+y floating enable; resize set 420 340; sticky enable; move position 1490 680
+#bindsym $mod+y fullscreen disable; floating enable; resize set 420 340; sticky enable; move position 1490 680
 
 ###
 ### TEST
@@ -58,7 +77,6 @@ set $CTRL Control
 
 # show battery stats
 #bindsym XF86Battery exec gnome-power-statistics
-
 
 ###
 ###
@@ -110,6 +128,7 @@ client.urgent             #2f343a  #900000    #FFFFFF   #900000
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# ? 
 bindsym $mod+0 exec ~/bin/hack_w
 
 # start a i3-sensible-terminal
@@ -118,7 +137,7 @@ bindsym Shift+$CTRL+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $ALT+F4 kill
-bindsym $CTRL+Shift+q kill
+#bindsym $CTRL+Shift+q kill
 #bindsym $CTRL+Shift+w xyz
 
 # copy and mark containers
@@ -200,11 +219,9 @@ bindsym $mod+Shift+l move right
 ###
 
 # split in horizontal orientation
-bindsym $mod+g split h
 bindsym $CTRL+Shift+e split h
 
 # split in vertical orientation
-bindsym $mod+v split v
 bindsym $CTRL+Shift+o split v
 
 ###
@@ -212,7 +229,6 @@ bindsym $CTRL+Shift+o split v
 ###
 
 # enter fullscreen mode for the focused container
-bindsym $CTRL+Shift+z fullscreen
 bindsym $mod+f fullscreen
 # span all outputs: ? fullscreen toggle global
 
@@ -221,7 +237,7 @@ bindsym $mod+$CTRL+f focus parent; fullscreen; focus child
 #bindsym $CTRL+Shift+x focus parent; fullscreen; focus child
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+#bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+z layout toggle split
 
@@ -332,7 +348,7 @@ bindsym $mod+F3 workspace $WSF3
 bindsym $mod+F4 workspace $WSF4
 
 
-# extend mode MOD+E
+# extend mode $mod+E
 set $mode_ws "workspaces"
 mode $mode_ws {
     bindsym 1 workspace $WS1; mode "default"
@@ -413,11 +429,15 @@ hide_edge_borders none
 #bindsym $mod+F10 border 1pixel
 #border 1pixel
 
+# cmd + period
+bindsym $mod+period exec ~/.i3/bin/swap-workspace-between-screens
+
+# F11 toggles the i3bar and disables eDP1
+# effectivly a focus mode
+bindsym $mod+F11 exec ~/.i3/bin/focusmode
+
 # F12 toggles the window border style, (cycle normal, none, 1pixel)
 bindsym $mod+F12 border toggle
-
-# F11 toggles the i3bar, effectivly this puts the window fullscreen
-bindsym $mod+F11 exec ~/.i3/bin/focusmode
 
 # for newly arrived windows or popups:
 new_float normal
@@ -431,9 +451,9 @@ new_window 1pixel
 ###
 
 # SCRATCHPAD CREATE
-#bindsym $MOD+SHIFT+plus move scratchpad
+#bindsym $mod+SHIFT+plus move scratchpad
 # SCRATCHPAD SHOW
-#bindsym $MOD+plus scratchpad show
+#bindsym $mod+plus scratchpad show
 
 
 # https://i3wm.org/docs/userguide.html#_scratchpad
@@ -592,16 +612,16 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 #bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -- '+5%'
 
 
-# mod+p or fn-F7 switch display back&forth
+# $mod+p or fn-F7 switch display back&forth
 bindsym XF86Display exec ~/.i3/bin/display_change
 bindsym $mod+p exec ~/.i3/bin/display_change
 
-# mod+BackSpace
+# $mod+BackSpace
 # BackSpace
 #bindsym $mod+BackSpace exec ~/.i3/bin/desktop_startup
 
 
-# mod+o or fn-F8(USB keyboard) extend display
+# $mod+o or fn-F8(USB keyboard) extend display
 #bindsym XF86TouchpadToggle exec ~/.i3/bin/2VGA_DP1.sh
 #bindsym $mod+o exec ~/.i3/bin/2VGA_DP1.sh
 

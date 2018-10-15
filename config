@@ -12,19 +12,19 @@
 #force_xinerama yes
 #fake-outputs 3840x1080+0+0
 
-exec /home/skroes/.i3/bin/xset
-exec /home/skroes/.i3/bin/i3_setbackground
-exec /home/skroes/.i3/bin/middlebutton
-exec /home/skroes/.i3/bin/logitech_usb_laser
+#exec /home/skroes/.i3/bin/xset
+#exec /home/skroes/.i3/bin/i3_setbackground
+#exec /home/skroes/.i3/bin/middlebutton
+#exec /home/skroes/.i3/bin/logitech_usb_laser
 
-exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+#exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nm-applet
 exec --no-startup-id slack
 #exec --no-startup-id parcellite
 #exec --no-startup-id workrave
 #exec --no-startup-id /usr/bin/insync start
 exec --no-startup-id xscreensaver -no-splash
-exec --no-startup-id sleep 0.5; xscreensaver-command-l
+#exec --no-startup-id sleep 0.5; xscreensaver-command-l
 exec gnome-settings-daemon
 
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -32,7 +32,37 @@ exec gnome-settings-daemon
 set $mod Mod4
 set $ALT Mod1
 set $CTRL Control
+# Mod4 = command key
+# Mod1 = ALT
+# CTRL = CTRL
 
+# mac ala bindings
+
+#mod +c # copy
+#mod +w # ctrl+w
+#mod +q # kill window
+
+
+###
+### TEST
+###
+
+# volume control
+#bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
+#bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
+#bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# brightness control
+#bindsym XF86MonBrightnessDown exec /home/francois/bin/set-brightness -
+#bindsym XF86MonBrightnessUp exec /home/francois/bin/set-brightness +
+
+# show battery stats
+#bindsym XF86Battery exec gnome-power-statistics
+
+
+###
+###
+###
 focus_follows_mouse yes
 
 #FIXME allow move to neighbouring screen with hjkl
@@ -75,7 +105,7 @@ client.urgent             #2f343a  #900000    #FFFFFF   #900000
 #client.urgent           #2f343a #900000 #ffffff #900000
 #client.placeholder      #000000 #0c0c0c #ffffff #000000
 
-client.background #ff0000
+#client.background #ff0000
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -90,6 +120,10 @@ bindsym Shift+$CTRL+Return exec i3-sensible-terminal
 bindsym $ALT+F4 kill
 bindsym $CTRL+Shift+q kill
 #bindsym $CTRL+Shift+w xyz
+
+# copy and mark containers
+#bindsym $mod+c mark _copy
+#bindsym $mod+p mark _paste, [con_mark=_copy] move to mark _paste
 
 ###
 ### start program or applications
@@ -299,7 +333,6 @@ bindsym $mod+F4 workspace $WSF4
 
 
 # extend mode MOD+E
-# https://unix.stackexchange.com/questions/338228/i3wm-more-than-10-workspaces-with-double-modifier-key
 set $mode_ws "workspaces"
 mode $mode_ws {
     bindsym 1 workspace $WS1; mode "default"
@@ -326,8 +359,6 @@ mode $mode_ws {
     bindsym Escape mode "default"
 }
 bindsym $mod+e mode $mode_ws
-
-
 
 
 # https://www.reddit.com/r/i3wm/comments/3zebq9/anyone_running_i3_on_multimonitor_desktop_is_it/
@@ -386,7 +417,7 @@ hide_edge_borders none
 bindsym $mod+F12 border toggle
 
 # F11 toggles the i3bar, effectivly this puts the window fullscreen
-bindsym $mod+F11 exec ~/.i3/bin/toggbar
+bindsym $mod+F11 exec ~/.i3/bin/focusmode
 
 # for newly arrived windows or popups:
 new_float normal

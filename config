@@ -48,6 +48,7 @@ bindsym --release $mod+z exec --no-startup-id xdotool key --clearmodifiers ctrl+
 bindsym --release $mod+s exec --no-startup-id xdotool key --clearmodifiers ctrl+s
 bindsym --release $mod+w exec --no-startup-id xdotool key --clearmodifiers ctrl+w
 bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+x
+bindsym --release $mod+f exec --no-startup-id xdotool key --clearmodifiers ctrl+f
 bindsym $mod+q kill
 
 # TEST
@@ -153,14 +154,13 @@ bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
 
 # i3-dmenu-desktop which only displays applications shipping a .desktop file.
 # It is a wrapper around dmenu, so you need that installed.
-bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
-#FIXME bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="(cat ; (/usr/bin/stest -flx $(echo $PATH | tr : ' ') | sort -u)) | dmenu"
+bindsym $mod+space exec --no-startup-id j4-dmenu-desktop
 
 ###
 ### textlucky
 ###
 
-bindsym $mod+x exec textlucky
+#bindsym $mod+x exec textlucky
 #wrap
 #bindsym $mod+Shift+x exec textsuggest --auto-selection
 
@@ -173,6 +173,7 @@ bindsym $mod+x exec textlucky
 
 #bindsym $ALT+$CTRL+l    exec --no-startup-id ~/bin/sk_lock_mousekeyboard
 bindsym $ALT+$CTRL+l    exec --no-startup-id xscreensaver-command -l
+bindsym $mod+Control+l  exec --no-startup-id xscreensaver-command -l
 bindsym XF86ScreenSaver exec --no-startup-id xscreensaver-command -l
 
 #bindsym $CTRL+Shift+o focus parent, split v, exec gnome-terminal, focus
@@ -229,11 +230,11 @@ bindsym $CTRL+Shift+o split v
 ###
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+bindsym $mod+g fullscreen
 # span all outputs: ? fullscreen toggle global
 
 # enter fullscreen inside the container
-bindsym $mod+$CTRL+f focus parent; fullscreen; focus child
+bindsym $mod+Control+g focus parent; fullscreen; focus child
 #bindsym $CTRL+Shift+x focus parent; fullscreen; focus child
 
 # change container layout (stacked, tabbed, toggle split)
@@ -252,7 +253,7 @@ bindsym $mod+Shift+space floating toggle
 #bindsym $mod+Shift+s toggle sticky
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+$alt+shift+space focus mode_toggle
 
 ###
 ### screenshot

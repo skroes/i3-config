@@ -12,7 +12,9 @@
 #force_xinerama yes
 #fake-outputs 3840x1080+0+0
 
-#exec /home/skroes/.i3/bin/xset
+# controls the xset stuff
+exec /home/skroes/.i3/bin/xset
+
 #exec /home/skroes/.i3/bin/i3_setbackground
 #exec /home/skroes/.i3/bin/middlebutton
 #exec /home/skroes/.i3/bin/logitech_usb_laser
@@ -172,9 +174,11 @@ bindsym $mod+space exec --no-startup-id j4-dmenu-desktop
 #bindsym $ALT+$CTRL+PgDown exec lock-keyboard-for-baby-20080706.pl -w
 
 #bindsym $ALT+$CTRL+l    exec --no-startup-id ~/bin/sk_lock_mousekeyboard
-bindsym $ALT+$CTRL+l    exec --no-startup-id xscreensaver-command -l
-bindsym $mod+Control+l  exec --no-startup-id xscreensaver-command -l
-bindsym XF86ScreenSaver exec --no-startup-id xscreensaver-command -l
+bindsym $ALT+$CTRL+l    exec ~/bin/lockthescreens
+bindsym $mod+control+l  exec ~/bin/lockthescreens
+bindsym XF86ScreenSaver exec ~/bin/lockthescreens
+# unlock
+bindsym $ALT+$CTRL+u    exec ~/bin/unlockthescreens
 
 #bindsym $CTRL+Shift+o focus parent, split v, exec gnome-terminal, focus
 #bindsym $CTRL+Shift+e focus parent, split h, exec gnome-terminal, focus
@@ -238,9 +242,9 @@ bindsym $mod+Control+g focus parent; fullscreen; focus child
 #bindsym $CTRL+Shift+x focus parent; fullscreen; focus child
 
 # change container layout (stacked, tabbed, toggle split)
-#bindsym $mod+s layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+z layout toggle split
+bindsym $mod+u layout stacking
+bindsym $mod+i layout tabbed
+bindsym $mod+o layout toggle split
 
 # container navigation
 # focus the parent container
@@ -282,9 +286,9 @@ bindsym $mod+Tab workspace back_and_forth
 
 set $WS1 "1:www"
 set $WS2 "2:term"
-set $WS3 "3:chat"
-set $WS4 "4:special"
-set $WS5 "5:alt"
+set $WS3 "3:edit"
+set $WS4 "4:x"
+set $WS5 "5:y"
 
 #set $WS6 "6::"
 #set $WS7 "7::"
@@ -499,14 +503,14 @@ bindsym $CTRL+$ALT+d mode "display"
 # resize window (you can also use the mouse for that)
 mode "display" {
   # focus 1 2 3
-  bindsym 1 exec ~/bin/lala_focus_laptop.sh
-  bindsym 2 exec ~/bin/lala_focus.sh
-  bindsym 3 exec ~/bin/lala_focus_DP12.sh
+  bindsym 1 exec ~/bin/switchoutputscreen
+  #bindsym 2 exec ~/bin/lala_focus.sh
+  #bindsym 3 exec ~/bin/lala_focus_DP12.sh
 
-  bindsym 4 exec ~/bin/lala_laptop_links.sh
-  bindsym 6 exec ~/bin/lala_laptop_rechts.sh
+  #bindsym 4 exec ~/bin/lala_laptop_links.sh
+  #bindsym 6 exec ~/bin/lala_laptop_rechts.sh
 
-  bindsym 9 exec bin/lala_laptop_corner1.sh
+  #bindsym 9 exec bin/lala_laptop_corner1.sh
 
   #bindsym 1 exec autorandr --load default, exec ~/.i3/bin/i3_setbackground
   #bindsym 2 exec autorandr --load extendleft, exec ~/.i3/bin/i3_setbackground
@@ -622,9 +626,9 @@ bindsym $mod+p exec ~/.i3/bin/display_change
 #bindsym $mod+BackSpace exec ~/.i3/bin/desktop_startup
 
 
-# $mod+o or fn-F8(USB keyboard) extend display
+# $mod+? or fn-F8(USB keyboard) extend display
 #bindsym XF86TouchpadToggle exec ~/.i3/bin/2VGA_DP1.sh
-#bindsym $mod+o exec ~/.i3/bin/2VGA_DP1.sh
+#bindsym $mod+? exec ~/.i3/bin/2VGA_DP1.sh
 
 #bindsym XF86AudioPlay exec "~/.bin/player toggle"
 #bindsym XF86AudioStop exec "~/.bin/player stop"

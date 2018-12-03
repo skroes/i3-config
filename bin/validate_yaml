@@ -1,0 +1,13 @@
+#!/bin/bash
+
+list=`git diff --name-only HEAD master`
+
+for i in `git diff --name-only HEAD master`
+do
+  echo $i
+  yaml-lint $i
+done
+
+
+
+#? ruby -e "require 'yaml';puts YAML.load_file($*)"

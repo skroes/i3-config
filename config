@@ -704,6 +704,9 @@ exec volumeicon
 
 #? bindsym Print exec scrot 'Screenshot - %Y-%m-%d--%_$wx$h_scrot.png' -e 'mv $f ~/images/'
 
+# touchpad settings # enable tap touch
+exec xinput set-prop 12 299 1
+
 # TODO: xprop grep
 # WM_CLASS(STRING) = "Wfica", "Wfica"
 # vim:filetype=i3

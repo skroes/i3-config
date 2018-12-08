@@ -1,0 +1,23 @@
+#!/bin/bash
+# homeconfig environment
+export GIT_DIR="${HOME}/.homeconfig.git"
+export GIT_WORK_TREE="${HOME}"
+
+# actions done in git repo toplevel
+TOPLEVEL="$(git rev-parse --show-toplevel)"
+cd "${TOPLEVEL}" || exit
+
+# gather list of filechanges
+COMMITFILESLIST=`git status -s | grep -v '??' | cut -b 4-`
+
+# loop each file and do a commit of the changes
+for CHANGEDFILE in ${COMMITFILESLIST}
+  do
+    git add -f "${CHANGEDFILE}"
+    git commit -q -m "${CHANGEDFILE} [${HOSTNAME}]" -- "${CHANGEDFILE}"
+done
+
+#git commit -q -m "[${HOSTNAME}]"
+
+# git status like this should return no output
+git status --porcelain --short

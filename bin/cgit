@@ -1,0 +1,9 @@
+#!/bin/bash
+c_repos=$(find . -maxdepth 2 -name .git -type d -print | cut -d'/' -f2);
+c_basedir=${PWD}
+for repo in ${c_repos};
+do
+  echo "## [${repo}] ";
+  git --git-dir="${c_basedir}/${repo}/.git" --work-tree="${c_basedir}/${repo}" "$@";
+  echo -e "";
+done

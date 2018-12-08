@@ -1,0 +1,64 @@
+#!/bin/bash
+#VERBOSE="echo "
+VERBOSE=""
+
+# import
+#DEVICELABEL="JAMES_GOPRO"
+DEVICELABEL="F770"
+
+# DCOMPATH source
+DCIMPATH="/run/media/skroes/${DEVICELABEL}/"
+#PATHPREFIX="F770_"
+
+# TARGETPATHROOT is target export dir
+TARGETPATHROOT="/run/media/skroes/${DEVICELABEL}/processed"
+
+
+# check dir van device
+#debian
+#test -d /media/skroes/${DEVICELABEL} || ( echo "device not mounted"; exit 1 )
+#fedora
+test -d /run/media/skroes/${DEVICELABEL} || ( echo "device not mounted"; exit 1 )
+
+cd ${DCIMPATH}
+
+# cleanup useless thumnailsfiles
+#UNNEEDED ... .find ${DCIMPATH} -name '*.THM' -delete
+
+# target
+test -d ${TARGETPATHROOT} || $VERBOSE mkdir -p ${TARGETPATHROOT}
+
+#                   find           . -name '*.MP4' -printf "%T+\t%p\n" |sort | cut -b32-
+#                   find with sort on time of file, effective we do this on date/time based
+
+for importfile in $(find ${DCIMPATH} -name '*.MP4' -printf "%T+\t%p\n" |sort | cut -b32-)
+do
+  echo "source: $importfile"
+  filename=${importfile##*/}
+  filenamefilenr=$(echo $filename | cut -f 5,6,7,1,8 -d "_" | tr [A-Z] [a-z] | tr -d "_")
+  #filenamespecialnr=$(echo $filename | cut -f 7 -d "/" | cut -b 3-4)
+
+  #echo $filename
+  #echo $filenamefilenr
+  #exit
+  TARGETPATHFOREXPORT="${TARGETPATHROOT}/$(date -r ${importfile} +"F770_%Y_%m_%d")/"
+
+  test -d ${TARGETPATHFOREXPORT} || $VERBOSE mkdir -p ${TARGETPATHFOREXPORT}
+
+  $VERBOSE mv -v -n "${importfile}" "${TARGETPATHFOREXPORT}$(date -r "${importfile}" +"F770_%Y%m%d_%H%M%S")_${filenamefilenr}.mp4"
+done
+
+# generate playlists
+for playlistdir in `find ${TARGETPATHFOREXPORT}/ -type d -name 'F770_*'`
+do
+  $VERBOSE echo "generating playlist ${playlistdir}"
+  cd ${playlistdir}
+  ls -1 *f.mp* > playlist_front.m3u
+  ls -1 *r.mp* > playlist_back.m3u
+  ls -1 *.mp* > playlist_all.m3u
+done
+
+
+#!/bin/bash
+#test -f "$@" || exit 1 
+#echo mv -n "$@" "$(date -r "$@" +"HERO1_%Y%m%d_%H%M")_$@"

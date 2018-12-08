@@ -1,0 +1,4 @@
+#!/bin/bash
+xrandr --output DP-1 --auto --right-of eDP-1 --output HDMI-2 --auto --right-of DP-1 --rotate right
+sleep 1
+~/.i3/bin/i3_setbackground

@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# import
+#DEVICELABEL="JAMES_GOPRO"
+DEVICELABEL="DAVID_GOPRO"
+DCIMPATH="/run/media/skroes/${DEVICELABEL}/DCIM"
+
+# export
+TARGETPATHROOT="${DCIMPATH}/forexport"
+
+# check dir van device
+#debian
+#test -d /media/skroes/${DEVICELABEL} || ( echo "device not mounted"; exit 1 )
+#fedora
+#test -d /run/media/skroes/${DEVICELABEL} || ( echo "device not mounted"; exit 1  )
+
+cd ${DCIMPATH}
+
+# cleanup useless thumnailsfiles
+find ${DCIMPATH} -name '*.THM' -delete
+
+# target
+test -d ${TARGETPATHROOT} || mkdir -p ${TARGETPATHROOT}
+
+for importfile in $(find ${DCIMPATH} -name 'G*.MP4')
+do
+  echo "source: $importfile"
+  filename=${importfile##*/}
+  filenameserienr=$(echo $filename | cut -f 7 -d "/" | cut -b 5-8)
+  filenamespecialnr=$(echo $filename | cut -f 7 -d "/" | cut -b 3-4)
+  #echo $filenameserienr
+
+  TARGETPATHFOREXPORT="${TARGETPATHROOT}/$(date -r ${importfile} +"HERO1_%Y_%m_%d")/"
+  test -d ${TARGETPATHFOREXPORT} || mkdir -p ${TARGETPATHFOREXPORT}
+
+  ###
+  ### actual re-naming
+  ###
+  mv -n "${importfile}" "${TARGETPATHFOREXPORT}$(date -r "${importfile}" +"HERO1_%Y%m%d_%H%M")_${filenamespecialnr}_${filenameserienr}.mp4"
+
+done
+
+# generate playlists
+find /run/media/skroes/${DEVICELABEL} -type d
+
+#!/bin/bash
+#test -f "$@" || exit 1 
+#echo mv -n "$@" "$(date -r "$@" +"HERO1_%Y%m%d_%H%M")_$@"

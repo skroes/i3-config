@@ -1,0 +1,13 @@
+#!/bin/bash
+
+highlight()
+{
+  if [ 1 -eq $# ];
+  then
+    grep --color -E "$1|$"
+  else
+    grep --color -E "$1|$" "${@:1}"
+  fi
+}
+
+highlight $@

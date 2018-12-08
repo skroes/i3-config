@@ -1,0 +1,12 @@
+#!/bin/bash
+
+IMAGE=/tmp/i3lock.png
+
+# All options are here: http://www.imagemagick.org/Usage/blur/#blur_args
+BLURTYPE="5x2"
+
+# Get the screenshot, add the blur and lock the screen with it
+import -window root $IMAGE
+convert $IMAGE -blur $BLURTYPE $IMAGE
+i3lock -i $IMAGE
+rm $IMAGE

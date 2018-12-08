@@ -1,0 +1,3 @@
+#!/bin/bash
+test -f "$@" || exit 1 
+echo mv -n "$@" "$(date -r "$@" +"HERO1_%Y%m%d_%H:%M")_$@"

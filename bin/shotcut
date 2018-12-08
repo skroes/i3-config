@@ -1,0 +1,5 @@
+#!/bin/bash
+cd ~/.app/Shotcut/Shotcut.app/
+source source-me
+./shotcut
+

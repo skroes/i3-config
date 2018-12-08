@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+# box
+#
+# tool to execute a command on one of the vagrant nodes
+#
+# accepts
+#
+# use pwd dir inside the vagrant box
+#
+# GITTOPLEVEL used in rsync to sync complete repo inside vm
+# GITPWD used in pwd path to execute command in relative same dir as host
+#
+# to what host we want to send, defaults to 'devbox'
+VAGRANTHOST='devbox'
+#
+# toplevel is the git root
+GITTOPLEVEL=$(git rev-parse --show-toplevel)
+#
+# where are we in the virtual filesystem
+GITPWD=$(git rev-parse --show-prefix)
+
+#    #
+#    # checkout the config of the running node
+vagrant ssh-config ${VAGRANTHOST} > /tmp/lala
+#    #
+#    # sync current set of files
+rsync -rlptD -e "ssh -F /tmp/lala" \
+ 	     ${GITTOPLEVEL}/ \
+	     ${VAGRANTHOST}:/vagrant \
+	     --exclude .vagrant
+echo $?
+rsync -rlptD -e "ssh -F /tmp/lala" \
+${VAGRANTHOST}:/vagrant/* \
+${GITTOPLEVEL}/ \
+	     --exclude .vagrant
+
+echo $?
+# execute the arguments on the ${VAGRANTHOST}
+#echo cd /vagrant/${GITPWD}/; xx$@xx
+#vagrant ssh -c "cd /vagrant/${GITPWD}/; xx$@xx" ${VAGRANTHOST} -- -t
+
+# execute the arguments on the ${VAGRANTHOST} (VARIATION 2)
+#echo "cd /vagrant/${GITPWD}/; $@" | vagrant ssh ${VAGRANTHOST} -- -t
+
+exit $?

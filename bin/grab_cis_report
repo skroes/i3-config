@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -x
+
+cd /home/skroes/kb/cis_reports
+mv -f rel-beheer-o101.wpakb.kb.nl-report-20170* archive/
+
+scp puppet-test:/home/skroes/rel-beheer-o101.wpakb.kb.nl-report-* /home/skroes/kb/cis_reports/
+

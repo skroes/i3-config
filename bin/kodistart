@@ -1,0 +1,23 @@
+#!/bin/bash
+#while ( true ) do
+	set -x
+	mount /x 
+	xset s off
+	xset s noblank
+	xset -dpms
+	killall -9 xscreensaver 2>/dev/null
+	sleep 1
+	#xrandr --output HDMI-2 --auto --right-of eDP-1
+	xrandr --output HDMI-2 --auto --same-as eDP-1
+	sleep 1
+	kodi
+	xrandr --output HDMI-2 --off
+	xset s on
+	xset s blank
+	xset +dpms
+	killall -9 xscreensaver 2>/dev/null
+	sleep 1
+	umount /x 
+	xscreensaver &
+	sleep 5
+#done

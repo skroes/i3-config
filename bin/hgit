@@ -1,0 +1,4 @@
+#!/bin/bash
+export GIT_DIR="${HOME}/.homeconfig.git"
+[ "$1" == "submodule" ] || export GIT_WORK_TREE="${HOME}"
+git "$@"

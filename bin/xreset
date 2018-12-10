@@ -1,0 +1,12 @@
+#!/bin/bash
+#Change blank time to
+
+#enable dpms
+/usr/bin/xset s on dpms
+
+#1800 30 min
+#3600 1h
+#7200 2h
+/usr/bin/xset s 1800 1800
+/usr/bin/xset +dpms
+

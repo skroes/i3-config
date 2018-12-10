@@ -13,7 +13,7 @@
 #fake-outputs 3840x1080+0+0
 
 # controls the xset stuff
-exec /home/skroes/.i3/bin/xset
+exec /home/skroes/.i3/bin/xreset
 
 #exec /home/skroes/.i3/bin/i3_setbackground
 #exec /home/skroes/.i3/bin/middlebutton

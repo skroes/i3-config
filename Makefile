@@ -1,13 +1,21 @@
 .DEFAULT_GOAL := help
 
-DOTFILES_DIR := $(shell echo $(HOME)/.dotfiles)
-DEBUG=0
+TOPDIR := $(shell echo $(pwd))
 
 .PHONY: help
 
 help: ## Self-documented Makefile
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort \
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-13s\033[0m %s\n", $$1, $$2}'
+	@echo 'x'
+	@echo 'read xyz'
+
+include .env
+
+# EXECUTABLES is variable wuth a list of expected executables
+EXECUTABLES =  stow gpg git
+K := $(foreach exec,$(EXECUTABLES),\
+        $(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
 
 ### Software Packages
 
@@ -18,19 +26,15 @@ app-vscode: .vscode ## install app vscode
 	sudo apt update -q
 	@touch $@
 
-.vscode: | /usr/bin/code apt-update ## Update apt repo
-	bash ${DOTFILES_DIR}/linux/apps/vscode.sh
+### Software
+
+.vscode: | /usr/bin/code apt-update ## Install vscode
+	bash ${TOPDIR}/linux/apps/vscode.sh
 	@touch $@
 
 ### GIT
 
 GIT_SIGNING_KEY=$(shell gpg --list-keys $(GIT_AUTHOR_EMAIL) | grep -v "^pub\\|^uid" | grep -o '.\{8\}$$')
-
-EXECUTABLES = stow gpg git
-K := $(foreach exec,$(EXECUTABLES),\
-        $(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
-
-#include .env ?
 
 git: git/.gitconfig
 	stow -t ~ -S git
@@ -47,14 +51,13 @@ git/.gitconfig:
 	git config --global github.user "$(GITHUB_USER)"
 	git config --global user.signingkey "$(GIT_SIGNING_KEY)"
 
-
 ### MISC
 
 .PHONY: git-show
 git-show: ## do something
 	git log --graph --full-history --all --pretty=format:"%h%x09%d%x20%s"
 
-### SENSE
+### NONSENSE
 
 sense: ## This doesnt make sense
 	$(error Doesnt make sense)

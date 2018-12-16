@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# Reload .bash_profile
+alias rebash="source ~/.bash_profile"
+
+# Restart chunkwm or skhd
+alias rechunk="brew services restart chunkwm"
+alias rekey="brew services restart skhd"
+
+# Update macOS and Homebrew. Also clean up Homebrew.
+alias update="sudo softwareupdate -aiR"
+
+# Finder
+alias f="open ."
+alias fkill="killall Finder"
+
+# type
+alias t="type"
+alias ta="type -a"
+
+# Slim
+alias slim="slimrb"
+
+# Cleanup
+alias tidy="find . -type f -name '*.DS_Store' -ls -delete"
+alias empty="sudo rm -rf ~/.Trash/*"
+
+# CPU Monitoring
+alias cpu="top -F -R -o cpu"
+
+# Lists the top 4 processes by CPU usage
+alias hogs="ps -acrx -o pid,%cpu,command | awk 'NR<=5'"
+
+# k [app name] or kill [process id]
+alias pgrep="pgrep -i"
+alias k="pkill -i"
+alias cmdkill="pkill -i"
+alias kill="kill -9"
+alias pidkill="kill -9"
+alias temp="osx-cpu-temp"
+
+# Networking
+alias myip="curl ipinfo.io/ip"
+alias copyip="curl ipinfo.io/ip | pbcopy"
+
+# Pipes.sh
+alias pipes="/usr/local/bin/pipes.sh/"
+
+# Misc
+alias spd="speedtest-cli"
+alias dl="youtube-dl"
+alias nf="neofetch --config ~/dotfiles/bash/neofetch.conf"
+alias nff="neofetch --config ~/dotfiles/bash/neofetch-all.conf"

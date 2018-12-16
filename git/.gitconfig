@@ -1,0 +1,15 @@
+[user]
+	name = Darryl Abbate
+	email = rootbeersoup@gmail.com
+	signingkey = 83F327E9B28EA173
+[color]
+	ui = true
+[commit]
+	gpgsign = true
+[core]
+	excludesfile = ~/.gitignore_global
+	ignorecase = true
+[credential]
+	helper = osxkeychain
+[hub]
+	protocol = https

@@ -1,4 +1,5 @@
 #!/bin/bash
 set -x
 xscreensaver-command -l &
-ssh jules gnome-screensaver-command -l &
+ssh colette gnome-screensaver-command -l &
+#ssh jules gnome-screensaver-command -l &

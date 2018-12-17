@@ -4,10 +4,13 @@
 # dnf
 # apt-get
 # install -y feh xinput gnome-settings-daemon j4-dmenu-desktop xscreensaver-command dmenu i3status
+#
 # FIXME
 # textsuggest --auto-selection
 # textlucky
-
+#
+# volumeicon-alsa OF volumeicon
+#
 # one big screen?
 #force_xinerama yes
 #fake-outputs 3840x1080+0+0
@@ -62,8 +65,11 @@ bindsym $mod+q kill
 #bindsym $mod+control+n exec xdotool search --name Rdio && xdotool key --window $(xdotool search --name Rdio) Right
 
 # move a window sticky 
-bindsym $mod+y floating enable; resize set 420 340; sticky enable; move position 1490 680
+# sticky enable|disable|toggle
+bindsym $mod+y sticky toggle
+#bindsym $mod+y floating enable; resize set 420 340; sticky enable; move position 1490 680
 #bindsym $mod+y fullscreen disable; floating enable; resize set 420 340; sticky enable; move position 1490 680
+
 
 ###
 ### TEST
@@ -696,6 +702,19 @@ bar {
   }
 }
 
+
+#set $primary_monitor DP-4
+#set $secondary_monitor DVI-I-1
+#bar {
+#        output $secondary_monitor
+#        font pango:monospace 10
+#        status_command i3status -c ~/.i3/i3status.conf
+#}
+
+
+
+#exec xrandr --output eDP-1 --dpi 100     
+
 #
 # systray
 #
@@ -710,3 +729,12 @@ exec xinput set-prop 12 299 1
 # TODO: xprop grep
 # WM_CLASS(STRING) = "Wfica", "Wfica"
 # vim:filetype=i3
+
+#xinput set-prop 13 283 1
+#xinput list-props 13 | grep Tap
+#xinput list
+exec xinput set-prop 13 283 1
+
+# xrandr --output eDP-1 --mode 3200x1800 --scale 1x1
+exec xrandr --output eDP-1 --dpi 100
+exec xrandr --output eDP-1 --mode 1920x1080

@@ -1,0 +1,8 @@
+#!/bin/bash
+set -v
+export DISPLAY=:0
+pkill synergy
+sleep .2
+nohup /usr/bin/synergyc -f --no-tray --enable-crypto --debug INFO --name jules colette:24800 1>/dev/null 2>&1 &
+sleep .2
+disown -a

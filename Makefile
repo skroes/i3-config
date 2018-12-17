@@ -21,10 +21,17 @@ K := $(foreach exec,$(EXECUTABLES),\
 
 apt-update: .package-update ## Update apt repo
 app-vscode: .vscode ## install app vscode
+apt-puppetrepo: .package-apt-puppetrepo
 
 .package-update:
 	sudo apt update -q
 	@touch $@
+
+.package-apt-puppetrepo: ## installs puppet5 on ubuntu 18.04
+	wget https://apt.puppetlabs.com/puppet5-release-bionic.deb
+	sudo dpkg -i puppet5-release-bionic.deb && rm puppet5-release-bionic.deb
+	sudo apt update
+	sudo apt install puppet-agent
 
 ### Software
 

@@ -1,43 +1,61 @@
+# My first MAkefile
+
 .DEFAULT_GOAL := help
 
 TOPDIR := $(shell echo $(pwd))
 
 .PHONY: help
+#.SILENT: help
 
-help: ## Self-documented Makefile
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort \
-	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-13s\033[0m %s\n", $$1, $$2}'
-	@echo 'x'
-	@echo 'read xyz'
+.PHONY: help
+# via https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+help:
+	@echo "usage: make [TARGET]"
+	@echo
+	@echo "MAIN TARGET:"
+	@grep -hE '^[a-zA-Z_-]+:.*?#! .*$$' $(MAKEFILE_LIST) |        awk 'BEGIN {FS = ":.*?#! "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
+	@echo
+	@echo "TARGET:"
+	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
 include .env
 
 # EXECUTABLES is variable wuth a list of expected executables
-EXECUTABLES =  stow gpg git
+EXECUTABLES = stow gpg git
 K := $(foreach exec,$(EXECUTABLES),\
-        $(if $(shell which $(exec)),some string,$(error "No $(exec) in PATH")))
+	$(if $(shell which $(exec)),some string,$(warning "No $(exec) in PATH")))
+
+# main target
+all: update-repo package-apt-puppetrepo vscode #! installs all requirements
+
+update: upgrade ## update
 
 ### Software Packages
+include Makefile.ubuntu
+include Makefile.darwin
 
-apt-update: .package-update ## Update apt repo
-app-vscode: .vscode ## install app vscode
-apt-puppetrepo: .package-apt-puppetrepo
-
-.package-update:
+update-repo: .update-repo ## Update package manager repo
+.update-repo:
 	sudo apt update -q
 	@touch $@
 
-.package-apt-puppetrepo: ## installs puppet5 on ubuntu 18.04
+upgrade: .upgrade ## Upgrade OS
+.upgrade:
+	sudo apt upgrade
+
+package-apt-puppetrepo: .package-apt-puppetrepo ## installs puppet5 on ubuntu 18.04
+.package-apt-puppetrepo:
 	wget https://apt.puppetlabs.com/puppet5-release-bionic.deb
 	sudo dpkg -i puppet5-release-bionic.deb && rm puppet5-release-bionic.deb
 	sudo apt update
 	sudo apt install puppet-agent
+	touch $@
 
-### Software
-
-.vscode: | /usr/bin/code apt-update ## Install vscode
+/usr/bin/code: .vscode
+vscode: .vscode ## Installs vscode
+.vscode: update-repo
 	bash ${TOPDIR}/linux/apps/vscode.sh
-	@touch $@
+	touch $@
 
 ### GIT
 
@@ -47,9 +65,12 @@ git: git/.gitconfig
 	stow -t ~ -S git
 
 clean:
-	@echo 'Remove Git config'
-	stow -t ~ -D git
-	rm -rf git/.gitconfig
+	#@echo 'Remove Git config'
+	#stow -t ~ -D git
+	#rm -rf git/.gitconfig
+
+mrproper: clean
+	rm .vscode 
 
 git/.gitconfig:
 	cp gitconfig.dist $@

@@ -26,36 +26,15 @@ K := $(foreach exec,$(EXECUTABLES),\
 	$(if $(shell which $(exec)),some string,$(warning "No $(exec) in PATH")))
 
 # main target
-all: update-repo package-apt-puppetrepo vscode #! installs all requirements
+all: linux darwin #! installs all requirements
+linux: update-repo package-apt-puppetrepo vscode #! installs all requirements for Linux
+darwin: update-repo  #! installs all requirements for Darwin
 
 update: upgrade ## update
 
 ### Software Packages
-include Makefile.ubuntu
-include Makefile.darwin
-
-update-repo: .update-repo ## Update package manager repo
-.update-repo:
-	sudo apt update -q
-	@touch $@
-
-upgrade: .upgrade ## Upgrade OS
-.upgrade:
-	sudo apt upgrade
-
-package-apt-puppetrepo: .package-apt-puppetrepo ## installs puppet5 on ubuntu 18.04
-.package-apt-puppetrepo:
-	wget https://apt.puppetlabs.com/puppet5-release-bionic.deb
-	sudo dpkg -i puppet5-release-bionic.deb && rm puppet5-release-bionic.deb
-	sudo apt update
-	sudo apt install puppet-agent
-	touch $@
-
-/usr/bin/code: .vscode
-vscode: .vscode ## Installs vscode
-.vscode: update-repo
-	bash ${TOPDIR}/linux/apps/vscode.sh
-	touch $@
+#include Makefile.ubuntu.mk
+include Makefile.darwin.mk
 
 ### GIT
 

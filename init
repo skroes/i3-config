@@ -9,6 +9,6 @@ cd ~
 type git >/dev/null || sudo apt-get install git -qy || true
 type git >/dev/null || sudo dnf install git -qy || true
 test -d ~/.config    || mkdir ~/.config
-test -d ~/.config/i3 || mv ~/.config/i3{,_old}
+test -d ~/.config/i3 && ( rm -Rf ~/.config/i3-old; mv ~/.config/i3{,-old} )
 git clone https://github.com/skroes/i3-config.git ~/.config/i3
 exec ~/.config/i3/initstage2

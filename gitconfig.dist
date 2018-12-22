@@ -1,5 +1,9 @@
 [user]
 	name = x x
-	email = x x
+	email = x
 [github]
-	user = x x
+	user = x
+[alias]
+	st = status --short --branch
+	ci = commit -v
+	slog = log --pretty=format:\"%h %s\" --graph

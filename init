@@ -4,11 +4,17 @@
 # or
 # wget https://raw.githubusercontent.com/skroes/i3-config/master/init -O - | bash
 # 
+#
+# stage1
 set -e
-cd ~
-type git >/dev/null || sudo apt-get install git -qy || true
-type git >/dev/null || sudo dnf install git -qy || true
+type git >/dev/null || sudo apt-get install git -qqy || true
+type git >/dev/null || sudo dnf install git -qqy || true
 test -d ~/.config    || mkdir ~/.config
 test -d ~/.config/i3 && ( rm -Rf ~/.config/i3-old; mv ~/.config/i3{,-old} )
 git clone https://github.com/skroes/i3-config.git ~/.config/i3
-exec ~/.config/i3/initstage2
+
+# stage2
+cd ~/.config/i3/
+type make >/dev/null || sudo apt-get install make -qqy || true
+type make >/dev/null || sudo dnf install make -qqy || true
+make

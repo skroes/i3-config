@@ -35,6 +35,9 @@ upgrade: | .upgrade ## Upgrade OS
 	sudo apt autoremove -y
 	touch $@
 
+regular-packages:
+	sudo apt install stow -y
+
 puppet-agent: .puppet-agent ## installs puppet5 on ubuntu 18.04
 	@echo "$@ ${OK_STRING}"
 .puppet-agent:

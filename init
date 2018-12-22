@@ -5,16 +5,23 @@
 # wget https://raw.githubusercontent.com/skroes/i3-config/master/init -O - | bash
 # 
 #
-# stage1
 set -e
-type git >/dev/null || sudo apt-get install git -qqy || true
-type git >/dev/null || sudo dnf install git -qqy || true
+# stage1 - setup git
+#
+which git >/dev/null || sudo apt-get install git -qqy || true
+which git >/dev/null || sudo dnf install git -qqy || true
+which git >/dev/null || echo "[ABORTING]. Please install git"
+#
+# stage2 - clone repository
+#
 test -d ~/.config    || mkdir ~/.config
 test -d ~/.config/i3 && ( rm -Rf ~/.config/i3-old; mv ~/.config/i3{,-old} )
 git clone https://github.com/skroes/i3-config.git ~/.config/i3
-
-# stage2
+#
+# stage3 - execute make
+#
 cd ~/.config/i3/
-type make >/dev/null || sudo apt-get install make -qqy || true
-type make >/dev/null || sudo dnf install make -qqy || true
+which make >/dev/null || sudo apt-get install make -qqy || true
+which make >/dev/null || sudo dnf install make -qqy || true
+which make >/dev/null || echo "[ABORTING]. Please install make"
 make

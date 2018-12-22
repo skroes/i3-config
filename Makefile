@@ -1,21 +1,20 @@
-UNAME        := $(shell uname -s)
-USER         := $(shell whoami)
-TOPDIR			 := $(shell pwd)
+uname	:= $(shell uname -s)
+USER	:= $(shell whoami)
+TOPDIR	:= $(shell pwd)
+SHELL	:= /bin/bash
 
-ifeq ($(UNAME), Darwin)
-  OS         := macos
-else ifeq ($(UNAME), Linux)
-  OS         := linux
+ifeq ($(shell uname), Darwin)
+	OS	:= macos
+else ifeq ($(shell uname -o), GNU/Linux)
+	OS	:= linux
 endif
 
-.PHONY: all install
+.PHONY: all install help usage
+.SILENT: help usage
 
 all: install
 
 install: $(OS)
-
-.PHONY: help usage
-.SILENT: help usage
 
 help: usage
 
@@ -35,11 +34,14 @@ usage:
 	@echo
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
+OK_STRING=[OK]
+WARN_STRING=[WARNING]
+ERROR_STRING=[ERROR]
 
 # EXECUTABLES is variable wuth a list of expected executables
 EXECUTABLES = stow gpg git sudo
 K := $(foreach exec,$(EXECUTABLES),\
-	$(if $(shell which $(exec)),some string,$(warning "No $(exec) in PATH")))
+	$(if $(shell which $(exec)),some string,$(warning "${WARN_STRING} No $(exec) in PATH")))
 
 include .env
 #include Makefile.global.mk
@@ -47,22 +49,10 @@ include .env
 include Makefile.${OS}.mk
 include Makefile.git.mk
 
+clean: ${OS}-clean
+	@echo "$@ ${OK_STRING}"
+
+mrproper: clean
+
 sense: ## This doesnt make sense
 	$(error Doesnt make sense)
-
-#APP_LIST=$(shell uname -s)
-#test: ${APP_LIST}: app
-
-#app: | apt
-#	bash ${DOTFILES_DIR}/linux/apps/$@.sh
-
-#directory = ~/Dropbox
-
-#all: | $(directory)
-#    @echo "Continuation regardless of existence of ~/Dropbox"
-
-#$(directory):
-#	@echo "Folder $@ does not exist"
-#	mkdir -p $@
-
-#.PHONY: all

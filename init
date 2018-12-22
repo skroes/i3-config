@@ -1,0 +1,9 @@
+#!/bin/bash -x
+set -x
+set -e
+cd ~
+type git || sudo apt-get install git -y || true
+type git || sudo dnf install git -y || true
+test -d ~/.config || mkdir ~/.config
+git clone git@github.com:skroes/i3-config.git ~/.config/i3
+exec ~/.config/i3/initstage2

@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "init stage2"
+echo "make... in path ${PWD}"

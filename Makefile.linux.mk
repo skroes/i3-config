@@ -15,19 +15,19 @@ linux-clean: packages-clean i3-clean git-clean e2-clean packages-clean feature-c
 # feature-lala
 #       ->'''' -> executes ./linux/feature/lala.sh
 
-featureobjects := $(shell cd linux/feature/ && ls -1 *.sh)
+#featureobjects := $(shell cd linux/feature/ && ls -1 *.sh | sed 's/.sh//g' )
 #featurebjects := $(wildcard linux/feature/*.sh)
-
+# .feature-${featureobjects}
+#$(info ${featureobjects})
 feature-%: | .feature-%
 	$(call echo,$@ ${OK_STRING})
-.feature-%:
-	. ${TOPDIR}/linux/feature/$*.sh
-	> $@
+
+.feature-%: | ${featureobjects}
+	bash -e ${TOPDIR}/linux/feature/$*.sh
+	touch $@
 
 feature-clean:
 	rm -f .feature-*
-
-
 
 #$(info ${objects})
 #print:

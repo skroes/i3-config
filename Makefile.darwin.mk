@@ -1,15 +1,15 @@
-darwin: upgrade #! installs all requirements for Linux
+darwin: upgrade ### installs all requirements for Darwin
 	@echo "done."
 
-upgrade: .upgrade ## Upgrade OS
+upgrade: .upgrade # Upgrade OS
 .upgrade:
 	@echo ye almost.
 
-bash: brew
+bash: brew # Install bash
 	echo /usr/local/bin/bash >> /etc/shells
 	chsh -s /usr/local/bin/bash
 
-brew:
+brew: # Install brew
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew bundle --file=$(TOPDIR)/macos/.Brewfile
 

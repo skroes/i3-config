@@ -8,17 +8,18 @@ git/.gitconfig:
 #git config --file git/.gitconfig user.signingkey $(GIT_SIGNING_KEY)
 
 git-stow: git/.gitconfig
-	@test -L ~/.gitconfig || (echo cleaning ~/.gitconfig; mv ~/.gitconfig{,.org} 2>/dev/null|| true )
-	stow -t ~ -S git
+	@test -L ~/.gitconfig || (unlink ~/.gitconfig || true )
+	@test -f ~/.gitconfig || (echo cleaning ~/.gitconfig; mv ~/.gitconfig{,.org} 2>/dev/null|| true )
+	stow --target ~ git
 
 git: git-stow git/.gitconfig
 	@echo "$@ ${OK_STRING}"
 
-.PHONY: git-show
-git-show:
-	git log --graph --full-history --all --pretty=format:"%h%x09%d%x20%s"
+git-update-remote:
+	git remote remove origin
+	git remote add origin git@github.com:skroes/i3-config.git
 
 git-clean:
-	stow -t ~ -D git
+	stow --target ~ -D git
 	@rm -f git/.gitconfig
 	@echo "$@ ${OK_STRING}"

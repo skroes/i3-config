@@ -3,7 +3,7 @@
 # desktop packages req
 # dnf
 # apt-get
-# install -y feh xinput gnome-settings-daemon j4-dmenu-desktop xscreensaver-command dmenu i3status
+# install -y feh xinput gnome-settings-daemon j4-dmenu-desktop xscreensaver-command dmenu i3status 
 #
 # FIXME
 # textsuggest --auto-selection

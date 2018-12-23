@@ -7,6 +7,6 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode s
 sudo apt-get update -qq
 sudo apt-get install apt-transport-https code -qy
 # set as default editor
-sudo update-alternatives --set editor /usr/bin/code || true
-xdg-mime default code.desktop text/plain || true
+#sudo update-alternatives --set editor /usr/bin/code || true
+#xdg-mime default code.desktop text/plain || true
 exit 0

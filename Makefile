@@ -12,13 +12,14 @@ endif
 .PHONY: all install help usage
 .SILENT: help usage
 
-all: install
+help: usage-simple
 
-install: $(OS)
+include Makefile.functions.mk
 
-help: usage
+usage-simple: # show normal actions
+	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
-usage:
+usage: # show usage
 	printf "\\n\
 	\\033[1mMYFILES\\033[0m\\n\
 	\\n\
@@ -27,12 +28,19 @@ usage:
 	\\n\
 	\\033[1mUSAGE:\\033[0m make [target]\\n\
 	\\n\
-	  make         Install all configurations and applications.\\n\
-	\\n\
+	\\033[1mTARGETS:\\033[0m\\n\
 	"
-	@grep -hE '^[a-zA-Z_-]+:.*?#! .*$$' $(MAKEFILE_LIST) |        awk 'BEGIN {FS = ":.*?#! "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
-	@echo
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
+
+usage-all: # show all targets
+	@grep -hE '^[a-zA-Z_-]+:.*?#.*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?#"}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
+
+print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
+
+zozo-% : ; $(info $* is set to [$($*)]) @true
+
+leeg-% : ; @echo $* @true
+
 
 OK_STRING=[OK]
 WARN_STRING=[WARNING]
@@ -50,9 +58,9 @@ include Makefile.${OS}.mk
 include Makefile.git.mk
 
 clean: ${OS}-clean
-	@echo "$@ ${OK_STRING}"
+	$(call echo,$@ ${OK_STRING})
 
 mrproper: clean
 
-sense: ## This doesnt make sense
+sense:
 	$(error Doesnt make sense)

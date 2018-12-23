@@ -35,6 +35,8 @@ usage: # show usage
 usage-all: # show all targets
 	@grep -hE '^[a-zA-Z_-]+:.*?#.*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?#"}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
+getRecipe = $(if $(DEPENDENCY_GRAPH),@echo Target $@ depends on prerequisites "$^",$(1))
+
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
 zozo-% : ; $(info $* is set to [$($*)]) @true
@@ -51,6 +53,90 @@ EXECUTABLES = stow gpg git sudo
 K := $(foreach exec,$(EXECUTABLES),\
 	$(if $(shell which $(exec)),some string,$(warning "${WARN_STRING} No $(exec) in PATH")))
 
+###
+### features
+###
+
+# objects are a list of 'feature-xyz' strings
+featureobjects := $(shell cd ${OS}/feature/ && ls -1 *.sh | sed 's/.sh//g' | sed 's/^/feature-/g'  )
+
+feature-all: ${featureobjects} ## Setup all features segments
+	$(call echo,$@ ${OK_STRING})
+
+$(info ${featureobjects})
+
+${featureobjects}: $(addprefix .,${featureobjects})
+	$(call echo,$@ ${OK_STRING})
+
+.feature-%:
+	bash -e ${TOPDIR}/${OS}/feature/$*.sh
+	touch $@
+
+feature-clean:
+	rm -f .feature-*
+
+###
+### Puppet package manipulations
+###
+
+latestobjectslist := vim stow
+latestobjects := $(addprefix latest-,${latestobjectslist})
+
+${latestobjects}: $(addprefix .,${latestobjects})
+	$(call echo,$@ ${OK_STRING})
+
+.latest-%: | puppet-agent
+	sudo -i puppet resource package $* ensure=latest
+	touch $@
+
+latest-clean:
+	rm -f .latest-*
+
+#latest-%: $(latest-x:latest=xxx)
+#	echo "zomthing"
+#	@echo $@
+#	touch $@
+#	rm $@
+
+
+#latest-%: $$(addsuffix /%.c,foo bar) | puppet-agent
+#	sudo -i puppet resource package $@ ensure=latest
+
+#present-$(subst present-,x,%): | puppet-agent
+#	sudo -i puppet resource package $@ ensure=present
+
+#app-%: testfile-x
+#	@info app-$(subst app-,,$<)
+
+#testfile-%: 
+#	@echo touch $<
+
+###
+### code plugin
+### 
+
+#eamodio.gitlens
+#EditorConfig.EditorConfig
+
+###
+### nosense
+###
+
+sense:
+	$(error Doesnt make sense)
+
+#.PHONY: printvars
+#printvars:
+#	$(foreach V),
+#		$(sort $(.VARIABLES)),
+#			$(if 
+#			$(filter-out environment% default automatic,
+#			$(origin $V)),
+#			$(warning $V=$($V) ($(value $V)))
+#		)
+#	)
+
+
 include .env
 #include Makefile.global.mk
 #include Makefile.common.mk
@@ -62,5 +148,13 @@ clean: ${OS}-clean
 
 mrproper: clean
 
-sense:
-	$(error Doesnt make sense)
+makefile2graph.png:
+	cat Makefile Makefile.linux.mk > .tmp.combined-makefile
+	make -f .tmp.combined-makefile -Bnd | ./tmp/makefile2graph/make2graph | dot -Tpng -o $@
+	#rm .tmp.combined-makefile
+	xdg-open $@
+
+./tmp/makefile2graph: makefile2graph
+	git clone https://github.com/lindenb/makefile2graph.git 
+	cd ./tmp/makefile2graph && make
+	touch $@

@@ -1,56 +1,12 @@
 
-linux: all-features update-repo git i3 e2 regular-packages ### This will setup targets; update-repo vscode git i3 e2 regular-packages
+linux: feature-all update-repo git i3 e2 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
 	$(call echo,$@ ${OK_STRING})
 
-all-features: feature-vscode feature-regularpackages
+linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean
 
-linux-clean: packages-clean i3-clean git-clean e2-clean packages-clean feature-clean
-
-#%:app-=l)
-#$(BIN)/%.o: %.cpp
-#@echo "111" .app-$@
-#@echo "222" $*
-
-# feature-vscode
-# feature-lala
-#       ->'''' -> executes ./linux/feature/lala.sh
-
-#featureobjects := $(shell cd linux/feature/ && ls -1 *.sh | sed 's/.sh//g' )
-#featurebjects := $(wildcard linux/feature/*.sh)
-# .feature-${featureobjects}
-#$(info ${featureobjects})
-feature-%: | .feature-%
-	$(call echo,$@ ${OK_STRING})
-
-.feature-%: | ${featureobjects}
-	bash -e ${TOPDIR}/linux/feature/$*.sh
-	touch $@
-
-feature-clean:
-	rm -f .feature-*
-
-#$(info ${objects})
-#print:
-#	@echo vraagteken $?
-#	@echo wildcard $*
-#	@echo < $<
-#	@echo > $>
-#	touch print
-
-
-#.PHONY: basic_%
-#basic_%: %.c
-
-#lala_oef:#
-#	@echo $(patsubst .*_, "", $@)
-
-#basic_abc: $(patsubst .*_, " ", $@).c
-#		@echo gcc -g -o  $(patsubst .*_, " ", $@)    $(patsubst .*_, " ", $@).c
-
-#objects = iets*
-
-#foo : $(objects)
-#	@echo cc -o foo $(CFLAGS) $(objects)
+###
+### OS and repo
+###
 
 update-repo: .update-repo ## Update repository metadata
 	@echo ${OK_STRING} $@
@@ -78,31 +34,6 @@ puppet-agent: .puppet-agent # installs puppet5 agent
 
 packages-clean:
 	rm -rf .upgrade .update-repo
-
-
-#%.o: $$(addsuffix /%.c,foo bar) foo.h
-#%.o: $$(addsuffix /%.c,foo bar) foo.h
-#$(patsubst pattern,replacement,$(var))
-
-#latest-${addsuffix /latest-,,)}: latest-%
-#latest-$(patsubst latest-,,$(%)): latest-%
-latest-%: $(latest-x:latest=xxx)
-	echo "zomthing"
-	@echo $@
-	touch $@
-	rm $@
-
-#latest-%: $$(addsuffix /%.c,foo bar) | puppet-agent
-#	sudo -i puppet resource package $@ ensure=latest
-
-#present-$(subst present-,x,%): | puppet-agent
-#	sudo -i puppet resource package $@ ensure=present
-
-#app-%: testfile-x
-#	@info app-$(subst app-,,$<)
-
-#testfile-%: 
-#	@echo touch $<
 
 ###
 ### firefox

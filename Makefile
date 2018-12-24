@@ -7,6 +7,7 @@ ifeq ($(shell uname), Darwin)
 	OS	:= macos
 else ifeq ($(shell uname -o), GNU/Linux)
 	OS	:= linux
+X
 endif
 
 .PHONY: all install help usage

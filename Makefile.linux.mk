@@ -10,11 +10,11 @@ linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-cle
 
 update-repo: .update-repo ## Update repository metadata
 	@echo ${OK_STRING} $@
-.update-repo:
+.update-repo: $(shell ls /etc/apt/sources.list.d/*)
 	sudo apt update -qqy
 	touch $@
 
-upgrade: | .upgrade ## Upgrade OS
+upgrade: .upgrade ## Upgrade OS
 	@echo "$@ ${OK_STRING}"
 .upgrade: update-repo
 	sudo apt upgrade -qy

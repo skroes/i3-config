@@ -7,7 +7,6 @@ ifeq ($(shell uname), Darwin)
 	OS	:= macos
 else ifeq ($(shell uname -o), GNU/Linux)
 	OS	:= linux
-X
 endif
 
 .PHONY: all install help usage
@@ -20,7 +19,7 @@ include Makefile.functions.mk
 usage-simple: # show normal actions
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
-usage: # show usage
+usage: ## show usage
 	printf "\\n\
 	\\033[1mMYFILES\\033[0m\\n\
 	\\n\
@@ -63,8 +62,6 @@ featureobjects := $(shell cd ${OS}/feature/ && ls -1 *.sh | sed 's/.sh//g' | sed
 
 feature-all: ${featureobjects} ## Setup all features segments
 	$(call echo,$@ ${OK_STRING})
-
-$(info ${featureobjects})
 
 ${featureobjects}: $(addprefix .,${featureobjects})
 	$(call echo,$@ ${OK_STRING})

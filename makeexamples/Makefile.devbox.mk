@@ -2,8 +2,7 @@
 
 devbox_host = 192.168.50.42
 
-# Deploy devbox with all domains and adapters
-full_devbox: $(addprefix .deployed_devbox_,${all_domains} ${all_adapters}) $(addprefix .vdb_devbox_,${all_vdbs})
+full_devbox: $(addprefix .deployed_devbox_,${all_domains} ${all_adapters}) $(addprefix .vdb_devbox_,${all_vdbs}) ### Deploy devbox with all domains and adapters
 
 .deployed_devbox_breeding-domain: .vdb_devbox_breeding
 .deployed_devbox_customer-domain: .vdb_devbox_customer
@@ -20,8 +19,7 @@ $(addprefix .vdb_devbox_,${all_vdbs}): .vdb_devbox_%: ${bovaris_sources}/dv-%/.g
 		-u admin -p admin -s local -am basic -mp 9992
 	@touch $@
 
-# Will create, converge and verify the devbox
-devbox: .converged_bovaris-helixs1
+devbox: .converged_bovaris-helixs1 ### Create, converge and verify the devbox
 	kitchen verify bovaris-helixs1
 	@echo
 	@echo -e " _____________________________________"
@@ -45,11 +43,9 @@ devbox: .converged_bovaris-helixs1
 	@echo -e "    ssh LastnameF@${devbox_host}"
 	@echo -e "\ndefault user and password are: admin and admin\n"
 
-# Will update all external sources (hiera, puppet modules, etc) and create/update the devbox
-update_devbox: update .converged_bovaris-helixs1
+update_devbox: update .converged_bovaris-helixs1 ### Update all external sources (hiera, puppet modules) and create/update the devbox
 
-# Will get rid of the devbox VM
-destroy_devbox:
+destroy_devbox: ### Get rid of the devbox VM
 	kitchen destroy bovaris-helixs1
 
 # Generate hiera config file that consolidates all bovaris roles into a single role.

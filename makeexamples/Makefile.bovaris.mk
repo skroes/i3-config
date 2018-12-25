@@ -2,18 +2,17 @@
 
 ## High level workflow targets, defines which applications are needed to perform certain tasks.
 
-# For development on US customer related features
-develop-us-customers: customer-domain us-customer-adapter
+develop-us-customers: customer-domain us-customer-adapter ## For development on US customer
 	@echo "$@ done"
 
-develop-we-customers: customer-domain we-customer-adapter
+develop-we-customers: customer-domain we-customer-adapter ## For development on WE customer
 	@echo "$@ done"
 
 # The develop-helixs target bring up a complete helixs development platform.
 # This includes all domains, adapters and dvs. As well as all VM's required for
 # these components to deploy and run.
 .PHONY: bovaris
-develop-helixs: helixs_platform all-domains all-adapters
+develop-helixs: helixs_platform all-domains all-adapters ## Complete helixs development platform (The VM's required with all domains, adapters and dvs)
 	@echo
 	@echo -e " __________________________"
 	@echo -e "< Helixs Platform is ready >"

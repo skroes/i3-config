@@ -52,10 +52,14 @@ endif
 r10k=bundler exec r10k
 git=GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" git
 
-# By default install all dependencies for running Kitchen
-setup: kitchen hiera/ puppet_modules
+# By default show help
+.DEFAULT_GOAL := help
+
+# Setup all dependencies for running Kitchen
+setup: kitchen hiera/ puppet_modules ### Setup all dependencies for running Kitchen
 	@echo "Setup done."
 
+include Makefile.usage.mk
 # include user override settings file: Makefile.settings.
 -include Makefile.settings.mk
 
@@ -95,9 +99,8 @@ $(addprefix destroy_,${vms}): destroy_%: | kitchen
 $(addprefix verify_,${vms}): verify_%: vm_% | kitchen
 	${kitchen} verify $*
 
-# Manage kitchen and its dependencies
 .PHONY: kitchen vagrant virtualbox direnv
-kitchen: | rubygem-kitchen virtualbox vagrant direnv jq
+kitchen: | rubygem-kitchen virtualbox vagrant direnv jq # Manage kitchen and its dependencies
 
 # Git repositories needed
 puppet-environments/: | puppet-environments/.git
@@ -140,12 +143,11 @@ ${HOME}/.vagrant.d/.plugin-installed-%: | vagrant
 # Cleanup scripting
 
 # Do cleanup of all temporary data (build artifacts, etc)
-.PHONY: clean
+.PHONY: clean # Do cleanup of all temporary data (build artifacts, etc)
 clean:
 
-# Reset everything to prestine condition (this might destroy unsaved data!)
 .PHONY: mrproper
-mrproper: clean
+mrproper: clean ## Reset everything to prestine condition (this might destroy unsaved data!)
 	rm -rf hiera/ vendor/ environments/
 	rm -rf ${PWD}/.tmp_*/
 

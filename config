@@ -688,7 +688,7 @@ bar {
   position top
   #tray_output LVDS1
   #all
-  status_command .i3/bin/myi3status.sh
+  status_command ~/.config/i3/bin/myi3status.sh
   #/home/skroes/drive/notes/status.sh
   #i3status
   #status_command ~/.i3/conky

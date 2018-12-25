@@ -117,8 +117,7 @@ e2: .e2-install .e2-config # Setup e2guardian
 e2-clean:
 	rm -f .e2-install .e2guardian-config
 
-.SILENT: .e2guardian-mrproper
-.e2-mrproper: | .e2-install
+.e2-mrproper:
 	sudo stow -t /etc -D e2guardian
 	sudo apt purge e2guardian -qy
 	sudo unlink /etc/e2guardian

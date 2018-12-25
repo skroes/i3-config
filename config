@@ -3,7 +3,7 @@
 # desktop packages req
 # dnf
 # apt-get
-# install -y feh xinput gnome-settings-daemon j4-dmenu-desktop xscreensaver-command dmenu i3status 
+# install -y feh xinput gnome-settings-daemon j4-dmenu-desktop xscreensaver-command dmenu i3status
 #
 # FIXME
 # textsuggest --auto-selection
@@ -64,7 +64,7 @@ bindsym $mod+q kill
 # Rdio Next
 #bindsym $mod+control+n exec xdotool search --name Rdio && xdotool key --window $(xdotool search --name Rdio) Right
 
-# move a window sticky 
+# move a window sticky
 # sticky enable|disable|toggle
 bindsym $mod+y sticky toggle
 #bindsym $mod+y floating enable; resize set 420 340; sticky enable; move position 1490 680
@@ -137,7 +137,7 @@ client.urgent             #2f343a  #900000    #FFFFFF   #900000
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# ? 
+# ?
 bindsym $mod+0 exec ~/bin/hack_w
 
 # start a terminal, the configured x-terminal-emulator
@@ -441,11 +441,11 @@ hide_edge_borders none
 #border 1pixel
 
 # cmd + period
-bindsym $mod+period exec ~/.i3/bin/swap-workspace-between-screens
+bindsym $mod+period exec ~/.config/i3/bin/swap-workspace-between-screens
 
 # F11 toggles the i3bar and disables eDP1
 # effectivly a focus mode
-bindsym $mod+F11 exec ~/.i3/bin/focusmode
+bindsym $mod+F11 exec ~/.config/i3/bin/focusmode
 
 # F12 toggles the window border style, (cycle normal, none, 1pixel)
 bindsym $mod+F12 border toggle
@@ -518,18 +518,18 @@ mode "display" {
 
   #bindsym 9 exec bin/lala_laptop_corner1.sh
 
-  #bindsym 1 exec autorandr --load default, exec ~/.i3/bin/i3_setbackground
-  #bindsym 2 exec autorandr --load extendleft, exec ~/.i3/bin/i3_setbackground
-  #bindsym 3 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
-  #bindsym 4 exec autorandr --load extendleftbig, exec ~/.i3/bin/i3_setbackground
-  #bindsym 5 exec autorandr --load external, exec ~/.i3/bin/i3_setbackground
-  #bindsym 6 exec autorandr --load externalbig, exec ~/.i3/bin/i3_setbackground
-  #bindsym 7 exec autorandr --load externaldp, exec ~/.i3/bin/i3_setbackground
+  #bindsym 1 exec autorandr --load default, exec ~/.config/i3/bin/i3_setbackground
+  #bindsym 2 exec autorandr --load extendleft, exec ~/.config/i3/bin/i3_setbackground
+  #bindsym 3 exec autorandr --load extendleftbig, exec ~/.config/i3/bin/i3_setbackground
+  #bindsym 4 exec autorandr --load extendleftbig, exec ~/.config/i3/bin/i3_setbackground
+  #bindsym 5 exec autorandr --load external, exec ~/.config/i3/bin/i3_setbackground
+  #bindsym 6 exec autorandr --load externalbig, exec ~/.config/i3/bin/i3_setbackground
+  #bindsym 7 exec autorandr --load externaldp, exec ~/.config/i3/bin/i3_setbackground
 
-  #bindsym 9 exec autorandr --load extenddocking, exec ~/.i3/bin/i3_setbackground, mode default
+  #bindsym 9 exec autorandr --load extenddocking, exec ~/.config/i3/bin/i3_setbackground, mode default
 
   # b for Background fix
-  bindsym b exec ~/.i3/bin/i3_setbackground
+  bindsym b exec ~/.config/i3/bin/i3_setbackground
 
   #extendleftbig (detected)
   #external
@@ -600,10 +600,10 @@ mode "command" {
         # These bindings trigger as soon as you enter the command mode
 
         # m for set the MiddleButton for scrolling, a thinkpad thingy
-        bindsym m exec ~/.i3/bin/middlebutton
+        bindsym m exec ~/.config/i3/bin/middlebutton
 
         # b for Background fix
-        bindsym b exec ~/.i3/bin/i3_setbackground
+        bindsym b exec ~/.config/i3/bin/i3_setbackground
 
         # t for Trackpad toggle
         bindsym t exec ~/bin/sk_trackpad_toggle
@@ -624,17 +624,17 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
 
 # $mod+p or fn-F7 switch display back&forth
-bindsym XF86Display exec ~/.i3/bin/display_change
-bindsym $mod+p exec ~/.i3/bin/display_change
+bindsym XF86Display exec ~/.config/i3/bin/display_change
+bindsym $mod+p exec ~/.config/i3/bin/display_change
 
 # $mod+BackSpace
 # BackSpace
-#bindsym $mod+BackSpace exec ~/.i3/bin/desktop_startup
+#bindsym $mod+BackSpace exec ~/.config/i3/bin/desktop_startup
 
 
 # $mod+? or fn-F8(USB keyboard) extend display
-#bindsym XF86TouchpadToggle exec ~/.i3/bin/2VGA_DP1.sh
-#bindsym $mod+? exec ~/.i3/bin/2VGA_DP1.sh
+#bindsym XF86TouchpadToggle exec ~/.config/i3/bin/2VGA_DP1.sh
+#bindsym $mod+? exec ~/.config/i3/bin/2VGA_DP1.sh
 
 #bindsym XF86AudioPlay exec "~/.bin/player toggle"
 #bindsym XF86AudioStop exec "~/.bin/player stop"
@@ -691,9 +691,9 @@ bar {
   status_command ~/.config/i3/bin/myi3status.sh
   #/home/skroes/drive/notes/status.sh
   #i3status
-  #status_command ~/.i3/conky
+  #status_command ~/.config/i3/conky
   #wheel_up_cmd nop
-  #wheel_down_cmd exec ~/.i3/scripts/custom_wheel_down
+  #wheel_down_cmd exec ~/.config/i3/scripts/custom_wheel_down
   colors {
     statusline #AAAAAA
     background #333333
@@ -708,12 +708,12 @@ bar {
 #bar {
 #        output $secondary_monitor
 #        font pango:monospace 10
-#        status_command i3status -c ~/.i3/i3status.conf
+#        status_command i3status -c ~/.config/i3/i3status.conf
 #}
 
 
 
-#exec xrandr --output eDP-1 --dpi 100     
+#exec xrandr --output eDP-1 --dpi 100
 
 #
 # systray
@@ -723,8 +723,8 @@ exec volumeicon
 
 #? bindsym Print exec scrot 'Screenshot - %Y-%m-%d--%_$wx$h_scrot.png' -e 'mv $f ~/images/'
 
-# touchpad settings # enable tap touch
-exec xinput set-prop 12 299 1
+# touchpad settings # enable tap touch VAN WAT?
+# exec xinput set-prop 12 299 1
 
 # TODO: xprop grep
 # WM_CLASS(STRING) = "Wfica", "Wfica"
@@ -736,5 +736,5 @@ exec xinput set-prop 12 299 1
 exec xinput set-prop 13 283 1
 
 # xrandr --output eDP-1 --mode 3200x1800 --scale 1x1
-exec xrandr --output eDP-1 --dpi 100
-exec xrandr --output eDP-1 --mode 1920x1080
+#exec xrandr --output eDP-1 --dpi 100
+#exec xrandr --output eDP-1 --mode 1920x1080

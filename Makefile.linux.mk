@@ -107,7 +107,6 @@ e2: .e2-install .e2-config # Setup e2guardian
 /var/lib/dpkg/info/e2guardian.list:
 	sudo apt install e2guardian -qy
 
-.SILENT: .e2-config
 .e2-config: | .e2-install
 	@test -L /etc/e2guardian || sudo unlink /etc/e2guardian
 	@test -d /etc/e2guardian || sudo rm -Rf /etc/e2guardian

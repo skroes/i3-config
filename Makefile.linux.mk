@@ -1,6 +1,6 @@
 
 linux: feature-all update-repo git i3 e2 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
-	$(call echo,$@ ${OK_STRING})
+	$(call oksign,$@)
 
 linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean
 

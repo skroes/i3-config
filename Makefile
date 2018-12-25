@@ -53,6 +53,10 @@ EXECUTABLES = stow gpg git sudo
 K := $(foreach exec,$(EXECUTABLES),\
 	$(if $(shell which $(exec)),some string,$(warning "${WARN_STRING} No $(exec) in PATH")))
 
+
+### generate needed software dependancie targets
+#is-not-installed=! (command -v $(1))
+
 ###
 ### features
 ###
@@ -61,10 +65,10 @@ K := $(foreach exec,$(EXECUTABLES),\
 featureobjects := $(shell cd ${OS}/feature/ && ls -1 *.sh | sed 's/.sh//g' | sed 's/^/feature-/g'  )
 
 feature-all: ${featureobjects} ## Setup all features segments
-	$(call echo,$@ ${OK_STRING})
+	$(call oksign,$@)
 
 ${featureobjects}: $(addprefix .,${featureobjects}) upgrade
-	$(call echo,$@ ${OK_STRING})
+	$(call oksign,$@)
 
 .feature-%:
 	bash -e ${TOPDIR}/${OS}/feature/$*.sh
@@ -81,7 +85,7 @@ latestobjectslist := vim stow
 latestobjects := $(addprefix latest-,${latestobjectslist})
 
 ${latestobjects}: $(addprefix .,${latestobjects})
-	$(call echo,$@ ${OK_STRING})
+	$(call oksign,$@)
 
 .latest-%: | puppet-agent
 	sudo -i puppet resource package $* ensure=latest
@@ -142,7 +146,7 @@ include Makefile.git.mk
 include Makefile.ssh.mk
 
 clean: ${OS}-clean
-	$(call echo,$@ ${OK_STRING})
+	$(call oksign,$@)
 
 mrproper: clean
 

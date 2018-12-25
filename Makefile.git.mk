@@ -1,7 +1,7 @@
 #.SILENT:
 
 git: .git-stow git/.gitconfig .git-update-remote .git-configured-for-github
-	$(call echo,$@ ${OK_STRING})
+	$(call oksign,$@)
 
 .git-update-remote:
 	git remote remove origin

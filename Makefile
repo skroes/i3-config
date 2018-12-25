@@ -35,13 +35,25 @@ usage: ## More usage options
 usage-all: # show all usage actions
 	grep -hE '^[0-9a-zA-Z_-]+:.*?#.*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?#"}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-getRecipe = $(if $(DEPENDENCY_GRAPH),@echo Target $@ depends on prerequisites "$^",$(1))
+#getRecipe = $(if $(DEPENDENCY_GRAPH),@echo Target $@ depends on prerequisites "$^",$(1))
 
-print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
+#print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
-zozo-% : ; $(info $* is set to [$($*)]) @true
+#zozo-% : ; $(info $* is set to [$($*)]) @true
 
-leeg-% : ; @echo $* @true
+#leeg-% : ; @echo $* @true
+
+# Ensure SSH agent is enabled for Git commands
+agent_enabled = $(shell pgrep ssh-agent)
+ifndef SKIP_SSH_AGENT_CHECK
+ifeq (${agent_enabled},)
+$(error SSH-agent is not running, start agent using: `eval $$(ssh-agent)` or add this line to `~/.profile` to do it automatically at login.)
+endif
+identities = $(shell ssh-add -l|grep -v "The agent has no identities.")
+ifeq (${identities},)
+$(error No SSH identities configured in ssh-agent, please add a key using: `ssh-add ~/.ssh/id_rsa` or check Requirements section in the manual!)
+endif
+endif
 
 
 OK_STRING=[OK]

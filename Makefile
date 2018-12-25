@@ -10,16 +10,16 @@ else ifeq ($(shell uname -o), GNU/Linux)
 endif
 
 .PHONY: all install help usage
-.SILENT: help usage
+.SILENT: help usage usage-simple usage-all
 
 help: usage-simple
 
 include Makefile.functions.mk
 
-usage-simple: # show normal actions
-	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
+usage-simple:
+	grep -hE '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-usage: ## more usage options
+usage: ## More usage options
 	printf "\\n\
 	\\033[1mMYFILES\\033[0m\\n\
 	\\n\
@@ -28,12 +28,12 @@ usage: ## more usage options
 	\\n\
 	\\033[1mUSAGE:\\033[0m make [target]\\n\
 	\\n\
-	\\033[1mTARGETS:\\033[0m\\n\
+	\\033[1mtargets:\\033[0m\\n\
 	"
-	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
+	@grep -hE '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | grep -vw 'usage:' | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 usage-all: # show all usage actions
-	@grep -hE '^[a-zA-Z_-]+:.*?#.*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?#"}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
+	grep -hE '^[0-9a-zA-Z_-]+:.*?#.*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?#"}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 getRecipe = $(if $(DEPENDENCY_GRAPH),@echo Target $@ depends on prerequisites "$^",$(1))
 
@@ -63,7 +63,7 @@ featureobjects := $(shell cd ${OS}/feature/ && ls -1 *.sh | sed 's/.sh//g' | sed
 feature-all: ${featureobjects} ## Setup all features segments
 	$(call echo,$@ ${OK_STRING})
 
-${featureobjects}: $(addprefix .,${featureobjects})
+${featureobjects}: $(addprefix .,${featureobjects}) upgrade
 	$(call echo,$@ ${OK_STRING})
 
 .feature-%:
@@ -137,9 +137,9 @@ sense:
 
 include .env
 #include Makefile.global.mk
-#include Makefile.common.mk
 include Makefile.${OS}.mk
 include Makefile.git.mk
+include Makefile.ssh.mk
 
 clean: ${OS}-clean
 	$(call echo,$@ ${OK_STRING})

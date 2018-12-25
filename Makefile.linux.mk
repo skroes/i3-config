@@ -16,7 +16,7 @@ update-repo: .update-repo ## Update repository metadata
 
 upgrade: .upgrade ## Upgrade OS
 	$(call echo,$@ ${OK_STRING})
-.upgrade: $(shell sudo ls /var/cache/apt/*.bin) #update-repo
+.upgrade: $(shell sudo ls /var/cache/apt/*.bin) | update-repo
 	sudo apt upgrade -qy
 	touch $@
 
@@ -94,14 +94,13 @@ i3: .i3-dependencies .i3-install .i3-settings # Setup i3
 
 i3-clean:
 	rm -f .i3-dependencies .i3-settings
-	@echo "$@ ${OK_STRING}"
 
 ###
 ### e2
 ###
 
 # e2guardian
-e2: .e2-install .e2-config  # Setup e2guardian
+e2: .e2-install .e2-config # Setup e2guardian
 	$(call echo,$@ ${OK_STRING})
 
 .e2-install: /var/lib/dpkg/info/e2guardian.list | upgrade 
@@ -116,8 +115,7 @@ e2: .e2-install .e2-config  # Setup e2guardian
 	touch $@
 
 e2-clean:
-	@rm -f .e2-install .e2guardian-config
-	@echo "$@ ${OK_STRING}"
+	rm -f .e2-install .e2guardian-config
 
 .SILENT: .e2guardian-mrproper
 .e2-mrproper: | .e2-install

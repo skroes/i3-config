@@ -10,10 +10,10 @@ git/.gitconfig:
 git-stow: git/.gitconfig
 	@test -L ~/.gitconfig || (unlink ~/.gitconfig || true )
 	@test -f ~/.gitconfig || (echo cleaning ~/.gitconfig; mv ~/.gitconfig{,.org} 2>/dev/null|| true )
-	stow --target ~ git
+	@stow --target ~ git
 
 git: git-stow git/.gitconfig
-	@echo "$@ ${OK_STRING}"
+	$(call echo,$@ ${OK_STRING})
 
 git-update-remote:
 	git remote remove origin

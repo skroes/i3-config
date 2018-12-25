@@ -9,21 +9,20 @@ linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-cle
 ###
 
 update-repo: .update-repo ## Update repository metadata
-	@echo ${OK_STRING} $@
-.update-repo: $(shell ls /etc/apt/sources.list.d/*)
+	$(call echo,$@ ${OK_STRING})
+.update-repo: $(shell sudo find /etc/apt -type f)
 	sudo apt update -qqy
 	touch $@
 
 upgrade: .upgrade ## Upgrade OS
-	@echo "$@ ${OK_STRING}"
-.upgrade: update-repo
+	$(call echo,$@ ${OK_STRING})
+.upgrade: $(shell sudo ls /var/cache/apt/*.bin) #update-repo
 	sudo apt upgrade -qy
-	sudo apt autoremove -qy
 	touch $@
 
 puppet: puppet-agent
 puppet-agent: .puppet-agent # installs puppet5 agent
-	@echo "$@ ${OK_STRING}"
+	$(call echo,$@ ${OK_STRING})
 .puppet-agent:
 	wget https://apt.puppetlabs.com/puppet5-release-bionic.deb
 	sudo dpkg -i puppet5-release-bionic.deb
@@ -40,6 +39,7 @@ packages-clean:
 ###
 
 firefox: .firefox # Install firefox
+	$(call echo,$@ ${OK_STRING})
 
 .firefox:
 	sudo apt-get install firefox -qqy
@@ -50,7 +50,7 @@ firefox: .firefox # Install firefox
 ###
 
 chrome: .chrome # Setup Google Chrome
-	@echo "$@ ${OK_STRING}"
+	$(call echo,$@ ${OK_STRING})
 .chrome:
 	@sudo su -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -65,14 +65,10 @@ chrome-clean:
 ### i3
 ###
 
-i3: .i3-install .i3-dependencies .i3-settings # Setup i3
-	@echo "$@ ${OK_STRING}"
+i3: .i3-dependencies .i3-install .i3-settings # Setup i3
+	$(call echo,$@ ${OK_STRING})
 
-.i3-install: /var/lib/dpkg/info/i3.list | upgrade 
-/var/lib/dpkg/info/i3.list:
-	sudo apt install i3 -y
-
-.i3-dependencies: | upgrade 
+.i3-dependencies: 
 	sudo apt install \
 		suckless-tools i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session \
 		alsa-utils volumeicon-alsa disper libnotify-bin meld s3cmd gconf2 wget curl\
@@ -81,7 +77,11 @@ i3: .i3-install .i3-dependencies .i3-settings # Setup i3
 	pip install i3-py
 	@touch $@
 
-.i3-settings:
+.i3-install: /var/lib/dpkg/info/i3.list | .i3-dependencies
+/var/lib/dpkg/info/i3.list:
+	sudo apt install i3 -y
+
+.i3-settings: | .i3-install
 	# mouse cursur
 	gsettings set org.gnome.settings-daemon.plugins.cursor active false  
 	# desktop
@@ -102,7 +102,7 @@ i3-clean:
 
 # e2guardian
 e2: .e2-install .e2-config  # Setup e2guardian
-	@echo "$@ ${OK_STRING}"
+	$(call echo,$@ ${OK_STRING})
 
 .e2-install: /var/lib/dpkg/info/e2guardian.list | upgrade 
 /var/lib/dpkg/info/e2guardian.list:

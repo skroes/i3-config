@@ -19,7 +19,7 @@ include Makefile.functions.mk
 usage-simple: # show normal actions
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
-usage: ## show usage
+usage: ## more usage options
 	printf "\\n\
 	\\033[1mMYFILES\\033[0m\\n\
 	\\n\
@@ -32,7 +32,7 @@ usage: ## show usage
 	"
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
-usage-all: # show all targets
+usage-all: # show all usage actions
 	@grep -hE '^[a-zA-Z_-]+:.*?#.*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?#"}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
 getRecipe = $(if $(DEPENDENCY_GRAPH),@echo Target $@ depends on prerequisites "$^",$(1))

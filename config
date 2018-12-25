@@ -140,9 +140,9 @@ floating_modifier $mod
 # ? 
 bindsym $mod+0 exec ~/bin/hack_w
 
-# start a i3-sensible-terminal
-bindsym $mod+Return exec i3-sensible-terminal gnome-terminal
-bindsym Shift+$CTRL+Return exec i3-sensible-terminal gnome-terminal
+# start a terminal, the configured x-terminal-emulator
+bindsym $mod+Return exec x-terminal-emulator
+#bindsym Shift+$CTRL+Return exec i3-sensible-terminal gnome-terminal
 
 # kill focused window
 bindsym $ALT+F4 kill
@@ -497,7 +497,7 @@ bindsym $CTRL+$ALT+Shift+c reload
 bindsym $CTRL+$ALT+Shift+r restart
 # exit i3 (logs you out of your X session)
 #bindsym $CTRL+$ALT+Shift+e exec "sudo kill -15 X"
-#bindsym $CTRL+$ALT+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $CTRL+$ALT+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 ###
 ### CTRL + ALT + D = Display mode

@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# curl https://raw.githubusercontent.com/skroes/i3-config/master/init | bash
+# curl -s https://raw.githubusercontent.com/skroes/i3-config/master/init | bash
 # or
-# wget https://raw.githubusercontent.com/skroes/i3-config/master/init -O - | bash
+# wget -q https://raw.githubusercontent.com/skroes/i3-config/master/init -O - | bash
 # 
 #
 set -e
@@ -16,7 +16,7 @@ which git >/dev/null || echo "[ABORTING]. Please install git"
 #
 test -d ~/.config || mkdir ~/.config
 test -d ~/.config/i3 && ( rm -Rf ~/.config/i3-old; mv ~/.config/i3{,-old} )
-git clone -q https://github.com/skroes/i3-config.git ~/.config/i3
+git clone https://github.com/skroes/i3-config.git ~/.config/i3
 #
 # stage3 - execute make
 #
@@ -24,4 +24,4 @@ cd ~/.config/i3/
 which make >/dev/null || sudo apt-get install make -qqy || true
 which make >/dev/null || sudo dnf     install make -qqy || true
 which make >/dev/null || echo "[ABORTING]. Please install make"
-make
+make $(uname -s | tr [A-Z] [a-z])

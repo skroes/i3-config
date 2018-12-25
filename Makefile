@@ -53,6 +53,12 @@ EXECUTABLES = stow gpg git sudo
 K := $(foreach exec,$(EXECUTABLES),\
 	$(if $(shell which $(exec)),some string,$(warning "${WARN_STRING} No $(exec) in PATH")))
 
+#
+# todo list:
+#
+# ssh-askpass thing
+# solarized -> gnome-install / terminator?
+#
 
 ### generate needed software dependancie targets
 #is-not-installed=! (command -v $(1))
@@ -81,18 +87,21 @@ feature-clean:
 ### Puppet package manipulations
 ###
 
-latestobjectslist := vim stow
-latestobjects := $(addprefix latest-,${latestobjectslist})
+#latestobjectslist := vim stow
+#latestobjects := $(addprefix latest-,${latestobjectslist})
 
-${latestobjects}: $(addprefix .,${latestobjects})
-	$(call oksign,$@)
+#${latestobjects}: $(addprefix .,${latestobjects})
+#	$(call oksign,$@)
 
-.latest-%: | puppet-agent
-	sudo -i puppet resource package $* ensure=latest
+#  | puppet-agent $(addprefix .,${latestobjects})
+#latest-%: $(addprefix .,$@)
+
+latest-%: | puppet-agent
+	@sudo -i puppet resource package $* ensure=latest  | tr "\n" " "
 	touch $@
 
 latest-clean:
-	rm -f .latest-*
+	rm -f .latest-* latest-*
 
 #latest-%: $(latest-x:latest=xxx)
 #	echo "zomthing"
@@ -110,12 +119,12 @@ latest-clean:
 #app-%: testfile-x
 #	@info app-$(subst app-,,$<)
 
-#testfile-%: 
+#testfile-%:
 #	@echo touch $<
 
 ###
 ### code plugin
-### 
+###
 
 #eamodio.gitlens
 #EditorConfig.EditorConfig
@@ -131,19 +140,19 @@ sense:
 #printvars:
 #	$(foreach V),
 #		$(sort $(.VARIABLES)),
-#			$(if 
+#			$(if
 #			$(filter-out environment% default automatic,
 #			$(origin $V)),
 #			$(warning $V=$($V) ($(value $V)))
 #		)
 #	)
 
-
 include .env
 #include Makefile.global.mk
 include Makefile.${OS}.mk
 include Makefile.git.mk
 include Makefile.ssh.mk
+include Makefile.shell.mk
 
 clean: ${OS}-clean
 	$(call oksign,$@)
@@ -157,6 +166,6 @@ makefile2graph.png:
 	xdg-open $@
 
 ./tmp/makefile2graph: makefile2graph
-	git clone https://github.com/lindenb/makefile2graph.git 
+	git clone https://github.com/lindenb/makefile2graph.git
 	cd ./tmp/makefile2graph && make
 	touch $@

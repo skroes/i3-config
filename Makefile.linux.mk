@@ -1,8 +1,8 @@
 
-linux: feature-all update-repo git i3 e2 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
+linux: feature-all update-repo fish git i3 e2 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
 	$(call oksign,$@)
 
-linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean
+linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean fish-clean
 
 ###
 ### OS and repo
@@ -12,12 +12,14 @@ update-repo: .update-repo ## Update repository metadata
 	$(call oksign,$@)
 .update-repo: $(shell sudo find /etc/apt -type f)
 	sudo apt update -qqy
+	sudo apt autoremove -qy
 	touch $@
 
 upgrade: .upgrade ## Upgrade OS
 	$(call oksign,$@)
 .upgrade: $(shell sudo ls /var/cache/apt/*.bin) | update-repo
 	sudo apt upgrade -qy
+	sudo apt autoremove -qy
 	touch $@
 
 puppet: puppet-agent
@@ -60,7 +62,7 @@ chrome: .chrome # Setup Google Chrome
 
 chrome-clean:
 	sudo rm -f /etc/apt/sources.list.d/google-chrome.list
-	
+
 ###
 ### i3
 ###
@@ -68,11 +70,11 @@ chrome-clean:
 i3: .i3-dependencies .i3-install .i3-settings # Setup i3
 	$(call oksign,$@)
 
-.i3-dependencies: 
+.i3-dependencies:
 	sudo apt install \
 		suckless-tools i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session \
 		alsa-utils volumeicon-alsa disper libnotify-bin meld s3cmd gconf2 wget curl\
-		feh xinput gnome-settings-daemon j4-dmenu-desktop i3status -y 
+		feh xinput gnome-settings-daemon j4-dmenu-desktop i3status libxml2-utils jq -y
 	sudo apt-get install python-pip -qqy
 	pip install i3-py
 	@touch $@
@@ -83,7 +85,7 @@ i3: .i3-dependencies .i3-install .i3-settings # Setup i3
 
 .i3-settings: | .i3-install
 	# mouse cursur
-	gsettings set org.gnome.settings-daemon.plugins.cursor active false  
+	gsettings set org.gnome.settings-daemon.plugins.cursor active false
 	# desktop
 	gsettings set org.gnome.desktop.background show-desktop-icons false
 	gconftool-2 \
@@ -103,7 +105,7 @@ i3-clean:
 e2: .e2-install .e2-config # Setup e2guardian
 	$(call oksign,$@)
 
-.e2-install: /var/lib/dpkg/info/e2guardian.list | upgrade 
+.e2-install: /var/lib/dpkg/info/e2guardian.list | upgrade
 /var/lib/dpkg/info/e2guardian.list:
 	sudo apt install e2guardian -qy
 

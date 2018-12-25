@@ -18,7 +18,7 @@
 # controls the xset stuff
 exec /home/skroes/.i3/bin/xreset
 
-#exec /home/skroes/.i3/bin/i3_setbackground
+#exec /home/skroes/.i3/bin/wallpaper
 #exec /home/skroes/.i3/bin/middlebutton
 #exec /home/skroes/.i3/bin/logitech_usb_laser
 
@@ -518,18 +518,18 @@ mode "display" {
 
   #bindsym 9 exec bin/lala_laptop_corner1.sh
 
-  #bindsym 1 exec autorandr --load default, exec ~/.config/i3/bin/i3_setbackground
-  #bindsym 2 exec autorandr --load extendleft, exec ~/.config/i3/bin/i3_setbackground
-  #bindsym 3 exec autorandr --load extendleftbig, exec ~/.config/i3/bin/i3_setbackground
-  #bindsym 4 exec autorandr --load extendleftbig, exec ~/.config/i3/bin/i3_setbackground
-  #bindsym 5 exec autorandr --load external, exec ~/.config/i3/bin/i3_setbackground
-  #bindsym 6 exec autorandr --load externalbig, exec ~/.config/i3/bin/i3_setbackground
-  #bindsym 7 exec autorandr --load externaldp, exec ~/.config/i3/bin/i3_setbackground
+  #bindsym 1 exec autorandr --load default, exec ~/.config/i3/bin/wallpaper
+  #bindsym 2 exec autorandr --load extendleft, exec ~/.config/i3/bin/wallpaper
+  #bindsym 3 exec autorandr --load extendleftbig, exec ~/.config/i3/bin/wallpaper
+  #bindsym 4 exec autorandr --load extendleftbig, exec ~/.config/i3/bin/wallpaper
+  #bindsym 5 exec autorandr --load external, exec ~/.config/i3/bin/wallpaper
+  #bindsym 6 exec autorandr --load externalbig, exec ~/.config/i3/bin/wallpaper
+  #bindsym 7 exec autorandr --load externaldp, exec ~/.config/i3/bin/wallpaper
 
-  #bindsym 9 exec autorandr --load extenddocking, exec ~/.config/i3/bin/i3_setbackground, mode default
+  #bindsym 9 exec autorandr --load extenddocking, exec ~/.config/i3/bin/wallpaper, mode default
 
   # b for Background fix
-  bindsym b exec ~/.config/i3/bin/i3_setbackground
+  bindsym b exec ~/.config/i3/bin/wallpaper
 
   #extendleftbig (detected)
   #external
@@ -603,7 +603,7 @@ mode "command" {
         bindsym m exec ~/.config/i3/bin/middlebutton
 
         # b for Background fix
-        bindsym b exec ~/.config/i3/bin/i3_setbackground
+        bindsym b exec ~/.config/i3/bin/wallpaper
 
         # t for Trackpad toggle
         bindsym t exec ~/bin/sk_trackpad_toggle

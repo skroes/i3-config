@@ -6,6 +6,7 @@ git: .git-stow git/.gitconfig .git-update-remote .git-configured-for-github
 .git-update-remote:
 	git remote remove origin
 	git remote add origin git@github.com:skroes/i3-config.git
+	git branch --set-upstream-to origin/master
 	touch $@
 
 .git-configured-for-github: | ssh-public-key .local.known_hosts.github.com

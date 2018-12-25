@@ -11,6 +11,10 @@ define echo
 	@printf "\033[36m$(1)\033[0m %s\n"
 endef
 
+define oksign
+	@printf "\033[36m%-24s\033[0m %s\n" $(1) [OK]
+endef
+
 .PHONY: zzz
 zzz:
 	$(call echo,hello brave world)

@@ -1,26 +1,23 @@
 ## i3 config file
 
-# desktop packages req
-# dnf
-# apt-get
-# install -y feh xinput gnome-settings-daemon j4-dmenu-desktop xscreensaver-command dmenu i3status
-#
+set $bindir ~/.config/i3/bin/
+exec echo $bindir > YOLO
+
 # FIXME
 # textsuggest --auto-selection
 # textlucky
-#
-# volumeicon-alsa OF volumeicon
 #
 # one big screen?
 #force_xinerama yes
 #fake-outputs 3840x1080+0+0
 
 # controls the xset stuff
-exec /home/skroes/.i3/bin/xreset
+exec $bindir+xreset
+exec $bindir+feature_enable_touchpad_touch
 
-#exec /home/skroes/.i3/bin/wallpaper
-#exec /home/skroes/.i3/bin/middlebutton
-#exec /home/skroes/.i3/bin/logitech_usb_laser
+#exec $bindir+wallpaper
+#exec $bindir+middlebutton
+#exec $bindir+logitech_usb_laser
 
 #exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nm-applet
@@ -441,11 +438,11 @@ hide_edge_borders none
 #border 1pixel
 
 # cmd + period
-bindsym $mod+period exec ~/.config/i3/bin/swap-workspace-between-screens
+bindsym $mod+period exec $bindir+swap-workspace-between-screens
 
 # F11 toggles the i3bar and disables eDP1
 # effectivly a focus mode
-bindsym $mod+F11 exec ~/.config/i3/bin/focusmode
+bindsym $mod+F11 exec $bindir+focusmode
 
 # F12 toggles the window border style, (cycle normal, none, 1pixel)
 bindsym $mod+F12 border toggle
@@ -518,18 +515,18 @@ mode "display" {
 
   #bindsym 9 exec bin/lala_laptop_corner1.sh
 
-  #bindsym 1 exec autorandr --load default, exec ~/.config/i3/bin/wallpaper
-  #bindsym 2 exec autorandr --load extendleft, exec ~/.config/i3/bin/wallpaper
-  #bindsym 3 exec autorandr --load extendleftbig, exec ~/.config/i3/bin/wallpaper
-  #bindsym 4 exec autorandr --load extendleftbig, exec ~/.config/i3/bin/wallpaper
-  #bindsym 5 exec autorandr --load external, exec ~/.config/i3/bin/wallpaper
-  #bindsym 6 exec autorandr --load externalbig, exec ~/.config/i3/bin/wallpaper
-  #bindsym 7 exec autorandr --load externaldp, exec ~/.config/i3/bin/wallpaper
+  #bindsym 1 exec autorandr --load default, exec $bindir+wallpaper
+  #bindsym 2 exec autorandr --load extendleft, exec $bindir+wallpaper
+  #bindsym 3 exec autorandr --load extendleftbig, exec $bindir+wallpaper
+  #bindsym 4 exec autorandr --load extendleftbig, exec $bindir+wallpaper
+  #bindsym 5 exec autorandr --load external, exec $bindir+wallpaper
+  #bindsym 6 exec autorandr --load externalbig, exec $bindir+wallpaper
+  #bindsym 7 exec autorandr --load externaldp, exec $bindir+wallpaper
 
-  #bindsym 9 exec autorandr --load extenddocking, exec ~/.config/i3/bin/wallpaper, mode default
+  #bindsym 9 exec autorandr --load extenddocking, exec $bindir+wallpaper, mode default
 
   # b for Background fix
-  bindsym b exec ~/.config/i3/bin/wallpaper
+  bindsym b exec $bindir+wallpaper
 
   #extendleftbig (detected)
   #external
@@ -600,10 +597,10 @@ mode "command" {
         # These bindings trigger as soon as you enter the command mode
 
         # m for set the MiddleButton for scrolling, a thinkpad thingy
-        bindsym m exec ~/.config/i3/bin/middlebutton
+        bindsym m exec $bindir+middlebutton
 
         # b for Background fix
-        bindsym b exec ~/.config/i3/bin/wallpaper
+        bindsym b exec $bindir+wallpaper
 
         # t for Trackpad toggle
         bindsym t exec ~/bin/sk_trackpad_toggle
@@ -624,24 +621,24 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
 
 # $mod+p or fn-F7 switch display back&forth
-bindsym XF86Display exec ~/.config/i3/bin/display_change
-bindsym $mod+p exec ~/.config/i3/bin/display_change
+bindsym XF86Display exec $bindir+display_change
+bindsym $mod+p exec $bindir+display_change
 
 # $mod+BackSpace
 # BackSpace
-#bindsym $mod+BackSpace exec ~/.config/i3/bin/desktop_startup
+#bindsym $mod+BackSpace exec $bindir+desktop_startup
 
 
 # $mod+? or fn-F8(USB keyboard) extend display
-#bindsym XF86TouchpadToggle exec ~/.config/i3/bin/2VGA_DP1.sh
-#bindsym $mod+? exec ~/.config/i3/bin/2VGA_DP1.sh
+#bindsym XF86TouchpadToggle exec $bindir+2VGA_DP1.sh
+#bindsym $mod+? exec $bindir+2VGA_DP1.sh
 
 #bindsym XF86AudioPlay exec "~/.bin/player toggle"
 #bindsym XF86AudioStop exec "~/.bin/player stop"
 #bindsym XF86AudioNext exec "~/.bin/player next"
 #bindsym XF86AudioPrev exec "~/.bin/player previous"
 
-bindsym XF86MonBrightnessUp exec "/home/skroes/.i3/bin/backlight +20"
+bindsym XF86MonBrightnessUp exec "$bindir+backlight +20"
 bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 
 ###
@@ -650,20 +647,19 @@ bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 
 for_window [class="MPlayer"] floating enable
 for_window [instance="gimp"] floating enable
-for_window [class="Empathy"] floating enable
-for_window [class="Pidgin"] floating enable
 for_window [class="wync"] floating enable
 for_window [class="Gcr-prompter"] floating enable
 for_window [window_role="pop-up"] floating enable
-for_window [class="file_progress"] floating enable, border 1pixel
+for_window [class="file_progress"] floating enable, border normal
 for_window [class="Yad"] floating enable
 for_window [instance="gnome-screenshot"] floating enable
+for_window [title="Terminator Preferences"] floating enable, border normal
 
 # com-edgytech-umongo-UMongo mongodb viewer
 #for_window [class="com-edgytech-umongo-UMongo"] floating enable
 
 # apps from chrome are marked as pop-up, bu we need them non floating
-for_window [class="Google-chrome"] floating disable
+#?for_window [class="Google-chrome"] floating disable
 
 #for_window [instance="telegram"]                             border normal, floating disable, move to workspace $WS3
 #for_window [class="web.whatsapp.com"]                        border normal, floating disable, move to workspace $WS3
@@ -728,7 +724,6 @@ exec volumeicon
 
 # TODO: xprop grep
 # WM_CLASS(STRING) = "Wfica", "Wfica"
-# vim:filetype=i3
 
 #xinput set-prop 13 283 1
 #xinput list-props 13 | grep Tap

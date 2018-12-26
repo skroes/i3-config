@@ -74,7 +74,8 @@ i3: .i3-dependencies .i3-install .i3-settings # Setup i3
 	sudo apt install \
 		suckless-tools i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session \
 		alsa-utils volumeicon-alsa disper libnotify-bin meld s3cmd gconf2 wget curl\
-		feh xinput gnome-settings-daemon j4-dmenu-desktop i3status libxml2-utils jq -y
+		feh xinput gnome-settings-daemon j4-dmenu-desktop i3status libxml2-utils jq \
+    xdotool volumeicon-alsa -y
 	sudo apt-get install python-pip -qqy
 	pip install i3-py
 	@touch $@

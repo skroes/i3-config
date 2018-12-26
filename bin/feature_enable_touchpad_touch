@@ -1,0 +1,8 @@
+#!/bin/bash
+touchinputid=$(xinput list | grep -i touch | cut -b 55-57)
+touchinputelementes=$(xinput list-props ${touchinputid} | grep 'Tapping Enabled' | head -1 | sed -e 's/.*(//g' -e 's/).*//g')
+
+for i in $(echo $touchinputelementes); do
+	xinput set-prop $touchinputid $touchinputelementes 1
+done
+

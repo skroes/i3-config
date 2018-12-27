@@ -1,6 +1,8 @@
 
-linux: feature-all update-repo fish git i3 e2 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
+linux: feature-all update-repo fish git i3 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
 	$(call oksign,$@)
+
+linux-complete-workspace: github | linux
 
 linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean fish-clean
 
@@ -122,8 +124,3 @@ e2-clean:
 .e2-mrproper:
 	sudo stow -t /etc -D e2guardian
 	sudo apt purge e2guardian -qy
-	sudo unlink /etc/e2guardian
-
-#sudo tar -czvf /etc/e2guardian.tgz /etc/e2guardian
-#sudo rm -Rf /etc/e2guardian
-#sudo mv /etc/e2guardian{.rpmorg}

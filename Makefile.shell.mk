@@ -4,4 +4,3 @@ fish: /usr/bin/fish
 /usr/bin/fish: | latest-fish
 
 fish-clean:
-	rm .fish

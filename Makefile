@@ -160,6 +160,7 @@ sense:
 #	)
 
 include .env
+include .env.override
 #include Makefile.global.mk
 include Makefile.${OS}.mk
 include Makefile.git.mk

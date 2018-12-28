@@ -4,3 +4,5 @@
 .*
 git/.gitconfig
 tmp
+.env.override
+latest-*

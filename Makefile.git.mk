@@ -35,9 +35,11 @@ git/.gitconfig:
 #git config --file git/.gitconfig user.signingkey $(GIT_SIGNING_KEY)
 
 .git-stow: git/.gitconfig
-	test -L ~/.gitconfig || (unlink ~/.gitconfig || true )
-	test -f ~/.gitconfig || (echo cleaning ~/.gitconfig; mv ~/.gitconfig{,.org} 2>/dev/null || true )
-	stow --target ~ git
+	-@test -L ~/.gitconfig && (unlink ~/.gitconfig )
+	-@test -f ~/.gitconfig && (echo cleaning ~/.gitconfig; mv ~/.gitconfig{,.org} 2>/dev/null )
+	-@test -L ~/.gitignore_global && (unlink ~/.gitignore_global)
+	-@test -f ~/.gitignore_global && (echo cleaning ~/.gitignore_global; mv ~/.gitignore_global{,.org} 2>/dev/null )
+	stow --target ~ git --adopt
 	touch $@
 
 ###

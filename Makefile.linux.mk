@@ -1,10 +1,13 @@
 
-linux: feature-all update-repo fish git i3 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
+linux: feature-all .upgrade fish git i3 e2 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
 	$(call oksign,$@)
 
 linux-complete-workspace: github | linux
 
 linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean fish-clean
+
+ssh-add:
+	ssh-add --quiet -l || ( echo "Error connecting to agent ... attempt to load key"; ssh-add ~/.ssh/id_rsa )
 
 ###
 ### OS and repo
@@ -18,8 +21,10 @@ update-repo: .update-repo ## Update repository metadata
 	touch $@
 
 upgrade: .upgrade ## Upgrade OS
+	rm -f .upgrade
 	$(call oksign,$@)
-.upgrade: $(shell sudo ls /var/cache/apt/*.bin) | update-repo
+
+.upgrade: $(shell sudo ls /var/cache/apt/*.bin) .update-repo
 	sudo apt upgrade -qy
 	sudo apt autoremove -qy
 	touch $@
@@ -39,6 +44,19 @@ packages-clean:
 	rm -rf .upgrade .update-repo
 
 ###
+### setup ssh server
+###
+
+ssh-server: .ssh-server # Install sshd daemon
+	$(call oksign,$@)
+
+.ssh-server: /usr/sbin/sshd
+	sudo systemctl enable --now ssh
+	touch $@
+
+/usr/sbin/sshd: latest-openssh-server
+
+### 
 ### firefox
 ###
 
@@ -108,7 +126,7 @@ i3-clean:
 e2: .e2-install .e2-config # Setup e2guardian
 	$(call oksign,$@)
 
-.e2-install: /var/lib/dpkg/info/e2guardian.list | upgrade
+.e2-install: /var/lib/dpkg/info/e2guardian.list | .upgrade
 /var/lib/dpkg/info/e2guardian.list:
 	sudo apt install e2guardian -qy
 
@@ -124,3 +142,38 @@ e2-clean:
 .e2-mrproper:
 	sudo stow -t /etc -D e2guardian
 	sudo apt purge e2guardian -qy
+<<<<<<< HEAD
+=======
+	sudo unlink /etc/e2guardian
+
+###
+### emby
+###
+
+EMBY_RELEASE=3.5.3.0
+EMBY_URL=https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/
+EMBY_DEBNAME=emby-server-deb_${EMBY_RELEASE}_amd64.deb
+
+emby: .emby-install ### Install emby server
+	@echo Open a web browser to http://localhost:8096
+	$(call oksign,$@)
+
+emby-status:
+	@sudo systemctl status emby-server --no-pager | GREP_COLOR='1;32' egrep -Hr 'active|running|loaded' - --color 2>/dev/null
+
+###
+### sub emby
+###
+
+.emby-install: | tmp/${EMBY_DEBNAME}
+	sudo dpkg -i tmp/${EMBY_DEBNAME}
+	sudo systemctl status emby-server --no-pager
+	rm -f tmp/${EMBY_DEBNAME}
+	touch $@
+
+tmp/${EMBY_DEBNAME}: | tmp
+	curl -L -S --progress-bar "${EMBY_URL}/${EMBY_DEBNAME}" -o $@
+
+tmp:
+	mkdir $@
+>>>>>>> add emby

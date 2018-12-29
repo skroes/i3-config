@@ -43,18 +43,17 @@ usage-all: # show all usage actions
 
 #leeg-% : ; @echo $* @true
 
-# Ensure SSH agent is enabled for Git commands
+# notify if SSH agent is not enabled
 agent_enabled = $(shell pgrep ssh-agent)
 ifndef SKIP_SSH_AGENT_CHECK
 ifeq (${agent_enabled},)
-$(error SSH-agent is not running, start agent using: `eval $$(ssh-agent)` or add this line to `~/.profile` to do it automatically at login.)
+$(info SSH-agent is not running, start agent using: `eval $$(ssh-agent)` or add this line to `~/.profile` to do it automatically at login.)
 endif
 identities = $(shell ssh-add -l|grep -v "The agent has no identities.")
 ifeq (${identities},)
-$(error No SSH identities configured in ssh-agent, please add a key using: `ssh-add ~/.ssh/id_rsa` or check Requirements section in the manual!)
+$(info No SSH identities configured in ssh-agent, please add a key using: `ssh-add ~/.ssh/id_rsa`)
 endif
 endif
-
 
 OK_STRING=[OK]
 WARN_STRING=[WARNING]

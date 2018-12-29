@@ -1,8 +1,27 @@
 #.SILENT:
 
 ###
-### git
+### main
 ###
+
+git: .git-stow git/.gitconfig ### basic local gitconfig
+	$(call oksign,$@)
+
+github-enabled: git ### ssh access enabled for github
+	$(call oksign,$@)
+
+github-i3: github-enabled .git-update-remote .git-configured-for-github ### ssh access enabled for i3 repository
+	$(call oksign,$@)
+
+###
+### sub
+###
+
+.git-update-remote:
+	git remote remove origin
+	git remote add origin git@github.com:skroes/i3-config.git
+	#git branch --set-upstream-to origin/master
+	touch $@
 
 git: .git-stow git/.gitconfig
 	$(call oksign,$@)

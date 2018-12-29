@@ -714,7 +714,7 @@ bar {
 #
 # systray
 #
-exec volumeicon
+exec --no-startup-id volumeicon
 #exec --no-startup-id synergy
 
 #? bindsym Print exec scrot 'Screenshot - %Y-%m-%d--%_$wx$h_scrot.png' -e 'mv $f ~/images/'
@@ -728,7 +728,7 @@ exec volumeicon
 #xinput set-prop 13 283 1
 #xinput list-props 13 | grep Tap
 #xinput list
-exec xinput set-prop 13 283 1
+#exec xinput set-prop 13 283 1
 
 # xrandr --output eDP-1 --mode 3200x1800 --scale 1x1
 #exec xrandr --output eDP-1 --dpi 100

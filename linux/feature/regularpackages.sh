@@ -1,4 +1,3 @@
 #!/bin/bash
 set -e
-sudo apt install stow -qy
-exit 0
+sudo apt install stow direnv tig -qqy

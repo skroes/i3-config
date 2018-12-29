@@ -38,7 +38,6 @@ upgrade: .upgrade-exec ## Upgrade OS
 
 puppet: puppet-agent
 puppet-agent: .puppet-agent # installs puppet5 agent
-	$(call oksign,$@)
 .puppet-agent:
 	wget https://apt.puppetlabs.com/puppet5-release-bionic.deb
 	sudo dpkg -i puppet5-release-bionic.deb

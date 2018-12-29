@@ -1,0 +1,1 @@
+/home/serkroes/.local/share/omf/themes/yimmy/fish_prompt.fish

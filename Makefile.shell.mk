@@ -1,6 +1,10 @@
 
-fish-stow: | ${HOME}/.local/share/omf/init.fish fish ### install fish stow config
-	stow --target ~/.config/fish fish --adopt
+fish-config: | ${HOME}/.local/share/omf/init.fish fish .fish.omf.theme.yimmy ### install fish stow config
+	stow --target ~/.config/fish/ tag-fish --adopt
+
+.fish.omf.theme.yimmy: /home/serkroes/.local/share/omf/themes/yimmy
+/home/serkroes/.local/share/omf/themes/yimmy:
+	omf install yimmy
 
 ${HOME}/.local/share/omf/init.fish: | fish
 	curl -L https://get.oh-my.fish > tmp/omf-install

@@ -1,7 +1,7 @@
-uname	:= $(shell uname -s)
-USER	:= $(shell whoami)
-TOPDIR	:= $(shell pwd)
-SHELL	:= /bin/bash
+uname  = $(shell uname -s)
+USER   = $(shell whoami)
+TOPDIR = $(shell pwd)
+SHELL  = /bin/bash
 
 ifeq ($(shell uname), Darwin)
 	OS	:= macos
@@ -72,7 +72,7 @@ K := $(foreach exec,$(EXECUTABLES),\
 #
 
 ### generate needed software dependancie targets
-#is-not-installed=! (command -v $(1))
+is-not-installed=! (command -v $(1))
 
 ###
 ### features
@@ -82,9 +82,8 @@ K := $(foreach exec,$(EXECUTABLES),\
 featureobjects := $(shell cd ${OS}/feature/ && ls -1 *.sh | sed 's/.sh//g' | sed 's/^/feature-/g'  )
 
 feature-all: ${featureobjects} ## Setup all features segments
-	$(call oksign,$@)
 
-${featureobjects}: $(addprefix .,${featureobjects}) upgrade
+${featureobjects}: $(addprefix .,${featureobjects}) .upgrade update-repo
 	$(call oksign,$@)
 
 .feature-%:

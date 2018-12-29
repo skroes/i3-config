@@ -1,5 +1,5 @@
 
-linux: feature-all .upgrade fish git i3 e2 ### This will setup targets; update-repo vscode git i3 e2 regular-packages
+linux: feature-all .upgrade update-repo fish git i3 e2 chrome firefox etckeeper ### This will setup targets; update-repo vscode git i3 e2 regular-packages
 	$(call oksign,$@)
 
 linux-complete-workspace: github | linux
@@ -20,14 +20,24 @@ update-repo: .update-repo ## Update repository metadata
 	sudo apt autoremove -qy
 	touch $@
 
-upgrade: .upgrade ## Upgrade OS
-	rm -f .upgrade
+upgrade: .upgrade-exec ## Upgrade OS
+	touch .upgrade
 	$(call oksign,$@)
 
+# trigger only if updated req
 .upgrade: $(shell sudo ls /var/cache/apt/*.bin) .update-repo
-	sudo apt upgrade -qy
+	sudo apt upgrade -qqy
 	sudo apt autoremove -qy
 	touch $@
+
+# execute the actual upgrade of packages
+.upgrade-exec:
+	sudo apt upgrade -qqy
+	sudo apt autoremove -qy
+
+###
+### puppet
+###
 
 puppet: puppet-agent
 puppet-agent: .puppet-agent # installs puppet5 agent
@@ -89,6 +99,20 @@ chrome-clean:
 
 i3: .i3-dependencies .i3-install .i3-settings # Setup i3
 	$(call oksign,$@)
+
+i3-repo-github-enabled: github-enabled .i3-git-update-remote ### ssh access enabled for i3 repository
+	$(call oksign,$@)
+
+###
+### sub
+###
+
+.i3-git-update-remote: github-enabled
+	git remote remove origin
+	git remote add origin git@github.com:skroes/i3-config.git
+	git fetch
+	git branch --set-upstream-to origin/master
+	touch $@
 
 .i3-dependencies:
 	sudo apt install \
@@ -176,4 +200,24 @@ tmp/${EMBY_DEBNAME}: | tmp
 
 tmp:
 	mkdir $@
+<<<<<<< HEAD
 >>>>>>> add emby
+=======
+
+###
+### etckeeper
+###
+
+etckeeper: | .etckeeper-install /etc/.git
+	$(call oksign,$@)
+
+.etckeeper-install:
+	sudo apt install etckeeper -y
+	touch $@
+
+/etc/.git: | .etckeeper-install
+	etckeeper init
+
+etckeeper-clean:
+	@#nothing here
+>>>>>>> git ssh etckeeper etc

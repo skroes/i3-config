@@ -7,29 +7,24 @@
 git: .git-stow git/.gitconfig ### basic local gitconfig
 	$(call oksign,$@)
 
-github-enabled: git ### ssh access enabled for github
-	$(call oksign,$@)
-
-github-i3: github-enabled .git-update-remote .git-configured-for-github ### ssh access enabled for i3 repository
+github-enabled: git .git-configured-for-github ### ssh access enabled for github
 	$(call oksign,$@)
 
 ###
 ### sub
 ###
 
-.git-update-remote:
-	git remote remove origin
-	git remote add origin git@github.com:skroes/i3-config.git
-	#git branch --set-upstream-to origin/master
+.git-configured-for-github: | ssh-public-key .local.known_hosts.github.com
+	test -f ~/.ssh/known_hosts || cp .local.known_hosts.github.com ~/.ssh/known_hosts
+	ssh -T git@github.com -o UserKnownHostsFile=.local.known_hosts.github.com 2>&1 | GREP_COLOR='1;32' grep "You've successfully authenticated" --color \
+	|| (echo -e "\n\033[36m ... You need to add this public key to github ... \033[0m\n" \
+	&& cat ~/.ssh/id_rsa.pub \
+	&& echo -e "\n\033[36m ... What are your waiting for? head to https://github.com/login ... \033[0m\n" \
+	&& exit 1)
 	touch $@
 
-git: .git-stow git/.gitconfig
-	$(call oksign,$@)
-
-git-clean:
-	rm -f git/.gitconfig .local.known_hosts.github.com
-	stow --target ~ -D git
-	rm -f .git-stow
+.local.known_hosts.github.com: 
+	ssh-keyscan -t rsa github.com > $@
 
 #GIT_SIGNING_KEY=$(shell gpg --list-keys $(GIT_AUTHOR_EMAIL) | grep -v "^pub\\|^uid" | grep -o '.\{8\}$$' || true)
 git/.gitconfig:
@@ -40,8 +35,8 @@ git/.gitconfig:
 #git config --file git/.gitconfig user.signingkey $(GIT_SIGNING_KEY)
 
 .git-stow: git/.gitconfig
-	@test -L ~/.gitconfig || (unlink ~/.gitconfig || true )
-	@test -f ~/.gitconfig || (echo cleaning ~/.gitconfig; mv ~/.gitconfig{,.org} 2>/dev/null || true )
+	test -L ~/.gitconfig || (unlink ~/.gitconfig || true )
+	test -f ~/.gitconfig || (echo cleaning ~/.gitconfig; mv ~/.gitconfig{,.org} 2>/dev/null || true )
 	stow --target ~ git
 	touch $@
 

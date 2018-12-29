@@ -6,9 +6,6 @@ linux-complete-workspace: github | linux
 
 linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean fish-clean
 
-ssh-add:
-	ssh-add --quiet -l || ( echo "Error connecting to agent ... attempt to load key"; ssh-add ~/.ssh/id_rsa )
-
 ###
 ### OS and repo
 ###

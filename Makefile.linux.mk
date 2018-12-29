@@ -166,8 +166,6 @@ e2-clean:
 .e2-mrproper:
 	sudo stow -t /etc -D e2guardian
 	sudo apt purge e2guardian -qy
-<<<<<<< HEAD
-=======
 	sudo unlink /etc/e2guardian
 
 ###
@@ -200,9 +198,6 @@ tmp/${EMBY_DEBNAME}: | tmp
 
 tmp:
 	mkdir $@
-<<<<<<< HEAD
->>>>>>> add emby
-=======
 
 ###
 ### etckeeper
@@ -220,4 +215,3 @@ etckeeper: | .etckeeper-install /etc/.git
 
 etckeeper-clean:
 	@#nothing here
->>>>>>> git ssh etckeeper etc

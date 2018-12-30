@@ -59,10 +59,11 @@ github-mrproper:
 ###
 
 .github-update-remote:
-	git remote remove origin
-	git remote add origin git@github.com:skroes/i3-config.git
+	#git remote remove origin
+	#git remote add origin git@github.com:skroes/i3-config.git
+	git remote set-url --push origin git@github.com:skroes/i3-config.git
 	git fetch
-	git branch --set-upstream-to origin/master
+	#git branch --set-upstream-to origin/master
 	touch $@
 
 .github-configured-i3: | ssh-public-key .local.known_hosts.github.com
@@ -76,3 +77,9 @@ github-mrproper:
 
 .local.known_hosts.github.com: 
 	@ssh-keyscan -t rsa github.com > $@
+
+###
+###
+###
+blablagit:
+	git fetch origin ; git diff --name-only master origin/master 

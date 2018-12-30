@@ -206,9 +206,6 @@ emby-status:
 tmp/${EMBY_DEBNAME}: | tmp
 	curl -L -S --progress-bar "${EMBY_URL}/${EMBY_DEBNAME}" -o $@
 
-tmp:
-	mkdir $@
-
 ###
 ### etckeeper
 ###

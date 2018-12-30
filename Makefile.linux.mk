@@ -166,18 +166,17 @@ e2: .e2-install .e2-config # Setup e2guardian
 	sudo apt install e2guardian -qy
 
 .e2-config: | .e2-install
-	@test -L /etc/e2guardian || sudo unlink /etc/e2guardian
-	@test -d /etc/e2guardian || sudo rm -Rf /etc/e2guardian
-	sudo stow -t /etc -S e2guardian
+	-@test -L /etc/e2guardian && sudo unlink /etc/e2guardian
+	-@test -d /etc/e2guardian && sudo rm -Rf /etc/e2guardian
+	sudo stow -t /etc -S tag-e2guardian
 	touch $@
 
 e2-clean:
-	rm -f .e2-install .e2guardian-config
+	rm -f .e2-install .e2-config
 
-.e2-mrproper:
-	sudo stow -t /etc -D e2guardian
+.e2-mrproper: e2-clean
+	-sudo stow -t /etc -D e2guardian || sudo unlink /etc/e2guardian
 	sudo apt purge e2guardian -qy
-	sudo unlink /etc/e2guardian
 
 ###
 ### emby

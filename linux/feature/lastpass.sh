@@ -1,28 +1,19 @@
 #!/bin/bash
 set -e
-sudo apt-get --no-install-recommends -yqq install \
-  bash-completion \
-  build-essential \
-  cmake \
-  libcurl4  \
-  libcurl4-openssl-dev  \
-  libssl-dev  \
-  libxml2 \
-  libxml2-dev  \
-  libssl1.1 \
-  pkg-config \
-  ca-certificates \
-  xclip asciidoc xsltproc
-pwd
-
 cd tmp
-git clone https://github.com/lastpass/lastpass-cli.git || true 
-cd lastpass-cli
-make
-sudo make install
-sudo make install-doc
-echo
-echo "now login: lpass login x@c.x"
-echo
-echo "quick ref see: https://lastpass.github.io/lastpass-cli/lpass.1.html"
-echo
+
+#https://download.cloud.lastpass.com/pocket/pocket_x64.tar.bz2
+#https://download.cloud.lastpass.com/sesame/sesame_x64.tar.bz2
+
+LASTPASSFILE=lplinux.tar.bz2
+curl -L -S --progress-bar https://download.cloud.lastpass.com/linux/${LASTPASSFILE} -o ${LASTPASSFILE}
+
+checksum=b517c3dfa350d928957fe23e03fc4509e0673472
+
+if ! echo "$checksum ${LASTPASSFILE}" | shasum -; then
+    echo "Checksum failed" >&2
+    exit 1
+fi
+
+tar xjvf ${LASTPASSFILE}
+./install_lastpass.sh

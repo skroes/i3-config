@@ -102,7 +102,7 @@ featureobjects := $(shell cd ${OS}/feature/ && ls -1 *.sh | sed 's/.sh//g' | sed
 
 feature-all: ${featureobjects} ## Setup all features segments
 
-${featureobjects}: $(addprefix .,${featureobjects}) .upgrade update-repo
+${featureobjects}: $(addprefix .,${featureobjects}) .upgrade update-repo tmp
 	$(call oksign,$@)
 
 .feature-%:
@@ -188,6 +188,9 @@ clean: ${OS}-clean
 	$(call oksign,$@)
 
 mrproper: clean
+
+tmp:
+	mkdir $@
 
 makefile2graph.png: | ./tmp/makefile2graph
 	cat Makefile* > .tmp.combined-makefile

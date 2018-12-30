@@ -3,6 +3,10 @@ define generate_file
 	echo 2 $(2)
 endef
 
+xyz:
+	$(call generate_file,John Doe,101)
+	$(call generate_file,Peter Pan,102)
+
 define echo
 	@printf "\033[36m$(1)\033[0m %s\n"
 endef

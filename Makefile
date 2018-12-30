@@ -90,10 +90,9 @@ update:
 push-force:
 	git push
 
-git-commit-and-push-force:
-	git add .
-	
-	git push
+git-commit-and-push-in-one-go:
+	for filetocommit in $$(git status --short | awk {'print $$2'}); do git add $$filetocommit; git commit -m "[$$(hostname -s)] [$${filetocommit}]"; done
+	echo "should do: git push"
 
 ###
 ### features

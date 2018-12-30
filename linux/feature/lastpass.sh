@@ -12,7 +12,7 @@ sudo apt-get --no-install-recommends -yqq install \
   libssl1.1 \
   pkg-config \
   ca-certificates \
-  xclip
+  xclip asciidoc xsltproc
 pwd
 
 cd tmp
@@ -20,5 +20,9 @@ git clone https://github.com/lastpass/lastpass-cli.git || true
 cd lastpass-cli
 make
 sudo make install
-#sudo apt-get install asciidoc xsltproc
-#sudo make install-doc
+sudo make install-doc
+echo
+echo "now login: lpass login x@c.x"
+echo
+echo "quick ref see: https://lastpass.github.io/lastpass-cli/lpass.1.html"
+echo

@@ -75,6 +75,27 @@ K := $(foreach exec,$(EXECUTABLES),\
 is-not-installed=! (command -v $(1))
 
 ###
+### core stuff
+###
+st:
+	git st
+
+update:
+	git fetch
+	git stash
+	git rebase origin/master
+	git stash pop
+	git status -s -b
+
+push-force:
+	git push
+
+git-commit-and-push-force:
+	git add .
+	
+	git push
+
+###
 ### features
 ###
 
@@ -107,7 +128,7 @@ feature-clean:
 #latest-%: $(addprefix .,$@)
 
 latest-%: | puppet-agent
-	@sudo -i puppet resource package $* ensure=latest  | tr "\n" " "
+	sudo -i puppet resource package $* ensure=latest  | tr "\n" " "
 	touch $@
 
 latest-clean:
@@ -170,13 +191,14 @@ clean: ${OS}-clean
 
 mrproper: clean
 
-makefile2graph.png:
-	cat Makefile Makefile.linux.mk > .tmp.combined-makefile
+makefile2graph.png: | ./tmp/makefile2graph
+	cat Makefile* > .tmp.combined-makefile
 	make -f .tmp.combined-makefile -Bnd | ./tmp/makefile2graph/make2graph | dot -Tpng -o $@
 	#rm .tmp.combined-makefile
 	xdg-open $@
 
-./tmp/makefile2graph: makefile2graph
-	git clone https://github.com/lindenb/makefile2graph.git
-	cd ./tmp/makefile2graph && make
+./tmp/makefile2graph:
+	rm -Rf $@
+	git clone https://github.com/lindenb/makefile2graph.git $@
+	cd $@ && make
 	touch $@

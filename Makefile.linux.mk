@@ -1,19 +1,28 @@
 
-linux: repo core shell desktop ### This will setup targets
+linux: repo core shell desktop services ### This will setup targets
 	$(call oksign,$@)
+
 repo: .upgrade update-repo
 	$(call oksign,$@)
-core: git e2 etckeeper github feature-all 
+
+core: git etckeeper github feature-all 
 	$(call oksign,$@)
+
 shell: fish fish-config
 	$(call oksign,$@)
+
 desktop: i3 chrome firefox
 	$(call oksign,$@)
+
+services: ssh-server e2 
+	$(call oksign,$@)
+
+specials: emby
 
 linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean fish-clean
 
 ###
-### OS and repo
+### repo
 ###
 
 update-repo: .update-repo ## Update repository metadata

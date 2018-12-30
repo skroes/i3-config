@@ -89,6 +89,14 @@ firefox: .firefox # Install firefox
 	touch $@
 
 ###
+### firefox plugins
+###
+
+firefox-ublock:
+	wget https://github.com/gorhill/uBlock/releases/download/1.17.5rc4/uBlock0_1.17.5rc4.firefox.signed.xpi
+	firefox --new-tab uBlock0_1.17.5rc4.firefox.signed.xpi
+
+###
 ### google-chrome
 ###
 

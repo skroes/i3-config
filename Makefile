@@ -80,11 +80,18 @@ is-not-installed=! (command -v $(1))
 st:
 	git st
 
-update:
+update: ### update i3 repo; stash update stash pop ...
 	git fetch
 	git stash
 	git rebase origin/master
 	git stash pop || git status -s -b
+
+update-cron: # normaly only required via a cronjob
+	git fetch
+	git diff --name-only master origin/master
+	git stash
+	git rebase origin/master
+	make update-cron-remake
 
 push-force:
 	git push

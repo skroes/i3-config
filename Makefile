@@ -84,9 +84,7 @@ update:
 	git fetch
 	git stash
 	git rebase origin/master
-	git status -s -b
-	git stash pop
-	git status -s -b
+	git stash pop || git status -s -b
 
 push-force:
 	git push

@@ -1,8 +1,14 @@
 
-linux: feature-all .upgrade update-repo fish git i3 e2 chrome firefox etckeeper ### This will setup targets; update-repo vscode git i3 e2 regular-packages
+linux: repo core shell desktop ### This will setup targets
 	$(call oksign,$@)
-
-linux-complete-workspace: github | linux
+repo: .upgrade update-repo
+	$(call oksign,$@)
+core: git e2 etckeeper github feature-all 
+	$(call oksign,$@)
+shell: fish fish-config
+	$(call oksign,$@)
+desktop: i3 chrome firefox
+	$(call oksign,$@)
 
 linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean fish-clean
 

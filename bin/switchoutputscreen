@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 selector=$1
 
@@ -27,6 +27,7 @@ case $secondairy in
           ;;
      *)
           xrandr --output HDMI-1 --off
+          xrandr --output DP-1-1 --off
           xrandr --output DP-1-2 --off
           echo "no secondary connected"
 esac

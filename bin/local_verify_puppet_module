@@ -1,0 +1,29 @@
+#!/bin/bash -l
+#
+#PULL_REQUEST_FROM_BRANCH
+#PULL_REQUEST_TO_BRANCH
+#PULL_REQUEST_FROM_BRANCH
+#
+# Only scan the modified files of the pull request, not the entire repository
+# TODO: If only non yaml files are edited, the command below should be skipped
+file_list=$(git --no-pager diff --diff-filter=ACMRTUXB --name-status | awk '{print $NF}' | grep '\.pp' | tr '\n' ' ')
+exit_code=$?; if [ $exit_code -gt 0 ]; then exit $exit_code; fi
+
+if [ -n "$file_list" ]; then
+  echo 'Changed .pp files:'
+  for file in $file_list; do
+    echo $file
+  done
+
+  echo 'Validating Puppet syntax'
+  puppet parser validate $file_list
+  exit_code=$?; if [ $exit_code -gt 0 ]; then exit $exit_code; else echo 'OK'; fi
+  
+  echo 'Validating Puppet style'
+  # Puppet lint doesn't support variable inheritance from init.pp, so disable variable scope check
+  puppet-lint $file_list --fail-on-warnings --no-variable_scope-check --no-140chars-check
+  exit_code=$?; if [ $exit_code -gt 0 ]; then exit $exit_code; else echo 'OK'; fi
+else
+  echo "No .pp files are changed, skipping validation"
+fi
+

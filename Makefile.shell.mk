@@ -4,7 +4,7 @@ fish-config: | ${HOME}/.local/share/omf/init.fish fish .fish.omf.theme.yimmy ###
 
 .fish.omf.theme.yimmy: /home/serkroes/.local/share/omf/themes/yimmy
 /home/serkroes/.local/share/omf/themes/yimmy:
-	omf install yimmy
+	fish -c 'omf install yimmy &; exit'
 
 ${HOME}/.local/share/omf/init.fish: | fish
 	curl -L https://get.oh-my.fish > tmp/omf-install

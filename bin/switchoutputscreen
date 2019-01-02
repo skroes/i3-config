@@ -3,9 +3,10 @@
 selector=$1
 
 primary=$(xrandr | grep -w connected | grep -w primary | awk {'print $1'})
-secondairy=$(xrandr | grep -w connected | grep -vw primary | awk {'print $1'})
+secondairy=$(xrandr | grep -w connected | grep -vw primary | awk {'print $1'} | head -n1)
+thirthyriy=$(xrandr | grep -w connected | grep -vw primary | awk {'print $1'} | grep -v $secondairy)
 
-#echo "pri: $primary     sec: $secondairy"
+echo "pri: $primary     sec: $secondairy    thirthyriy: $thirthyriy"
 
 case $primary in
      eDP-1)      
@@ -30,4 +31,14 @@ case $secondairy in
           xrandr --output DP-1-1 --off
           xrandr --output DP-1-2 --off
           echo "no secondary connected"
+esac
+
+case $thirthyriy in
+     DP-2-1)      
+          xrandr --output $thirthyriy --mode 1920x1080 --auto
+          xrandr --output $thirthyriy --left-of $secondairy
+          ;;
+     *)
+          echo "no thirthyriy connected"
+          ;;
 esac

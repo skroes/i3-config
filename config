@@ -287,11 +287,11 @@ bindsym $mod+Tab workspace back_and_forth
 ### workspaces
 ###
 
-set $WS1 "1:www"
-set $WS2 "2:term"
+set $WS1 "1:term"
+set $WS2 "2:www"
 set $WS3 "3:edit"
-set $WS4 "4:x"
-set $WS5 "5:y"
+set $WS4 "4:misc"
+set $WS5 "5:chat"
 
 #set $WS6 "6::"
 #set $WS7 "7::"

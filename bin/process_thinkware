@@ -1,24 +1,26 @@
 #!/bin/bash
+
+set -e
+
 #VERBOSE="echo "
 VERBOSE=""
 
 # import
-#DEVICELABEL="JAMES_GOPRO"
 DEVICELABEL="F770"
 
 # DCOMPATH source
-DCIMPATH="/run/media/skroes/${DEVICELABEL}/"
+DCIMPATH="/media/${USER}/${DEVICELABEL}/"
 #PATHPREFIX="F770_"
 
 # TARGETPATHROOT is target export dir
-TARGETPATHROOT="/run/media/skroes/${DEVICELABEL}/processed"
+TARGETPATHROOT="/home/${USER}/thinkware_processed_dashcam/"
 
 
 # check dir van device
 #debian
 #test -d /media/skroes/${DEVICELABEL} || ( echo "device not mounted"; exit 1 )
 #fedora
-test -d /run/media/skroes/${DEVICELABEL} || ( echo "device not mounted"; exit 1 )
+test -d ${DCIMPATH} || ( echo "device not mounted"; exit 1 )
 
 cd ${DCIMPATH}
 
@@ -36,16 +38,20 @@ do
   echo "source: $importfile"
   filename=${importfile##*/}
   filenamefilenr=$(echo $filename | cut -f 5,6,7,1,8 -d "_" | tr [A-Z] [a-z] | tr -d "_")
+
+  filecat=$(echo $importfile | awk -F/ {'print $5'})
+
   #filenamespecialnr=$(echo $filename | cut -f 7 -d "/" | cut -b 3-4)
 
   #echo $filename
   #echo $filenamefilenr
   #exit
-  TARGETPATHFOREXPORT="${TARGETPATHROOT}/$(date -r ${importfile} +"F770_%Y_%m_%d")/"
+  TARGETPATHFOREXPORT="${TARGETPATHROOT}/$(date -r ${importfile} +"F770_%Y_%m")/"
 
   test -d ${TARGETPATHFOREXPORT} || $VERBOSE mkdir -p ${TARGETPATHFOREXPORT}
 
-  $VERBOSE mv -v -n "${importfile}" "${TARGETPATHFOREXPORT}$(date -r "${importfile}" +"F770_%Y%m%d_%H%M%S")_${filenamefilenr}.mp4"
+  $VERBOSE mv -v -n "${importfile}" "${TARGETPATHFOREXPORT}$(date -r "${importfile}" +"F770_%s_%Y-%m-%d_%H:%M:%S")_${filecat}-${filenamefilenr}"
+
 done
 
 # generate playlists
@@ -60,5 +66,5 @@ done
 
 
 #!/bin/bash
-#test -f "$@" || exit 1 
+#test -f "$@" || exit 1
 #echo mv -n "$@" "$(date -r "$@" +"HERO1_%Y%m%d_%H%M")_$@"

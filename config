@@ -419,6 +419,9 @@ bindsym $mod+XF86Forward workspace next
 bindsym $mod+Prior       workspace prev
 bindsym $mod+XF86Back    workspace prev
 
+# on special key release, reload i3blocks for status
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 #next_on_output
 #prev_on_output
 
@@ -683,7 +686,7 @@ bar {
   hidden_state show
   position top
   #tray_output all #????
-  status_command i3blocks
+  status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
   #previous: ~/.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA

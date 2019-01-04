@@ -77,16 +77,11 @@ is-not-installed=! (command -v $(1))
 ###
 ### core stuff
 ###
-st:
-	git st
 
-update: ### update i3 repo; stash update stash pop ...
-	git fetch
-	git stash
-	git rebase origin/master
-	git stash pop || git status -s -b
+update: ### update i3 repo
+	git pull --rebase
 
-push-force:
+push:
 	git push
 
 git-commit-and-push-in-one-go:

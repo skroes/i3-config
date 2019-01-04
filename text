@@ -1,0 +1,20 @@
+make update
+
+This updates the repositories
+- infra-devbox itself
+- hiera
+- all modules inside ./environment/lab path
+
+make setup
+
+Installs and configures the system requirements
+- vagrant
+- virtualbox
+-> this should satisfy a laptop with
+- Ubuntu 18.04
+- Fedora
+- MacOS
+
+make update_etc_hosts
+
+update the workstation /etc/hosts file with the

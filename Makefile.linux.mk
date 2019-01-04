@@ -92,9 +92,16 @@ firefox: .firefox # Install firefox
 ### firefox plugins
 ###
 
-firefox-ublock:
-	wget https://github.com/gorhill/uBlock/releases/download/1.17.5rc4/uBlock0_1.17.5rc4.firefox.signed.xpi
-	firefox --new-tab uBlock0_1.17.5rc4.firefox.signed.xpi
+firefox-plugins: .firefox-plugins
+.firefox-plugins:
+	#find .mozilla/ -name '*lastpass*' >/dev/null || firefox --new-tab https://lastpass.com/lastpassffx/
+	#firefox --new-tab https://addons.mozilla.org/nl/firefox/addon/tree-style-tab/
+  #grep -oP '(?<=\},\"name\":\")([^"]*)' ~/.mozilla/firefox/*.default/addons.json | grep -q µBlock || firefox --new-tab https://www.ublock.org/
+  #touch $@
+
+#https://addons.mozilla.org/en-US/firefox/addon/umatrix/
+#mv chrome/ ~/.mozilla/firefox/*defaults/
+#
 
 ###
 ### google-chrome
@@ -108,6 +115,7 @@ chrome: .chrome # Setup Google Chrome
 	sudo apt-get update -qqy
 	sudo apt-get install google-chrome-stable -qqy
 	touch $@
+#https://addons.mozilla.org/nl/firefox/addon/tridactyl-vim/
 
 chrome-clean:
 	sudo rm -f /etc/apt/sources.list.d/google-chrome.list

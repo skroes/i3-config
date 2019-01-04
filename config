@@ -682,14 +682,9 @@ bar {
   mode dock
   hidden_state show
   position top
-  #tray_output LVDS1
-  #all
-  status_command ~/.config/i3/bin/myi3status.sh
-  #/home/skroes/drive/notes/status.sh
-  #i3status
-  #status_command ~/.config/i3/conky
-  #wheel_up_cmd nop
-  #wheel_down_cmd exec ~/.config/i3/scripts/custom_wheel_down
+  #tray_output all #????
+  status_command i3blocks
+  #previous: ~/.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA
     background #333333

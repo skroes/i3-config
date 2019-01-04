@@ -5,16 +5,16 @@ linux: repo core shell desktop services ### This will setup targets
 repo: .upgrade update-repo
 	$(call oksign,$@)
 
-core: git etckeeper github feature-all 
+core: git etckeeper github feature-all
 	$(call oksign,$@)
 
 shell: fish fish-config
 	$(call oksign,$@)
 
-desktop: i3 chrome firefox
+desktop: i3 chrome firefox ## desktop apps
 	$(call oksign,$@)
 
-services: ssh-server e2 
+services: ssh-server e2 ## system services
 	$(call oksign,$@)
 
 specials: emby
@@ -27,7 +27,7 @@ linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-cle
 
 update-repo: .update-repo ## Update repository metadata
 	$(call oksign,$@)
-.update-repo: $(shell sudo find /etc/apt -type f)
+.update-repo: $(shell find /etc/apt -type f)
 	sudo apt update -qqy
 	sudo apt autoremove -qy
 	touch $@
@@ -37,7 +37,7 @@ upgrade: .upgrade-exec ## Upgrade OS
 	$(call oksign,$@)
 
 # trigger only if updated req
-.upgrade: $(shell sudo ls /var/cache/apt/*.bin) .update-repo
+.upgrade: $(shell ls /var/cache/apt/*.bin) .update-repo
 	sudo apt upgrade -qqy
 	sudo apt autoremove -qy
 	touch $@
@@ -77,7 +77,7 @@ ssh-server: .ssh-server # Install sshd daemon
 
 /usr/sbin/sshd: latest-openssh-server
 
-### 
+###
 ### firefox
 ###
 

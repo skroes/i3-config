@@ -97,7 +97,7 @@ featureobjects := $(shell cd ${OS}/feature/ && ls -1 *.sh | sed 's/.sh//g' | sed
 
 feature-all: ${featureobjects} ## Setup all features segments
 
-${featureobjects}: $(addprefix .,${featureobjects}) .upgrade update-repo tmp
+${featureobjects}: $(addprefix .,${featureobjects}) .repo-update tmp
 	$(call oksign,$@)
 
 .feature-%:

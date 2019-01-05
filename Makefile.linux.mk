@@ -1,23 +1,26 @@
+#
+# major targets:
+#
 
-linux: repo core shell desktop services ### This will setup targets
+linux: core shell desktop services ### This will setup targets
 	$(call oksign,$@)
 
-repo: .upgrade update-repo
+repo: .repo ## Update repository metadata
 	$(call oksign,$@)
 
-core: git etckeeper github feature-all
+core: git etckeeper github feature-all repo
 	$(call oksign,$@)
 
-shell: fish fish-config
+shell: fish fish-config repo
 	$(call oksign,$@)
 
-desktop: i3 chrome firefox ## desktop apps
+desktop: i3 chrome firefox repo ## desktop apps
 	$(call oksign,$@)
 
-services: ssh-server e2 ## system services
+services: ssh-server e2 repo ## system services
 	$(call oksign,$@)
 
-specials: emby
+specials: emby repo
 
 linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean fish-clean
 
@@ -25,27 +28,12 @@ linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-cle
 ### repo
 ###
 
-update-repo: .update-repo ## Update repository metadata
-	$(call oksign,$@)
-.update-repo: $(shell find /etc/apt -type f)
-	sudo apt update -qqy
+
+.repo: $(shell find /etc/apt -type f)
+	sudo apt update -qy
+	sudo apt upgrade -qy
 	sudo apt autoremove -qy
 	touch $@
-
-upgrade: .upgrade-exec ## Upgrade OS
-	touch .upgrade
-	$(call oksign,$@)
-
-# trigger only if updated req
-.upgrade: $(shell ls /var/cache/apt/*.bin) .update-repo
-	sudo apt upgrade -qqy
-	sudo apt autoremove -qy
-	touch $@
-
-# execute the actual upgrade of packages
-.upgrade-exec:
-	sudo apt upgrade -qqy
-	sudo apt autoremove -qy
 
 ###
 ### puppet
@@ -62,7 +50,7 @@ puppet-agent: .puppet-agent # installs puppet5 agent
 	touch $@
 
 packages-clean:
-	rm -rf .upgrade .update-repo
+	rm -rf .repo
 
 ###
 ### setup ssh server
@@ -84,7 +72,7 @@ ssh-server: .ssh-server # Install sshd daemon
 firefox: .firefox # Install firefox
 	$(call oksign,$@)
 
-.firefox:
+.firefox: .repo
 	sudo apt-get install firefox -qqy
 	touch $@
 
@@ -127,7 +115,7 @@ chrome-clean:
 i3: .i3-dependencies .i3-install .i3-settings # Setup i3
 	$(call oksign,$@)
 
-i3-repo-github-enabled: github-enabled .i3-git-update-remote ### ssh access enabled for i3 repository
+i3-repo-github-enabled: github-enabled .i3-git-update-remote repo ### ssh access enabled for i3 repository
 	$(call oksign,$@)
 
 ###
@@ -141,7 +129,7 @@ i3-repo-github-enabled: github-enabled .i3-git-update-remote ### ssh access enab
 	git branch --set-upstream-to origin/master
 	touch $@
 
-.i3-dependencies:
+.i3-dependencies: .repo
 	sudo apt install \
 		suckless-tools i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session \
 		alsa-utils volumeicon-alsa disper libnotify-bin meld s3cmd gconf2 wget curl\
@@ -177,7 +165,7 @@ i3-clean:
 e2: .e2-install .e2-config # Setup e2guardian
 	$(call oksign,$@)
 
-.e2-install: /var/lib/dpkg/info/e2guardian.list | .upgrade
+.e2-install: /var/lib/dpkg/info/e2guardian.list | .repo
 /var/lib/dpkg/info/e2guardian.list:
 	sudo apt install e2guardian -qy
 

@@ -1,7 +1,9 @@
 
-fish-config: | ${HOME}/.local/share/omf/init.fish fish .fish.omf.theme.yimmy ### install fish stow config
+fish-config: .fish-config
+.fish-config: | ${HOME}/.local/share/omf/init.fish fish .fish.omf.theme.yimmy ### install fish stow config
 	-unlink ~/.config/fish/functions/fish_prompt.fish
 	stow --target ~/.config/fish/ tag-fish --adopt
+	touch $@
 
 .fish.omf.theme.yimmy: /home/serkroes/.local/share/omf/themes/yimmy
 /home/serkroes/.local/share/omf/themes/yimmy:
@@ -28,4 +30,4 @@ fish-exec: /usr/bin/fish
 /usr/bin/fish: | latest-fish
 
 fish-clean:
-	rm -f .fish .fish-add-to-shell
+	rm -f .fish .fish-config .fish-add-to-shell

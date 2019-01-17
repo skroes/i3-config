@@ -9,6 +9,6 @@ for x in $(echo $touchinputids); do
   touchinputelementes=$(xinput list-props ${x} | grep 'Tapping Enabled' | head -1 | sed -e 's/.*(//g' -e 's/).*//g')
   echo "x $x"
   for y in $(echo $touchinputelementes); do
-  	echo xinput set-prop $x $touchinputelementes 1
+  	 xinput set-prop $x $touchinputelementes 1
   done
 done

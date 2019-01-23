@@ -2,14 +2,24 @@
 
 set -e
 CURMONTH=$(date +%m)
+FILE="$*"
+
+
+
+echo $FILE
+FILESANE="${FILE// /_}"
+echo $FILESANE
+
+mv -f "$FILE" $FILESANE | true
 
 # if /leesfolder${CURMONTH}/ not there, create it
 /home/serkroes/go/bin/rmapi cd leesfolder${CURMONTH} | grep -wi error || /home/serkroes/go/bin/rmapi mkdir /leesfolder${CURMONTH}
 
 # put the file
-echo put "$*" /leesfolder${CURMONTH}/ | /home/serkroes/go/bin/rmapi
+echo put "${FILESANE}" /leesfolder${CURMONTH}/
+#| /home/serkroes/go/bin/rmapi
 echo $?
 
 # archive the file
 test -d /home/serkroes/Downloads/archive/uploaded_to_remarkable || mkdir -p /home/serkroes/Downloads/archive/uploaded_to_remarkable
-mv "$*" /home/serkroes/Downloads/archive/uploaded_to_remarkable
+mv "${FILESANE} /home/serkroes/Downloads/archive/uploaded_to_remarkable

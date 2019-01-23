@@ -22,4 +22,4 @@ echo $?
 
 # archive the file
 test -d /home/serkroes/Downloads/archive/uploaded_to_remarkable || mkdir -p /home/serkroes/Downloads/archive/uploaded_to_remarkable
-mv "${FILESANE} /home/serkroes/Downloads/archive/uploaded_to_remarkable
+mv "${FILESANE}" /home/serkroes/Downloads/archive/uploaded_to_remarkable

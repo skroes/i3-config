@@ -1,0 +1,9 @@
+#!/bin/bash
+set -x
+set -e
+while (true) do
+    echo "karambaaa!"
+    xdotool search --name "Desktop CRV4ALL " key F4
+    #Shift_L
+    sleep 500
+done

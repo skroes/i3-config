@@ -84,8 +84,10 @@ update: ### update i3 repo
 push:
 	git push
 
-git-commit-and-push-in-one-go:
+git-commit-and-push:
 	for filetocommit in $$(git status --short | awk {'print $$2'}); do git add $$filetocommit; git commit -m "[$$(hostname -s)] [$${filetocommit}]"; done
+	git fetch
+	git rebase origin/master
 	git push
 
 ###

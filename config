@@ -1,6 +1,6 @@
 ## i3 config file
 
-set $bindir ~/.config/i3/bin/
+set $bindir ~/bin
 exec echo $bindir > YOLO
 
 # FIXME
@@ -12,12 +12,12 @@ exec echo $bindir > YOLO
 #fake-outputs 3840x1080+0+0
 
 # controls the xset stuff
-exec $bindir+xreset
-exec $bindir+feature_enable_touchpad_touch
+exec ~/bin/xreset
+exec ~/bin/feature_enable_touchpad_touch
 
-#exec $bindir+wallpaper
-#exec $bindir+middlebutton
-#exec $bindir+logitech_usb_laser
+#exec ~/bin/wallpaper
+#exec ~/bin/middlebutton
+#exec ~/bin/logitech_usb_laser
 
 #exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nm-applet
@@ -435,14 +435,16 @@ hide_edge_borders none
 #border 1pixel
 
 # cmd + period
-bindsym $mod+period exec $bindir+swap-workspace-between-screens
+bindsym $mod+period exec ~/bin/swap-workspace-between-screens
 
 # F11 toggles the i3bar and disables eDP1
 # effectivly a focus mode
-bindsym $mod+F11 exec $bindir+focusmode
+bindsym $mod+F11 exec ~/bin/focusmode
 
 # F12 toggles the window border style, (cycle normal, none, 1pixel)
 bindsym $mod+F12 border toggle
+
+bindsym $mod+F10 exec ~/bin/layout_manager.sh
 
 # for newly arrived windows or popups:
 new_float normal
@@ -505,7 +507,7 @@ mode "display" {
   # focus 1 2 3
   bindsym 1 exec ~/bin/automirror.sh
   bindsym 2 exec ~/bin/automirror.sh --interactive
-  bindsym 2 exec ~/bin/switchoutputscreen
+  bindsym 3 exec ~/bin/switchoutputscreen
   #bindsym 2 exec ~/bin/lala_focus.sh
   #bindsym 3 exec ~/bin/lala_focus_DP12.sh
 
@@ -514,18 +516,18 @@ mode "display" {
 
   #bindsym 9 exec bin/lala_laptop_corner1.sh
 
-  #bindsym 1 exec autorandr --load default, exec $bindir+wallpaper
-  #bindsym 2 exec autorandr --load extendleft, exec $bindir+wallpaper
-  #bindsym 3 exec autorandr --load extendleftbig, exec $bindir+wallpaper
-  #bindsym 4 exec autorandr --load extendleftbig, exec $bindir+wallpaper
-  #bindsym 5 exec autorandr --load external, exec $bindir+wallpaper
-  #bindsym 6 exec autorandr --load externalbig, exec $bindir+wallpaper
-  #bindsym 7 exec autorandr --load externaldp, exec $bindir+wallpaper
+  #bindsym 1 exec autorandr --load default, exec ~/bin/wallpaper
+  #bindsym 2 exec autorandr --load extendleft, exec ~/bin/wallpaper
+  #bindsym 3 exec autorandr --load extendleftbig, exec ~/bin/wallpaper
+  #bindsym 4 exec autorandr --load extendleftbig, exec ~/bin/wallpaper
+  #bindsym 5 exec autorandr --load external, exec ~/bin/wallpaper
+  #bindsym 6 exec autorandr --load externalbig, exec ~/bin/wallpaper
+  #bindsym 7 exec autorandr --load externaldp, exec ~/bin/wallpaper
 
-  #bindsym 9 exec autorandr --load extenddocking, exec $bindir+wallpaper, mode default
+  #bindsym 9 exec autorandr --load extenddocking, exec ~/bin/wallpaper, mode default
 
   # b for Background fix
-  bindsym b exec $bindir+wallpaper
+  bindsym b exec ~/bin/wallpaper
 
   #extendleftbig (detected)
   #external
@@ -596,10 +598,10 @@ mode "command" {
         # These bindings trigger as soon as you enter the command mode
 
         # m for set the MiddleButton for scrolling, a thinkpad thingy
-        bindsym m exec $bindir+middlebutton
+        bindsym m exec ~/bin/middlebutton
 
         # b for Background fix
-        bindsym b exec $bindir+wallpaper
+        bindsym b exec ~/bin/wallpaper
 
         # t for Trackpad toggle
         bindsym t exec ~/bin/sk_trackpad_toggle
@@ -620,24 +622,24 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 
 
 # $mod+p or fn-F7 switch display back&forth
-bindsym XF86Display exec $bindir+display_change
-bindsym $mod+p exec $bindir+display_change
+bindsym XF86Display exec ~/bin/display_change
+bindsym $mod+p exec ~/bin/display_change
 
 # $mod+BackSpace
 # BackSpace
-#bindsym $mod+BackSpace exec $bindir+desktop_startup
+#bindsym $mod+BackSpace exec ~/bin/desktop_startup
 
 
 # $mod+? or fn-F8(USB keyboard) extend display
-#bindsym XF86TouchpadToggle exec $bindir+2VGA_DP1.sh
-#bindsym $mod+? exec $bindir+2VGA_DP1.sh
+#bindsym XF86TouchpadToggle exec ~/bin/2VGA_DP1.sh
+#bindsym $mod+? exec ~/bin/2VGA_DP1.sh
 
 #bindsym XF86AudioPlay exec "~/.bin/player toggle"
 #bindsym XF86AudioStop exec "~/.bin/player stop"
 #bindsym XF86AudioNext exec "~/.bin/player next"
 #bindsym XF86AudioPrev exec "~/.bin/player previous"
 
-bindsym XF86MonBrightnessUp exec "$bindir+backlight +20"
+bindsym XF86MonBrightnessUp exec "~/bin/backlight +20"
 bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 
 ###
@@ -674,15 +676,16 @@ for_window [class="copyq"] floating enable
 ### bar
 ###
 
-# HDMI1 output
+# main laptop output
 bar {
   strip_workspace_numbers yes
   #output HDMI1
-  #output LVDS1
+  #output eDP-1
   mode dock
   hidden_state show
   position top
-  #tray_output all #????
+  #modifier $mod
+  tray_output eDP-1
   status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
   #previous: ~/.config/i3/bin/myi3status.sh
   colors {
@@ -694,15 +697,25 @@ bar {
 }
 
 
-#set $primary_monitor DP-4
-#set $secondary_monitor DVI-I-1
+# all output
 #bar {
-#        output $secondary_monitor
-#        font pango:monospace 10
-#        status_command i3status -c ~/.config/i3/i3status.conf
+#  strip_workspace_numbers yes
+#  #output DP-1
+#  #DP-2 DP-1-1 DP-1-2 DP-1-3 DP-2-1 DP-2-2 DP-2-3
+#  mode hide
+#  hidden_state hide
+#  position top
+#  modifier $mod
+# #tray_output all #????
+#  #status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
+#  #previous: ~/.config/i3/bin/myi3status.sh
+ # colors {
+ #   statusline #AAAAAA
+ #   background #333333
+ #   focused_workspace $blue #00AAAA
+ #   inactive_workspace $gray1 $gray1 #AAAAAA
+ # }
 #}
-
-
 
 #exec xrandr --output eDP-1 --dpi 100
 

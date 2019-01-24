@@ -503,7 +503,9 @@ bindsym $CTRL+$ALT+d mode "display"
 # resize window (you can also use the mouse for that)
 mode "display" {
   # focus 1 2 3
-  bindsym 1 exec ~/bin/switchoutputscreen
+  bindsym 1 exec ~/bin/automirror.sh
+  bindsym 2 exec ~/bin/automirror.sh --interactive
+  bindsym 2 exec ~/bin/switchoutputscreen
   #bindsym 2 exec ~/bin/lala_focus.sh
   #bindsym 3 exec ~/bin/lala_focus_DP12.sh
 

@@ -3,7 +3,8 @@
 # import
 #DEVICELABEL="JAMES_GOPRO"
 DEVICELABEL="DAVID_GOPRO"
-DCIMPATH="/run/media/skroes/${DEVICELABEL}/DCIM"
+#DCIMPATH="/run/media/skroes/${DEVICELABEL}/DCIM"
+DCIMPATH="/media/serkroes/DAVID_GOPRO/DCIM"
 
 # export
 TARGETPATHROOT="${DCIMPATH}/forexport"
@@ -44,5 +45,5 @@ done
 find /run/media/skroes/${DEVICELABEL} -type d
 
 #!/bin/bash
-#test -f "$@" || exit 1 
+#test -f "$@" || exit 1
 #echo mv -n "$@" "$(date -r "$@" +"HERO1_%Y%m%d_%H%M")_$@"

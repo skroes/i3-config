@@ -1,0 +1,3 @@
+#!/bin/bash -v
+cd /home/serkroes/workspace/crv/infra-devbox
+kitchen list | grep -vwi 'not created'

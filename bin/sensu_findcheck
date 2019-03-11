@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /home/serkroes/workspace/crv/infra-devbox/hiera
+egrep -Hri "$1" .

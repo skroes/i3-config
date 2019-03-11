@@ -266,6 +266,7 @@ bindsym $mod+Shift+space floating toggle
 #bindsym $mod+XF86Launch1 exec "shutter -s"
 #bindsym $mod+Shift+XF86Launch1 exec "shutter -w"
 #bindsym Print exec "shutter -s"
+bindsym Print exec gnome-screenshot --window --border-effect=border
 
 #bindsym $mod+n exec "~/bin/shot"
 #bindsym XF86Cut exec "~/bin/headshot -a"
@@ -509,6 +510,8 @@ mode "display" {
   bindsym 1 exec ~/bin/automirror.sh
   bindsym 2 exec ~/bin/automirror.sh --interactive
   bindsym 3 exec ~/bin/switchoutputscreen
+  bindsym 4 exec ~/bin/switchoutputscreen_mirror_HDMI
+  bindsym 5 exec ~/bin/switchoutputscreen_mirror_DP-1-2
   #bindsym 2 exec ~/bin/lala_focus.sh
   #bindsym 3 exec ~/bin/lala_focus_DP12.sh
 
@@ -686,7 +689,7 @@ bar {
   hidden_state show
   position top
   #modifier $mod
-  tray_output eDP-1
+  #tray_output eDP-1
   status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
   #previous: ~/.config/i3/bin/myi3status.sh
   colors {

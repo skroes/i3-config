@@ -662,7 +662,7 @@ for_window [title="Terminator Preferences"] floating enable
 for_window [class="copyq"] floating enable
 
 # com-edgytech-umongo-UMongo mongodb viewer
-#for_window [class="com-edgytech-umongo-UMongo"] floating enable
+#for_window [class="com-edgytech-umongo-UMonSCRIPT_DIRgo"] floating enable
 
 # apps from chrome are marked as pop-up, bu we need them non floating
 #?for_window [class="Google-chrome"] floating disable
@@ -690,7 +690,8 @@ bar {
   position top
   #modifier $mod
   #tray_output eDP-1
-  status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
+  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks
+  # -c /home/serkroes/workspace/personal/i3blocks-contrib/i3block-config
   #previous: ~/.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA

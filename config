@@ -283,18 +283,18 @@ bindsym $mod+Tab workspace back_and_forth
 ### workspaces
 ###
 
-set $WS1 "1:term"
+set $WS1 "1:lab"
 set $WS2 "2:www"
 set $WS3 "3:edit"
-set $WS4 "4:misc"
-set $WS5 "5:chat"
+set $WS4 "4:term"
+set $WS5 "5:shit"
 
 #set $WS6 "6::"
 #set $WS7 "7::"
 #set $WS8 "8::"
 #set $WS9 "9::"
 
-#set $WS10 "q::"
+#set $WS10
 #set $WS11 "w::"
 #set $WS12 "e::"
 #set $WS13 "r::"
@@ -683,13 +683,12 @@ for_window [class="copyq"] floating enable
 # main laptop output
 bar {
   strip_workspace_numbers yes
-  #output HDMI1
-  #output eDP-1
+  output eDP-1
   mode dock
   hidden_state show
   position top
-  #modifier $mod
-  #tray_output eDP-1
+  modifier $mod
+  tray_output eDP-1
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks
   # -c /home/serkroes/workspace/personal/i3blocks-contrib/i3block-config
   #previous: ~/.config/i3/bin/myi3status.sh
@@ -701,26 +700,75 @@ bar {
   }
 }
 
-
-# all output
-#bar {
-#  strip_workspace_numbers yes
-#  #output DP-1
 #  #DP-2 DP-1-1 DP-1-2 DP-1-3 DP-2-1 DP-2-2 DP-2-3
-#  mode hide
-#  hidden_state hide
-#  position top
-#  modifier $mod
-# #tray_output all #????
-#  #status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
-#  #previous: ~/.config/i3/bin/myi3status.sh
- # colors {
- #   statusline #AAAAAA
- #   background #333333
- #   focused_workspace $blue #00AAAA
- #   inactive_workspace $gray1 $gray1 #AAAAAA
- # }
-#}
+
+
+
+
+# output DP-1-2
+bar {
+  strip_workspace_numbers yes
+  output DP-1-2
+  mode dock
+  position top
+  modifier $mod
+  tray_output none
+  #status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
+  #status_command /.config/i3/bin/myi3status.sh
+  colors {
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
+  }
+}
+
+
+
+# output DP-2-2
+bar {
+  strip_workspace_numbers yes
+  output DP-2-2
+  mode dock
+  position top
+  modifier $mod
+  tray_output none
+  #status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
+  #status_command /.config/i3/bin/myi3status.sh
+  colors {
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
+  }
+}
+
+
+
+
+# output HDMI-1
+bar {
+  strip_workspace_numbers yes
+  output HDMI-1
+  mode dock
+  position top
+  modifier $mod
+  tray_output none
+  #status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
+  #status_command /.config/i3/bin/myi3status.sh
+  colors {
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
+  }
+}
+
+
+
+
+
+
 
 #exec xrandr --output eDP-1 --dpi 100
 

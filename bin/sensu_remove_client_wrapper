@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh sensu-sensuapi-01p.adinfra.crv4all.com sudo /etc/sensu/sensu_remove_client_wrapper $*

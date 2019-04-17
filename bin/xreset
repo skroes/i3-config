@@ -10,3 +10,5 @@
 /usr/bin/xset s 1800 1800
 /usr/bin/xset +dpms
 
+xset s blank
+xset s 300

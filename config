@@ -715,7 +715,7 @@ bar {
   position top
   modifier $mod
   tray_output none
-  #status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
+  status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
   #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA
@@ -735,7 +735,7 @@ bar {
   position top
   modifier $mod
   tray_output none
-  #status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
+  status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
   #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA

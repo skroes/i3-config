@@ -5,6 +5,7 @@ CURMONTH=$(date +%m)
 FILE="$*"
 
 
+#http://www.duckychannel.net/download/user_manual/Shine3_DK9008+DK9087_usermanual.pdf
 
 echo $FILE
 FILESANE="${FILE// /_}"

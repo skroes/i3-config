@@ -16,6 +16,8 @@ exec ~/bin/xreset
 exec ~/bin/feature_enable_touchpad_touch
 exec ~/bin/wallpaper
 
+exec --no-startup-id  xautolock -time 1 -locker "~/bin/lockthescreens" &
+
 #exec ~/bin/wallpaper
 #exec ~/bin/middlebutton
 #exec ~/bin/logitech_usb_laser
@@ -23,7 +25,7 @@ exec ~/bin/wallpaper
 #exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nm-applet
 #exec --no-startup-id slack
-exec --no-startup-id dunst
+exec --no-startup-id dunst -config /home/serkroes/workspace/personal/i3-config/dunstrc
 exec --no-startup-id parcellite
 exec --no-startup-id workrave
 exec --no-startup-id solaar
@@ -682,6 +684,10 @@ for_window [class="copyq"] floating enable
 ### bar
 ###
 
+
+#   status_command 2>/tmp/i3blocks.err /path/to/i3blocks -vvv -c /path/to/config | tee /tmp/i3blocks.out
+
+
 # main laptop output
 bar {
   strip_workspace_numbers yes
@@ -691,7 +697,7 @@ bar {
   position top
   modifier $mod
   tray_output eDP-1
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks
+  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
   # -c /home/serkroes/workspace/personal/i3blocks-contrib/i3block-config
   #previous: ~/.config/i3/bin/myi3status.sh
   colors {
@@ -715,8 +721,8 @@ bar {
   position top
   modifier $mod
   tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
-  #status_command /.config/i3/bin/myi3status.sh
+  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+   #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA
     background #333333
@@ -735,8 +741,7 @@ bar {
   position top
   modifier $mod
   tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
-  #status_command /.config/i3/bin/myi3status.sh
+  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA
     background #333333
@@ -756,8 +761,7 @@ bar {
   position top
   modifier $mod
   tray_output none
-  #status_command SCRIPT_DIR=/home/serkroes/git/i3blocks-contrib i3blocks
-  #status_command /.config/i3/bin/myi3status.sh
+  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA
     background #333333
@@ -769,7 +773,7 @@ bar {
 
 
 
-
+#/home/serkroes/workspace/personal/i3blocks-contrib 
 
 
 #exec xrandr --output eDP-1 --dpi 100

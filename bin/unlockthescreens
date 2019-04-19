@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
-ssh jules gnome-screensaver-command -d &
-ssh jules bin/startsyner &
+#ssh jules gnome-screensaver-command -d &
+#ssh jules bin/startsyner &

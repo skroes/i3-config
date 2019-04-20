@@ -1,0 +1,5 @@
+#info draadje at https://askubuntu.com/questions/255890/how-can-i-adjust-the-mouse-scroll-speed
+# https://launchpad.net/~w-shackleton/+archive/ubuntu/evdev-smoothscroll
+sudo add-apt-repository ppa:w-shackleton/evdev-smoothscroll
+sudo apt-get update
+

@@ -3,3 +3,6 @@
 sudo add-apt-repository ppa:w-shackleton/evdev-smoothscroll
 sudo apt-get update
 
+
+# idonethis CLI
+gem install idonethis-official-cli

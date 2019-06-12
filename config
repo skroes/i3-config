@@ -16,7 +16,7 @@ exec ~/bin/xreset
 exec ~/bin/feature_enable_touchpad_touch
 exec ~/bin/wallpaper
 
-exec --no-startup-id  xautolock -time 1 -locker "~/bin/lockthescreens" &
+exec --no-startup-id  xautolock -time 15 -locker "~/bin/lockthescreens" &
 
 #exec ~/bin/wallpaper
 #exec ~/bin/middlebutton
@@ -293,10 +293,10 @@ set $WS3 "3:edit"
 set $WS4 "4:term"
 set $WS5 "5:shit"
 
-#set $WS6 "6::"
-#set $WS7 "7::"
-#set $WS8 "8::"
-#set $WS9 "9::"
+set $WS6 "6::"
+set $WS7 "7::"
+set $WS8 "8::"
+set $WS9 "9::"
 
 #set $WS10
 #set $WS11 "w::"
@@ -307,6 +307,11 @@ set $WSF1 "F1::"
 set $WSF2 "F2::"
 set $WSF3 "F3::"
 set $WSF4 "F4::"
+
+set $WSF5 "F5::"
+set $WSF6 "F6::"
+set $WSF7 "F7::"
+set $WSF8 "F8::"
 
 # HDMI1 workstation
 # workspace $WS1 output HDMI1
@@ -339,21 +344,24 @@ bindsym $mod+1 workspace $WS1
 bindsym $mod+2 workspace $WS2
 bindsym $mod+3 workspace $WS3
 bindsym $mod+4 workspace $WS4
+
 bindsym $mod+5 workspace $WS5
-#bindsym $mod+6 workspace $WS6
-#bindsym $mod+7 workspace $WS7
-#bindsym $mod+8 workspace $WS8
-#bindsym $mod+9 workspace $WS9
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
 
-#bindsym $mod+q workspace $WS10
-#bindsym $mod+w workspace $WS11
-#bindsym $mod+e workspace $WS12
-#bindsym $mod+r workspace $WS13
-
+# F1 ... F8
 bindsym $mod+F1 workspace $WSF1
 bindsym $mod+F2 workspace $WSF2
 bindsym $mod+F3 workspace $WSF3
 bindsym $mod+F4 workspace $WSF4
+
+bindsym $mod+F5 workspace $WSF5
+bindsym $mod+F6 workspace $WSF6
+bindsym $mod+F7 workspace $WSF7
+bindsym $mod+F8 workspace $WSF8
+
 
 
 # extend mode $mod+E
@@ -397,20 +405,19 @@ bindsym $mod+Shift+2 move container to workspace $WS2, workspace $WS2, focus
 bindsym $mod+Shift+3 move container to workspace $WS3, workspace $WS3, focus
 bindsym $mod+Shift+4 move container to workspace $WS4, workspace $WS4, focus
 bindsym $mod+Shift+5 move container to workspace $WS5, workspace $WS5, focus
-#bindsym $mod+Shift+6 move container to workspace $WS6, workspace $WS6, focus
-#bindsym $mod+Shift+7 move container to workspace $WS7, workspace $WS7, focus
-#bindsym $mod+Shift+8 move container to workspace $WS8, workspace $WS8, focus
-#bindsym $mod+Shift+9 move container to workspace $WS9, workspace $WS9, focus
-#
-#bindsym $mod+Shift+q move container to workspace $WS10, workspace $WS10, focus
-#bindsym $mod+Shift+w move container to workspace $WS11, workspace $WS11, focus
-#bindsym $mod+Shift+e move container to workspace $WS12, workspace $WS12, focus
-#bindsym $mod+Shift+r move container to workspace $WS13, workspace $WS13, focus
+bindsym $mod+Shift+6 move container to workspace $WS6, workspace $WS6, focus
+bindsym $mod+Shift+7 move container to workspace $WS7, workspace $WS7, focus
+bindsym $mod+Shift+8 move container to workspace $WS8, workspace $WS8, focus
+bindsym $mod+Shift+9 move container to workspace $WS9, workspace $WS9, focus
 #
 bindsym $mod+Shift+F1 move container to workspace $WSF1, workspace $WSF1, focus
 bindsym $mod+Shift+F2 move container to workspace $WSF2, workspace $WSF2, focus
 bindsym $mod+Shift+F3 move container to workspace $WSF3, workspace $WSF3, focus
 bindsym $mod+Shift+F4 move container to workspace $WSF4, workspace $WSF4, focus
+bindsym $mod+Shift+F5 move container to workspace $WSF5, workspace $WSF5, focus
+bindsym $mod+Shift+F6 move container to workspace $WSF6, workspace $WSF6, focus
+bindsym $mod+Shift+F7 move container to workspace $WSF7, workspace $WSF7, focus
+bindsym $mod+Shift+F8 move container to workspace $WSF8, workspace $WSF8, focus
 
 # move view to workspace prev or next
 # $mod + PgUp or PgDown
@@ -712,6 +719,24 @@ bar {
 
 
 
+# DP-1-1
+# output DP-1-1
+bar {
+  strip_workspace_numbers yes
+  output DP-1-1
+  mode dock
+  position top
+  modifier $mod
+  tray_output none
+  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+   #status_command /.config/i3/bin/myi3status.sh
+  colors {
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
+  }
+}
 
 # output DP-1-2
 bar {

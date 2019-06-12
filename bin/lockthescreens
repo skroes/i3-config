@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+xset dpms force standby
 xscreensaver-command -l &
 #ssh colette gnome-screensaver-command -l &
 #ssh jules gnome-screensaver-command -l &

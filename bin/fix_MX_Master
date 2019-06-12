@@ -1,0 +1,7 @@
+#!/usr/bin/fish
+
+set my_mouse_id (xinput | grep "Logitech MX Master" |grep pointer| sed 's/^.*id=\([0-9]*\)[ \t].*$/\1/')
+
+#xinput list-props $my_mouse_id 
+
+xinput set-button-map $my_mouse_id 3 2 1 4 5 6 7 8 9

@@ -4,7 +4,7 @@ selector=$1
 
 primary=$(xrandr | grep -w connected | grep -w primary | awk {'print $1'})
 secondairy=$(xrandr | grep -w connected | grep -vw primary | awk {'print $1'} | head -n1)
-thirthyriy=$(xrandr | grep -w connected | grep -vw primary | awk {'print $1'} | grep -v $secondairy)
+thirthyriy=$(xrandr | grep -w connected | grep -vw primary | awk {'print $1'} | grep -v $secondairy 2>/dev/null)
 
 echo "pri: $primary     sec: $secondairy    thirthyriy: $thirthyriy"
 
@@ -27,9 +27,7 @@ case $secondairy in
           xrandr --output $secondairy --left-of $primary
           ;;
      *)
-          xrandr --output HDMI-1 --off
-          xrandr --output DP-1-1 --off
-          xrandr --output DP-1-2 --off
+          xrandr --output HDMI-1 --off --output DP-1-1 --off --output DP-1-2 --off --output DP-2-1 --off --output DP-2-2 --off
           echo "no secondary connected"
 esac
 

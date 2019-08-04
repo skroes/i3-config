@@ -144,7 +144,7 @@ floating_modifier $mod
 
 # start a terminal, the configured x-terminal-emulator
 bindsym $mod+Return exec x-terminal-emulator
-#bindsym Shift+$CTRL+Return exec i3-sensible-terminal gnome-terminal
+#bindsym Shift+$CTRL+Return exec gnome-terminal
 
 # kill focused window
 bindsym $ALT+F4 kill
@@ -815,7 +815,7 @@ bar {
 
 
 
-#/home/serkroes/workspace/personal/i3blocks-contrib 
+#/home/serkroes/workspace/personal/i3blocks-contrib
 
 
 #exec xrandr --output eDP-1 --dpi 100

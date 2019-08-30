@@ -33,10 +33,12 @@ esac
 
 case $thirthyriy in
      DP-2-1)      
-          xrandr --output $thirthyriy --mode 1920x1080 --auto --rotate normal
+          xrandr --output $thirthyriy --mode 1920x1080 --auto --rotate left
           xrandr --output $thirthyriy --left-of $secondairy
           ;;
      *)
           echo "no thirthyriy connected"
           ;;
 esac
+sleep 3
+~/bin/wallpaper &

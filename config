@@ -399,8 +399,7 @@ bindsym $mod+Shift+bracketleft move workspace to output left
 bindsym $mod+Shift+bracketright move workspace to output right
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $WS1, workspace $WS1
-#, focus
+bindsym $mod+Shift+1 move container to workspace $WS1, workspace $WS1, focus
 bindsym $mod+Shift+2 move container to workspace $WS2, workspace $WS2, focus
 bindsym $mod+Shift+3 move container to workspace $WS3, workspace $WS3, focus
 bindsym $mod+Shift+4 move container to workspace $WS4, workspace $WS4, focus

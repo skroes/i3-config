@@ -287,16 +287,16 @@ bindsym $mod+Tab workspace back_and_forth
 ### workspaces
 ###
 
-set $WS1 "1:lab"
-set $WS2 "2:www"
-set $WS3 "3:edit"
-set $WS4 "4:term"
-set $WS5 "5:shit"
+set $WS1 "1"
+set $WS2 "2"
+set $WS3 "3"
+set $WS4 "4"
+set $WS5 "5"
 
-set $WS6 "6::"
-set $WS7 "7::"
-set $WS8 "8::"
-set $WS9 "9::"
+set $WS6 "6"
+set $WS7 "7"
+set $WS8 "8"
+set $WS9 "9"
 
 #set $WS10
 #set $WS11 "w::"
@@ -657,6 +657,14 @@ bindsym $mod+p exec ~/bin/display_change
 bindsym XF86MonBrightnessUp exec "~/bin/backlight +20"
 bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 
+
+###
+### for some windows we just want a border
+###
+
+# WM_CLASS(STRING) = "gnome-terminal-server", "Gnome-terminal"
+for_window [class="Gnome-terminal"] border normal
+
 ###
 ### for some windows match new windows and modify there behaviour:
 ###
@@ -678,9 +686,6 @@ for_window [class="copyq"] floating enable
 # apps from chrome are marked as pop-up, bu we need them non floating
 #?for_window [class="Google-chrome"] floating disable
 
-#for_window [instance="telegram"]                             border normal, floating disable, move to workspace $WS3
-#for_window [class="web.whatsapp.com"]                        border normal, floating disable, move to workspace $WS3
-
 ### FIXME
 # shutter on 8
 #for_window [class="Shutter"]                                 move to workspace $WS8
@@ -697,7 +702,7 @@ for_window [class="copyq"] floating enable
 
 # main laptop output
 bar {
-  strip_workspace_numbers yes
+  strip_workspace_numbers no
   output eDP-1
   mode dock
   hidden_state show

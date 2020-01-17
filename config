@@ -708,7 +708,7 @@ bar {
   hidden_state show
   position top
   modifier $mod
-  tray_output eDP-1
+#  tray_output eDP-1
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
   # -c /home/serkroes/workspace/personal/i3blocks-contrib/i3block-config
   #previous: ~/.config/i3/bin/myi3status.sh
@@ -807,6 +807,24 @@ bar {
   position top
   modifier $mod
   tray_output none
+  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
+  colors {
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
+  }
+}
+
+
+# output DP-1
+bar {
+  strip_workspace_numbers yes
+  output DP-1
+  mode dock
+  position top
+  modifier $mod
+#  tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA

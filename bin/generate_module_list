@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for MODULE in $(list_crv_modules); do
+    echo -n $MODULE
+    #for ENVIRONMENT in lab tst acc prd; do
+    for ENVIRONMENT in prd; do
+        WHATTHEHELL=$(list_grep_module_per_branch $MODULE $ENVIRONMENT)
+        echo -n ","$WHATTHEHELL
+    done
+    echo
+done                             

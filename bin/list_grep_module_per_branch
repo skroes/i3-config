@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -w \'$1 /home/serkroes/workspace/crv/infra-devbox/environments/$2/Puppetfile -A 2 |egrep "branch|tag" | cut -f 2 -d \'

@@ -1,0 +1,2 @@
+#!/bin/bash
+cat /home/serkroes/workspace/crv/infra-devbox/environments/*/Puppetfile |grep mod | sort | uniq | cut -f 2 -d \' | grep crv_

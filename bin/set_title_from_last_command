@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# set trap on debug signal
+# to set the terminal title before command is run.
+#
+# https://stackoverflow.com/questions/10517128/change-gnome-terminal-title-to-reflect-the-current-directory
+#
+trap 'echo -ne "\033]2;$(history 1 | sed "s/^[ ]*[0-9]*[ ]*//g")\007"' DEBUG
+
+# set PS1 only simple
+export PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '

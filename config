@@ -269,8 +269,8 @@ bindsym $mod+Shift+space floating toggle
 #bindsym XF86Launch1 exec "shutter -s"
 #bindsym $mod+XF86Launch1 exec "shutter -s"
 #bindsym $mod+Shift+XF86Launch1 exec "shutter -w"
-#bindsym Print exec "shutter -s"
-bindsym Print exec gnome-screenshot --window --border-effect=border
+bindsym Print exec "shutter -s"
+#bindsym Print exec gnome-screenshot --window --border-effect=border
 
 #bindsym $mod+n exec "~/bin/shot"
 #bindsym XF86Cut exec "~/bin/headshot -a"
@@ -708,7 +708,7 @@ bar {
   hidden_state show
   position top
   modifier $mod
-#  tray_output eDP-1
+#  #tray_output eDP-1
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
   # -c /home/serkroes/workspace/personal/i3blocks-contrib/i3block-config
   #previous: ~/.config/i3/bin/myi3status.sh
@@ -732,7 +732,7 @@ bar {
   mode dock
   position top
   modifier $mod
-  tray_output none
+  ##tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
    #status_command /.config/i3/bin/myi3status.sh
   colors {
@@ -750,7 +750,7 @@ bar {
   mode dock
   position top
   modifier $mod
-  #tray_output none
+  ##tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
    #status_command /.config/i3/bin/myi3status.sh
   colors {
@@ -768,7 +768,7 @@ bar {
   mode dock
   position top
   modifier $mod
-  tray_output none
+  #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA
@@ -786,7 +786,7 @@ bar {
   mode dock
   position top
   modifier $mod
-  tray_output none
+  #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA
@@ -806,7 +806,7 @@ bar {
   mode dock
   position top
   modifier $mod
-  tray_output none
+  #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA
@@ -824,7 +824,7 @@ bar {
   mode dock
   position top
   modifier $mod
-#  tray_output none
+#  #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
     statusline #AAAAAA

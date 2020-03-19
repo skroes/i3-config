@@ -1,0 +1,5 @@
+#!/bin/bash
+sudo systemctl stop synergy.service
+sudo pkill -9 synergy-service
+sudo pkill -9 synergy-core
+sudo systemctl start synergy.service

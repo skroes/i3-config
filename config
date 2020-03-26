@@ -683,8 +683,13 @@ for_window [class="copyq"] floating enable
 # com-edgytech-umongo-UMongo mongodb viewer
 #for_window [class="com-edgytech-umongo-UMonSCRIPT_DIRgo"] floating enable
 
-# apps from chrome are marked as pop-up, bu we need them non floating
-#?for_window [class="Google-chrome"] floating disable
+# floating zoom
+for_window [class="Zoom.*"] floating enbable
+for_window [instance="Zoom.*"] floating enable
+for_window [title="Zoom.*"] floating enable
+for_window [title="Setting.*"] floating enable
+for_window [title="Participant.*"] floating enable
+
 
 ### FIXME
 # shutter on 8
@@ -803,6 +808,23 @@ bar {
 bar {
   strip_workspace_numbers yes
   output HDMI-1
+  mode dock
+  position top
+  modifier $mod
+  #tray_output none
+  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
+  colors {
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
+  }
+}
+
+# output HDMI-2
+bar {
+  strip_workspace_numbers yes
+  output HDMI-2
   mode dock
   position top
   modifier $mod

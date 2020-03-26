@@ -1,0 +1,2 @@
+#!/bin/bash
+brave-browser --app=https://www.linkedin.com/messaging

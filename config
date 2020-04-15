@@ -269,11 +269,8 @@ bindsym $mod+Shift+space floating toggle
 #bindsym XF86Launch1 exec "shutter -s"
 #bindsym $mod+XF86Launch1 exec "shutter -s"
 #bindsym $mod+Shift+XF86Launch1 exec "shutter -w"
-bindsym Print exec "shutter -s"
-#bindsym Print exec gnome-screenshot --window --border-effect=border
 
-#bindsym $mod+n exec "~/bin/shot"
-#bindsym XF86Cut exec "~/bin/headshot -a"
+bindsym Print exec "shutter -s --disable_systray"
 
 # switch to last workspace
 #bindsym $mod+minus workspace back_and_forth
@@ -657,7 +654,6 @@ bindsym $mod+p exec ~/bin/display_change
 bindsym XF86MonBrightnessUp exec "~/bin/backlight +20"
 bindsym XF86MonBrightnessDown exec ".i3/bin/backlight -20"
 
-
 ###
 ### for some windows we just want a border
 ###
@@ -683,12 +679,15 @@ for_window [class="copyq"] floating enable
 # com-edgytech-umongo-UMongo mongodb viewer
 #for_window [class="com-edgytech-umongo-UMonSCRIPT_DIRgo"] floating enable
 
+# niet floating app window
+for_window [title="WhatsApp"] floating disable
+
 # floating zoom
-for_window [class="Zoom.*"] floating enbable
+for_window [class="Zoom.*"] floating enable
 for_window [instance="Zoom.*"] floating enable
-for_window [title="Zoom.*"] floating enable
-for_window [title="Setting.*"] floating enable
-for_window [title="Participant.*"] floating enable
+#for_window [title="Zoom.*"] floating enable
+#for_window [title="Setting.*"] floating enable
+#for_window [title="Participant.*"] floating enable
 
 
 ### FIXME

@@ -270,7 +270,7 @@ bindsym $mod+Shift+space floating toggle
 #bindsym $mod+XF86Launch1 exec "shutter -s"
 #bindsym $mod+Shift+XF86Launch1 exec "shutter -w"
 
-bindsym Print exec "shutter -s --disable_systray"
+bindsym Print exec "shutter -f --disable_systray"
 
 # switch to last workspace
 #bindsym $mod+minus workspace back_and_forth

@@ -1,0 +1,7 @@
+#!/bin/bash -x
+
+ID=$(pgrep -lf sshfs)
+MOUNTPATH=$(mount | grep fusefs |  awk '{print $3}')
+
+kill -9 ${ID}
+sudo umount -f /home/serkroes/hassfs/fileshass

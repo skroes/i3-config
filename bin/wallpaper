@@ -2,18 +2,18 @@
 imagepath="$HOME/.bing-wallpaper-$(date +%Y-%m-%d-%s).jpg"
 
 urlpath=$( \
-curl "https://www.bing.com/HPImageArchive.aspx?format=rss&idx=0&n=1&mkt=en-US" \
+curl -s "https://www.bing.com/HPImageArchive.aspx?format=rss&idx=0&n=1&mkt=en-US" \
 | xmllint --xpath "/rss/channel/item/link/text()" - \
 | sed 's/1366x768/1920x1080/g' \
 )
 
 title=$( \
-curl "https://www.bing.com/HPImageArchive.aspx?format=rss&idx=0&n=1&mkt=en-US" \
+curl -s "https://www.bing.com/HPImageArchive.aspx?format=rss&idx=0&n=1&mkt=en-US" \
 | xmllint --xpath "/rss/channel/item/title/text()" - \
 | sed 's/1366x768/1920x1080/g' \
 )
 
-curl "https://www.bing.com$urlpath" -o $imagepath
+curl -s "https://www.bing.com$urlpath" -o $imagepath
 
 feh -B black --bg-fill $imagepath
 

@@ -11,6 +11,10 @@ echo "pri: $primary     sec: $secondairy    thirthyriy: $thirthyriy"
 case $primary in
      eDP-1)      
           xrandr --output $primary --mode 1920x1080 --auto
+          xrandr --output DP-1 --off
+          xrandr --output DP-2 --off
+          xrandr --output HDMI-1 --off
+          xrandr --output HDMI-2 --off
           ;;
      *)
           echo "help!"
@@ -19,6 +23,10 @@ esac
 
 case $secondairy in
      HDMI-1)      
+          xrandr --output $secondairy --auto
+          xrandr --output $secondairy --left-of $primary
+          ;;
+     HDMI-2)      
           xrandr --output $secondairy --auto
           xrandr --output $secondairy --left-of $primary
           ;;
@@ -40,5 +48,6 @@ case $thirthyriy in
           echo "no thirthyriy connected"
           ;;
 esac
-sleep 3
-~/bin/wallpaper &
+
+i3-msg restart
+~/bin/wallpaper

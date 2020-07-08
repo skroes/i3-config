@@ -8,6 +8,10 @@ linux: core shell desktop services ### This will setup targets
 repo: .repo ## Update repository metadata
 	$(call oksign,$@)
 
+repo_halt: .repo ## Update repository metadata
+	$(call oksign,$@)
+	sudo shutdown -h now
+
 core: git etckeeper github feature-all repo
 	$(call oksign,$@)
 

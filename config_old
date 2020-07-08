@@ -114,60 +114,17 @@ new_float pixel 1
 # chose a FreeType font, such as:
 font pango:DejaVu Sans Mono 10
 
-
-# Nord theme https://www.nordtheme.com/docs/colors-and-palettes
-
-set $polarnight0 #2E3440
-set $polarnight1 #3B4252
-set $polarnight2 #434C5E
-set $polarnight3 #4C566A
-
-set $snowstorm0 #D8DEE9 #nord4 etc
-set $snowstorm1 #E5E9F0
-set $snowstorm2 #ECEFF4
-
-set $frost0 #8FBCBB
-set $frost1 #88C0D0
-set $frost2 #81A1C1
-set $frost3 #5E81AC
-
-set $aurora0 #BF616A
-set $aurora1 #D08770
-set $aurora2 #EBCB8B
-set $aurora3 #A3BE8C
-set $aurora4 #B48EAD
-
-# nord numbers
-set $nord0   #2E3440
-set $nord1   #3B4252
-set $nord2   #434C5E
-set $nord3   #4C566A
-set $nord4   #D8DEE9
-set $nord5   #E5E9F0
-set $nord6   #ECEFF4
-set $nord7   #8FBCBB
-set $nord8   #88C0D0
-set $nord9   #81A1C1
-set $nord10  #5E81AC
-set $nord11  #BF616A
-set $nord12  #D08770
-set $nord13  #EBCB8B
-set $nord14  #A3BE8C
-set $nord15  #B48EAD
-
-
-# regularzz
-
 set $blue #005588
 set $gray1 #484848
 set $gray1b #343434
 set $gray2 #333333
+set $darkorage #CB4B16
 
-# class                   border     backgr.      text          indicator
-#client.focused            $frost7    $polarnight0 $snowstorm4   $aurora15
-#client.focused_inactive   $frost7    $polarnight0 $snowstorm4   $aurora15
-#client.unfocused          $frost7    $polarnight0 $snowstorm4   $aurora15
-#client.urgent             $aurora15  $polarnight0 $snowstorm4   $aurora15
+# class                   border   backgr.    text      indicator
+client.focused            $gray1   $darkorage #FFFFFF   #007F7F
+client.focused_inactive   $gray2   $gray2     #FFFFFF   #000000
+client.unfocused          $gray2   $gray2     #FFFFFF   #000000
+client.urgent             #2f343a  #900000    #FFFFFF   #900000
 
 # defaults for colours
 # class                 border  backgr. text    indicator
@@ -313,7 +270,7 @@ bindsym $mod+Shift+space floating toggle
 #bindsym $mod+XF86Launch1 exec "shutter -s"
 #bindsym $mod+Shift+XF86Launch1 exec "shutter -w"
 
-bindsym Print exec "shutter -s --disable_systray"
+bindsym Print exec "shutter -f --disable_systray"
 
 # switch to last workspace
 #bindsym $mod+minus workspace back_and_forth
@@ -760,12 +717,10 @@ bar {
   # -c /home/serkroes/workspace/personal/i3blocks-contrib/i3block-config
   #previous: ~/.config/i3/bin/myi3status.sh
   colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15 
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
 
@@ -785,12 +740,10 @@ bar {
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
    #status_command /.config/i3/bin/myi3status.sh
   colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15 
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
 
@@ -805,12 +758,10 @@ bar {
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
    #status_command /.config/i3/bin/myi3status.sh
   colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15 
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
 
@@ -824,12 +775,10 @@ bar {
   #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15 
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
 
@@ -844,12 +793,10 @@ bar {
   #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15 
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
 
@@ -866,12 +813,10 @@ bar {
   #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15 
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
 
@@ -885,12 +830,10 @@ bar {
   #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15 
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
 
@@ -905,17 +848,12 @@ bar {
 #  #tray_output none
   status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
   colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15 
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $blue #00AAAA
+    inactive_workspace $gray1 $gray1 #AAAAAA
   }
 }
-
-
-
 
 
 

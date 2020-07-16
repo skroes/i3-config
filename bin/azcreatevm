@@ -1,0 +1,73 @@
+#!/bin/bash
+
+set -e
+# defaults
+INSTANCENAME="rabbitmq1"
+RESOURCEGROUP="rabbitmq"
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -n|--name) INSTANCENAME="$2"; shift ;;
+        -g|--group) RESOURCEGROUP="$2"; shift ;; 
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+
+
+echo "creating $INSTANCENAME in group $RESOURCEGROUP"
+
+sleep 5
+
+set -x
+
+# ${INSTANCENAME}
+az group create --location westeurope \
+                --name ${RESOURCEGROUP} \
+                --tags ${RESOURCEGROUP}
+
+az network vnet create \
+--resource-group ${RESOURCEGROUP} \
+--name ${RESOURCEGROUP}-vnet \
+--subnet-name default
+
+az network public-ip create \
+--resource-group ${RESOURCEGROUP} \
+--location westeurope \
+--name ${INSTANCENAME}-ip \
+--dns-name ${INSTANCENAME} \
+--allocation-method static \
+--idle-timeout 4
+
+# Create a network security group.
+az network nsg create \
+--resource-group ${RESOURCEGROUP} \
+--name ${INSTANCENAME}-nsg
+
+# Create a virtual network card and associate with public IP address and NSG.
+az network nic create \
+  --resource-group ${RESOURCEGROUP} \
+  --name ${INSTANCENAME}-nic \
+  --vnet-name ${RESOURCEGROUP}-vnet \
+  --subnet default \
+  --network-security-group ${INSTANCENAME}-nsg \
+  --public-ip-address ${INSTANCENAME}-ip
+
+# Create a new virtual machine
+# this creates SSH keys if not present.
+az vm create \
+--resource-group ${RESOURCEGROUP} \
+--name ${INSTANCENAME}-vm \
+--nics ${INSTANCENAME}-nic \
+--image RedHat:RHEL-HA:8.1:8.1.2020021914 \
+--size Standard_B1s \
+--admin-username ${RESOURCEGROUP} \
+--ssh-key-values ${RESOURCEGROUP}.pub
+#--generate-ssh-keys
+
+# Open port 22 to allow SSh traffic to host.
+az vm open-port \
+--port 22 \
+--resource-group ${RESOURCEGROUP} \
+--name ${INSTANCENAME}-vm

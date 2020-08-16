@@ -1,0 +1,17 @@
+#!/bin/bash
+set -x
+
+for HOST in $(echo kroescontrol1 kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5); do
+#for HOST in $(echo kroescontrol1); do
+
+ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+sudo su -
+echo "SuperSecret" | passwd --stdin kroescontrol
+systemctl enable --now cockpit.socket
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+systemctl restart sshd
+systemctl stop firewalld
+systemctl disable firewalld && yum update &
+EOF
+
+done

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+set -x
+
+# WHITELIST IP's
+#IPKROESCONTROLHQ="109.37.129.215 94.211.109.78 94.208.172.8 84.106.6.70 84.106.6.70"
+IPKROESCONTROLHQ="109.37.138.192"
+
+IPS="$IPKROESCONTROLHQ"
+
+PRIO=100
+
+echo "creating whitelist for $IPS"
+
+sleep 2
+
+for NSG in $(echo kroescontrol1 kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5); do
+
+  for IP in $(echo $IPS); do
+
+  PRIO=$(echo $PRIO + 1 | bc)
+
+  az network nsg rule delete \
+    --name ip-${IP} \
+    --nsg-name ${NSG}-nsg \
+    --resource-group kroescontrol || true
+
+
+  az network nsg rule \
+    create --name ip-${IP} \
+    --nsg-name ${NSG}-nsg \
+    --resource-group kroescontrol \
+    --priority ${PRIO} \
+    --access Allow \
+    --source-address-prefixes "${IP}/32" \
+    --source-port-ranges '*' \
+    --destination-address-prefixes '*' \
+    --destination-port-ranges '*' 
+  done;
+
+done

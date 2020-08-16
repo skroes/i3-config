@@ -2,8 +2,8 @@
 
 set -e
 # defaults
-INSTANCENAME="rabbitmq1"
-RESOURCEGROUP="rabbitmq"
+INSTANCENAME="defaultvm1"
+RESOURCEGROUP="default"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -14,13 +14,9 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-
-
 echo "creating $INSTANCENAME in group $RESOURCEGROUP"
 
-sleep 5
-
-set -x
+sleep 2
 
 # ${INSTANCENAME}
 az group create --location westeurope \
@@ -60,14 +56,18 @@ az vm create \
 --resource-group ${RESOURCEGROUP} \
 --name ${INSTANCENAME}-vm \
 --nics ${INSTANCENAME}-nic \
---image RedHat:RHEL-HA:8.1:8.1.2020021914 \
---size Standard_B1s \
+--image RedHat:RHEL-HA:8.2 \
+--size Standard_B2ms \
 --admin-username ${RESOURCEGROUP} \
---ssh-key-values ${RESOURCEGROUP}.pub
+--ssh-key-values ${RESOURCEGROUP}.pub | jq .
+
+# Standard_B2s
+# Standard_B1s
+# DS2_v2
 #--generate-ssh-keys
 
 # Open port 22 to allow SSh traffic to host.
-az vm open-port \
---port 22 \
---resource-group ${RESOURCEGROUP} \
---name ${INSTANCENAME}-vm
+#az vm open-port \
+#--port 22 \
+#--resource-group ${RESOURCEGROUP} \
+#--name ${INSTANCENAME}-vm

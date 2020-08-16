@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh kroescontrol@kroescontrol${1}.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol

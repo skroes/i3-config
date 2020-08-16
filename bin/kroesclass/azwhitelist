@@ -1,12 +1,11 @@
 #!/bin/bash
 
 set -e
-set -x
 
 # WHITELIST IP's
 IPKROESCONTROLHQ="$(curl http://ifconfig.me)"
 
-OTHERIPS="1.1.1.1" 
+OTHERIPS="" 
 #109.37.129.215 94.211.109.78 94.208.172.8 84.106.6.70 84.106.6.70"
 
 IPS="$IPKROESCONTROLHQ $OTHERIPS"

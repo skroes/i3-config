@@ -1,11 +1,17 @@
 #!/bin/bash
+set -e
 set -x
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -n|--name) INSTANCENAME="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
 
+HOST=$INSTANCENAME
 
 # kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5
-
-for HOST in $(echo kroescontrol1 ); do
-#for HOST in $(echo kroescontrol1); do
 
 scp -i kroescontrol -r staging/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
 ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
@@ -41,8 +47,6 @@ sudo usermod -aG docker kroescontrol
 rm /etc/yum.repos.d/docker-ce.repo
 yum makecache
 
-docker pull redis
-
 echo DOCKER-COMPOSE
 sleep 3
 
@@ -57,11 +61,10 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
 source /etc/bash_completion.d/docker-compose
 
+docker pull redis
 docker pull portainer/portainer
 docker pull quay.io/vektorlab/ctop:latest
 docker pull gcr.io/google-containers/cadvisor
 docker pull prom/prometheus
 
 EOF
-
-done

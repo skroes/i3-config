@@ -2,13 +2,13 @@
 
 set -e
 # defaults
-INSTANCENAME="defaultvm1"
-RESOURCEGROUP="default"
+INSTANCENAME="kroescontrol1"
+RESOURCEGROUP="kroescontrol"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -n|--name) INSTANCENAME="$2"; shift ;;
-        -g|--group) RESOURCEGROUP="$2"; shift ;; 
+        -g|--group) RESOURCEGROUP="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -56,8 +56,8 @@ az vm create \
 --resource-group ${RESOURCEGROUP} \
 --name ${INSTANCENAME}-vm \
 --nics ${INSTANCENAME}-nic \
---image RedHat:RHEL-HA:8.2 \
---size Standard_B2ms \
+--image RedHat:RHEL:8.2:8.2.2020050811 \
+--size Standard_B1s \
 --admin-username ${RESOURCEGROUP} \
 --ssh-key-values ${RESOURCEGROUP}.pub | jq .
 
@@ -67,7 +67,7 @@ az vm create \
 #--generate-ssh-keys
 
 # Open port 22 to allow SSh traffic to host.
-#az vm open-port \
-#--port 22 \
-#--resource-group ${RESOURCEGROUP} \
-#--name ${INSTANCENAME}-vm
+az vm open-port \
+--port 22 \
+--resource-group ${RESOURCEGROUP} \
+--name ${INSTANCENAME}-vm

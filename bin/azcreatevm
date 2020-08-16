@@ -67,7 +67,7 @@ az vm create \
 #--generate-ssh-keys
 
 # Open port 22 to allow SSh traffic to host.
-az vm open-port \
---port 22 \
---resource-group ${RESOURCEGROUP} \
---name ${INSTANCENAME}-vm
+#az vm open-port \
+#--port 22 \
+#--resource-group ${RESOURCEGROUP} \
+#--name ${INSTANCENAME}-vm

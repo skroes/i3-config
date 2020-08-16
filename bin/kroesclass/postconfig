@@ -1,17 +1,67 @@
 #!/bin/bash
 set -x
 
-for HOST in $(echo kroescontrol1 kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5); do
+
+# kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5
+
+for HOST in $(echo kroescontrol1 ); do
 #for HOST in $(echo kroescontrol1); do
+
+scp -i kroescontrol -r staging/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
+ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
+scp -i kroescontrol -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
 
 ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
 sudo su -
+set -x
 echo "SuperSecret" | passwd --stdin kroescontrol
-systemctl enable --now cockpit.socket
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl restart sshd
-systemctl stop firewalld
-systemctl disable firewalld && yum update &
+systemctl restart firewalld
+systemctl enable firewalld
+
+# initial 
+
+# cockpit runs on port 9999
+systemctl enable --now cockpit.socket
+
+cp -rv /home/kroescontrol/stagingroot/* /
+rm -Rf /home/kroescontrol/stagingroot/
+
+yum update -y
+yum install wget curl jq -y
+
+curl https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
+yum makecache
+yum install docker-ce --nobest -y
+
+systemctl enable --now docker
+sudo usermod -aG docker kroescontrol
+
+rm /etc/yum.repos.d/docker-ce.repo
+yum makecache
+
+docker pull redis
+
+echo DOCKER-COMPOSE
+sleep 3
+
+curl -s https://api.github.com/repos/docker/compose/releases/latest \
+  | grep browser_download_url \
+  | grep docker-compose-Linux-x86_64 \
+  | cut -d '"' -f 4 \
+  | wget -qi -
+
+sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose 
+sudo curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+source /etc/bash_completion.d/docker-compose
+
+docker pull portainer/portainer
+docker pull quay.io/vektorlab/ctop:latest
+docker pull gcr.io/google-containers/cadvisor
+docker pull prom/prometheus
+
 EOF
 
 done

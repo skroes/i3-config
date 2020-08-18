@@ -1,5 +1,0 @@
-#!/bin/bash
-
-for instance in `echo kroescontrol1 kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5`; do
-  ./create -n $instance -g kroescontrol
-done

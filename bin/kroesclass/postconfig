@@ -36,7 +36,6 @@ scp -i kroescontrol -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.az
 
 ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
 sudo su -
-set -x
 echo "SuperSecret" | passwd --stdin kroescontrol
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl restart sshd
@@ -52,7 +51,7 @@ cp -rv /home/kroescontrol/stagingroot/* /
 rm -Rf /home/kroescontrol/stagingroot/
 
 yum update -y
-yum install wget curl jq -y
+yum install wget curl jq git -y
 
 curl https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
 yum makecache
@@ -85,5 +84,11 @@ docker pull portainer/portainer
 docker pull quay.io/vektorlab/ctop:latest
 docker pull gcr.io/google-containers/cadvisor
 docker pull prom/prometheus
+EOF
 
+
+ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+git clone https://github.com/grafana/tutorial-environment.git
+cd tutorial-environment
+docker-compose up -d
 EOF

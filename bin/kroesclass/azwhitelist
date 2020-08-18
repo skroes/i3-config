@@ -1,6 +1,19 @@
 #!/bin/bash
-
 set -e
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -n|--name) INSTANCENAME="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+echo
+echo
+echo "WHITELIST $INSTANCENAME"
+echo
+echo
 
 # WHITELIST IP's
 IPKROESCONTROLHQ="$(curl http://ifconfig.me)"
@@ -9,14 +22,10 @@ OTHERIPS=""
 #109.37.129.215 94.211.109.78 94.208.172.8 84.106.6.70 84.106.6.70"
 
 IPS="$IPKROESCONTROLHQ $OTHERIPS"
-
+NSG=$INSTANCENAME
 PRIO=100
 
-echo "creating whitelist for $IPS"
-
-sleep 2
-
-for NSG in $(echo kroescontrol1 kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5); do
+echo "creating whitelist for $NSG with IPS: $IPS"
 
   for IP in $(echo $IPS); do
 
@@ -40,4 +49,3 @@ for NSG in $(echo kroescontrol1 kroescontrol2 kroescontrol3 kroescontrol4 kroesc
     --destination-port-ranges '*' 
   done;
 
-done

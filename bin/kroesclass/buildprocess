@@ -12,5 +12,9 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-ssh-keygen -f "/home/serkroes/.ssh/known_hosts" -R "${INSTANCENAME}.westeurope.cloudapp.azure.com" || true
-azcreatevm -n $INSTANCENAME -g $RESOURCEGROUP
+echo "start buildprocess... delete, build, whitelist and postconfig ... $INSTANCENAME"
+sleep 10
+./deleteinstance -n $INSTANCENAME
+./build -n $INSTANCENAME -g $RESOURCEGROUP
+./azwhitelist -n $INSTANCENAME
+./postconfig -n $INSTANCENAME

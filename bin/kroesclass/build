@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+RESOURCEGROUP="kroescontrol"
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -n|--name) INSTANCENAME="$2"; shift ;;
+        -g|--group) RESOURCEGROUP="$2"; shift ;; 
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+echo
+echo
+echo "BUILD $INSTANCENAME"
+echo
+echo
+
+ssh-keygen -f "/home/serkroes/.ssh/known_hosts" -R "${INSTANCENAME}.westeurope.cloudapp.azure.com" || true
+azcreatevm -n $INSTANCENAME -g $RESOURCEGROUP

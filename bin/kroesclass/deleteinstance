@@ -10,4 +10,4 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 echo "deleting instance $INSTANCENAME ..."
-echo az vm delete --name ${INSTANCENAME}-vm
+az vm delete --name ${INSTANCENAME}-vm --resource-group kroescontrol --yes

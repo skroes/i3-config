@@ -1,0 +1,7 @@
+
+rh8; create_all 16min
+whitelist; 2min
+run; postconfig_all;  2646.44 ... 44 min
+
+per instance 12min.
+

@@ -51,14 +51,16 @@ cp -rv /home/kroescontrol/stagingroot/* /
 rm -Rf /home/kroescontrol/stagingroot/
 
 yum update -y
-yum install wget curl jq git httpd -y
+yum install wget curl git httpd -y
+#jq
 
 rm /etc/httpd/conf.d/welcome.conf 
 systemctl enable --now httpd
 firewall-cmd --add-service=http --permanent
 firewall-cmd --add-service=http
-SHORTNAME=$(hostname -s | cut -f 1 -d "-")
-sed "s/SHORTHOSTNAME/${SHORTNAME}/g" /var/www/html/index.html
+
+sed -i "s/SHORTHOSTNAME/${HOST}/g" /var/www/html/index.html
+sudo restorecon -v /var/www/html/index.html 
 
 curl https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
 yum makecache

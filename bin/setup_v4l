@@ -1,0 +1,7 @@
+#!/bin/bash -x
+sudo modprobe -r v4l2loopback
+sleep 1
+sudo sudo modprobe v4l2loopback exclusive_caps=1 video_nr=3,4 card_label="device number 3","the number four"
+#1280x720
+v4l2loopback-ctl set-caps "video/x-raw,format=YUY2,width=1280,height=720" /dev/video4
+v4l2-ctl --list-devices

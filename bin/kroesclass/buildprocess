@@ -14,7 +14,7 @@ done
 
 echo "start buildprocess... delete, build, whitelist and postconfig ... $INSTANCENAME"
 sleep 10
-./deleteinstance -n $INSTANCENAME
+./deleteinstance -n $INSTANCENAME && true
 ./build -n $INSTANCENAME -g $RESOURCEGROUP
 ./azwhitelist -n $INSTANCENAME
 ./postconfig -n $INSTANCENAME

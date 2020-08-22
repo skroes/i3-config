@@ -6,7 +6,7 @@ RESOURCEGROUP="kroescontrol"
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -n|--name) INSTANCENAME="$2"; shift ;;
-        -g|--group) RESOURCEGROUP="$2"; shift ;; 
+        -g|--group) RESOURCEGROUP="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
@@ -16,5 +16,5 @@ echo "start buildprocess... delete, build, whitelist and postconfig ... $INSTANC
 sleep 10
 ./deleteinstance -n $INSTANCENAME && true
 ./build -n $INSTANCENAME -g $RESOURCEGROUP
-./azwhitelist -n $INSTANCENAME
+./azwhitelist -n $INSTANCENAME && true
 ./postconfig -n $INSTANCENAME

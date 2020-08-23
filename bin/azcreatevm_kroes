@@ -21,14 +21,12 @@ sleep 2
 # ${INSTANCENAME}
 az group create --location westeurope \
                 --name ${RESOURCEGROUP} \
-                --tags ${RESOURCEGROUP} | jq .
-echo "group create done"
+                --tags ${RESOURCEGROUP}
 
 az network vnet create \
 --resource-group ${RESOURCEGROUP} \
 --name ${RESOURCEGROUP}-vnet \
---subnet-name default | jq .
-echo "network vnet create done"
+--subnet-name default
 
 az network public-ip create \
 --resource-group ${RESOURCEGROUP} \
@@ -36,14 +34,12 @@ az network public-ip create \
 --name ${INSTANCENAME}-ip \
 --dns-name ${INSTANCENAME} \
 --allocation-method static \
---idle-timeout 4 | jq .
-echo "network public-ip create done"
+--idle-timeout 4
 
 # Create a network security group.
 az network nsg create \
 --resource-group ${RESOURCEGROUP} \
---name ${INSTANCENAME}-nsg | jq .
-echo "network nsg create done"
+--name ${INSTANCENAME}-nsg
 
 # Create a virtual network card and associate with public IP address and NSG.
 az network nic create \
@@ -52,8 +48,7 @@ az network nic create \
   --vnet-name ${RESOURCEGROUP}-vnet \
   --subnet default \
   --network-security-group ${INSTANCENAME}-nsg \
-  --public-ip-address ${INSTANCENAME}-ip | jq .
-echo "network nic done"
+  --public-ip-address ${INSTANCENAME}-ip
 
 # Create a new virtual machine
 # this creates SSH keys if not present.
@@ -61,11 +56,10 @@ az vm create \
 --resource-group ${RESOURCEGROUP} \
 --name ${INSTANCENAME}-vm \
 --nics ${INSTANCENAME}-nic \
---image OpenLogic:CentOS:7_8:7.8.2020062400 \
+--image kroescontrol-1 \
 --size Standard_B1s \
 --admin-username ${RESOURCEGROUP} \
 --ssh-key-values ${RESOURCEGROUP}.pub | jq .
-echo "vm create done"
 
 # --image RedHat:RHEL:8.2:8.2.2020050811 \
 

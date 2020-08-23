@@ -16,25 +16,29 @@ echo
 echo
 
 
+set -x
 
 instance=$INSTANCENAME
 
 fqdn="${instance}.westeurope.cloudapp.azure.com"
+sleep 2
 ip=$(dig +search +short $fqdn)
+sleep 2
 ssh-keygen -R $fqdn
 ssh-keygen -R $ip
 ssh-keyscan -H $ip >> ~/.ssh/known_hosts
 ssh-keyscan -H $fqdn >> ~/.ssh/known_hosts
+sync
+sleep 2
 
 HOST=$INSTANCENAME
 
-# kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5
+ssh -v -i kroescontrol  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
+scp -i kroescontrol -r stagingroot/*  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
 
-scp -i kroescontrol -r staging/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
-ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
-scp -i kroescontrol -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
+scp -i kroescontrol -r staging/*  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
 
-ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+ssh -i kroescontrol  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
 sudo su -
 echo "SuperSecret" | passwd --stdin kroescontrol
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
@@ -42,7 +46,7 @@ systemctl restart sshd
 systemctl restart firewalld
 systemctl enable firewalld
 
-# initial 
+# initial
 
 # cockpit runs on port 9999
 systemctl enable --now cockpit.socket
@@ -54,13 +58,13 @@ yum update -y
 yum install wget curl git httpd -y
 #jq
 
-rm /etc/httpd/conf.d/welcome.conf 
+rm /etc/httpd/conf.d/welcome.conf
 systemctl enable --now httpd
 firewall-cmd --add-service=http --permanent
 firewall-cmd --add-service=http
 
 sed -i "s/SHORTHOSTNAME/${HOST}/g" /var/www/html/index.html
-sudo restorecon -v /var/www/html/index.html 
+sudo restorecon -v /var/www/html/index.html
 
 curl https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
 yum makecache
@@ -84,7 +88,7 @@ curl -s https://api.github.com/repos/docker/compose/releases/latest \
   | wget -qi -
 
 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose 
+sudo chmod +x /usr/local/bin/docker-compose
 sudo curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
 source /etc/bash_completion.d/docker-compose
 

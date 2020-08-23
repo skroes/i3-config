@@ -18,3 +18,5 @@ sleep 10
 ./build -n $INSTANCENAME -g $RESOURCEGROUP
 ./azwhitelist -n $INSTANCENAME && true
 ./postconfig -n $INSTANCENAME
+az vm stop --name ${INSTANCENAME}-vm --resource-group $RESOURCEGROUP
+az vm deallocate --name ${INSTANCENAME}-vm --resource-group $RESOURCEGROUP

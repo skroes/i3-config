@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#kroescontrol1
+
+for instance in `echo  kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5 kroescontrol6`; do
+  ./azwhitelist -n $instance
+done

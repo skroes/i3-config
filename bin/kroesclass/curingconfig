@@ -1,0 +1,10 @@
+
+# https://copr.fedorainfracloud.org/coprs/ibotty/prometheus-exporters/
+sudo curl -Lo /etc/yum.repos.d/_copr_ibotty-prometheus-exporters.repo https://copr.fedorainfracloud.org/coprs/ibotty/prometheus-exporters/repo/epel-7/ibotty-prometheus-exporters-epel-7.repo
+sudo yum install node_exporter -y
+sudo firewall-cmd --add-port=9100/tcp
+sudo firewall-cmd --add-port=9100/tcp --permanent
+sudo setenforce 0
+sudo systemctl enable --now node_exporter.service
+
+# prometheus - config

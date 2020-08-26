@@ -33,12 +33,12 @@ sleep 2
 
 HOST=$INSTANCENAME
 
-ssh -v -i kroescontrol  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
-scp -i kroescontrol -r stagingroot/*  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
+ssh -i kroescontrol -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
+scp -i kroescontrol -o "StrictHostKeyChecking no" -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
 
-scp -i kroescontrol -r staging/*  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
+scp -i kroescontrol -o "StrictHostKeyChecking no" -r staging/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
 
-ssh -i kroescontrol  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+ssh -i kroescontrol -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
 sudo su -
 echo "SuperSecret" | passwd --stdin kroescontrol
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
@@ -48,15 +48,12 @@ systemctl enable firewalld
 
 # initial
 
-# cockpit runs on port 9999
-systemctl enable --now cockpit.socket
-
 cp -rv /home/kroescontrol/stagingroot/* /
 rm -Rf /home/kroescontrol/stagingroot/
 
 yum update -y
-yum install wget curl git httpd -y
-#jq
+yum install epel-release -y
+yum install wget curl git httpd golang -y
 
 rm /etc/httpd/conf.d/welcome.conf
 systemctl enable --now httpd
@@ -78,6 +75,15 @@ sudo usermod -aG docker kroescontrol
 #RHEL8 rm /etc/yum.repos.d/docker-ce.repo
 #RHEL8 yum makecache
 
+# cockpit runs on port 9999
+yum install cockpit -y
+sudo semanage port -a -t websm_port_t -p tcp 9999 || true
+sudo semanage port -m -t websm_port_t -p tcp 9999
+sudo firewall-cmd --add-port=9999/tcp
+sudo firewall-cmd --add-port=9999/tcp --permanent
+sudo systemctl daemon-reload
+sudo systemctl restart cockpit.socket
+
 echo DOCKER-COMPOSE
 sleep 3
 
@@ -92,16 +98,43 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo curl -L https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
 source /etc/bash_completion.d/docker-compose
 
-docker pull redis
-docker pull portainer/portainer
-docker pull quay.io/vektorlab/ctop:latest
-docker pull gcr.io/google-containers/cadvisor
-docker pull prom/prometheus
+#docker pull redis
+#docker pull portainer/portainer
+#docker pull quay.io/vektorlab/ctop:latest
+#docker pull gcr.io/google-containers/cadvisor
+#docker pull prom/prometheus
 EOF
 
 
+
 ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
-git clone https://github.com/grafana/tutorial-environment.git
-cd tutorial-environment
-docker-compose up -d
+#git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
+#cd grafana-tutorial-environment
+#docker-compose up -d
+
+#myredis
+
+set -x
+
+docker run -d -p 6379:6379 --name myredis redis || docker start myredis
+
+docker run --name redis-commander -d \
+  --env REDIS_HOSTS=10.10.20.30 \
+  -p 8082:8081 \
+  rediscommander/redis-commander:latest  || docker start redis-commander
+
+kill $(ps fax |grep retwis-go | grep -v grep | awk {'print $1'}) || true
+rm -Rf ~/retwis-go
+git clone https://github.com/gsempe/retwis-go || true
+
+cd ~/retwis-go
+go get github.com/gsempe/retwis-go
+go build
+rm -Rf ~/go
+
+nohup retwis-start </dev/null &>/dev/null &
+
+sudo firewall-cmd --add-port=8080/tcp --permanent
+sudo firewall-cmd --add-port=8080/tcp
+
 EOF

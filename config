@@ -564,6 +564,9 @@ mode "display" {
   bindsym 4 exec ~/bin/switchoutputscreen_mirror_HDMI
   bindsym 5 exec ~/bin/switchoutputscreen_mirror_DP-1-2
   bindsym 6 exec ~/.screenlayout/triple-itinfra.sh
+
+  bindsym 7 exec xrandr --output HDMI-2 --off --output HDMI-1 --off --output DP-1 --mode 3440x1440 --pos 0x0 --rotate normal --output eDP-1 --primary --mode 1920x1080 --pos 3440x0 --rotate normal --output DP-2 --off
+
   #bindsym 2 exec ~/bin/lala_focus.sh
   #bindsym 3 exec ~/bin/lala_focus_DP12.sh
 

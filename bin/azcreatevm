@@ -62,14 +62,14 @@ az vm create \
 --name ${INSTANCENAME}-vm \
 --nics ${INSTANCENAME}-nic \
 --image OpenLogic:CentOS:7_8:7.8.2020062400 \
---size Standard_B1s \
+--size Standard_B2MS \
 --admin-username ${RESOURCEGROUP} \
 --ssh-key-values ${RESOURCEGROUP}.pub | jq .
 echo "vm create done"
 
 # --image RedHat:RHEL:8.2:8.2.2020050811 \
 
-
+#B2MS
 # Standard_B2s
 # Standard_B1s
 # DS2_v2

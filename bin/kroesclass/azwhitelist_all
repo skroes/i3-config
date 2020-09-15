@@ -2,6 +2,6 @@
 
 #kroescontrol1
 
-for instance in `echo  kroescontrol2 kroescontrol3 kroescontrol4 kroescontrol5 kroescontrol6`; do
+for instance in `echo  kroescontrol10 kroescontrol11 kroescontrol12 kroescontrol13 kroescontrol14 kroescontrol15`; do
   ./azwhitelist -n $instance
 done

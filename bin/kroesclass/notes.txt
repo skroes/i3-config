@@ -1,0 +1,19 @@
+ssh kroescontrol@kroescontrol10.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol docker start redis-commander myredis
+ssh kroescontrol@kroescontrol10.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol sudo systemctl enable --now cockpit
+ssh kroescontrol@kroescontrol10.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol /home/kroescontrol/bin/retwis-start
+
+ssh kroescontrol@kroescontrol11.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol docker start redis-commander myredis
+ssh kroescontrol@kroescontrol11.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol sudo systemctl enable --now cockpit
+ssh kroescontrol@kroescontrol11.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol /home/kroescontrol/bin/retwis-start
+
+ssh kroescontrol@kroescontrol12.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol docker start redis-commander myredis
+ssh kroescontrol@kroescontrol12.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol sudo systemctl enable --now cockpit
+ssh kroescontrol@kroescontrol12.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol /home/kroescontrol/bin/retwis-start
+
+ssh kroescontrol@kroescontrol13.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol docker start redis-commander myredis
+ssh kroescontrol@kroescontrol13.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol sudo systemctl enable --now cockpit
+ssh kroescontrol@kroescontrol13.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol /home/kroescontrol/bin/retwis-start
+
+ssh kroescontrol@kroescontrol14.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol docker start redis-commander myredis
+ssh kroescontrol@kroescontrol14.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol sudo systemctl enable --now cockpit
+ssh kroescontrol@kroescontrol14.westeurope.cloudapp.azure.com -i ~/workspace/personal/i3-config/bin/kroesclass/kroescontrol /home/kroescontrol/bin/retwis-start

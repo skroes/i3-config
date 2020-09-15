@@ -1,0 +1,4 @@
+cd
+cd grafana-tutorial-environment/
+docker-compose stop && docker-compose rm -f
+docker run -d -p 3000:3000 --name=mygrafana --link myredis -e "GF_INSTALL_PLUGINS=redis-datasource" grafana/grafana

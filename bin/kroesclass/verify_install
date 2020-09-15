@@ -1,0 +1,17 @@
+#!/bin/bash
+
+RESOURCEGROUP="kroescontrol"
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -n|--name) INSTANCENAME="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+echo -n "app" ; curl -s http://${INSTANCENAME}.westeurope.cloudapp.azure.com:8080 | grep "Example Twitter clone"
+
+echo -n "commander" ; curl -s http://${INSTANCENAME}.westeurope.cloudapp.azure.com:8082 | grep RedisCommandLogo
+
+echo -n "that cockpit" ; curl -s http://${INSTANCENAME}.westeurope.cloudapp.azure.com:9999

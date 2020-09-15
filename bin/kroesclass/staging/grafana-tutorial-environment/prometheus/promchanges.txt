@@ -1,0 +1,16 @@
+  - job_name: redis-exporter-targets
+    honor_timestamps: true
+    scrape_interval: 3s
+    scrape_timeout: 3s
+    metrics_path: /scrape
+    scheme: http
+    static_configs:
+    - targets:
+      - redis://myredis:6379
+    relabel_configs:
+    - source_labels: [__address__]
+      separator: ;
+      regex: (.*)
+      target_label: __param_target
+      replacement: $1
+      action: replace

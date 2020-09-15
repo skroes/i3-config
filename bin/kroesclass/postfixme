@@ -1,0 +1,105 @@
+#!/bin/bash
+set -e
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -n|--name) INSTANCENAME="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+echo
+echo
+echo "POST FIX ME $INSTANCENAME"
+echo
+echo
+
+set -x
+
+instance=$INSTANCENAME
+
+
+HOST=$INSTANCENAME
+
+ssh -i kroescontrol -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
+scp -i kroescontrol -o "StrictHostKeyChecking no" -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
+
+scp -i kroescontrol -o "StrictHostKeyChecking no" -r staging/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
+
+ssh -i kroescontrol -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+sudo su -
+
+# move files over stagingroot to /
+cp -rv /home/kroescontrol/stagingroot/* /
+rm -Rf /home/kroescontrol/stagingroot/
+
+sed -i "s/SHORTHOSTNAME/${HOST}/g" /var/www/html/index.html
+sudo restorecon -v /var/www/html/index.html
+
+# cockpit runs on port 9999
+#yum install cockpit -y
+#sudo semanage port -a -t websm_port_t -p tcp 9999 || true
+#sudo semanage port -m -t websm_port_t -p tcp 9999
+#sudo firewall-cmd --add-port=9999/tcp
+#sudo firewall-cmd --add-port=9999/tcp --permanent
+sudo systemctl daemon-reload
+sudo systemctl restart cockpit.socket
+
+#docker pull redis
+#docker pull portainer/portainer
+#docker pull quay.io/vektorlab/ctop:latest
+#docker pull gcr.io/google-containers/cadvisor
+#docker pull prom/prometheus
+EOF
+
+
+
+ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+
+
+sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+sudo yum-config-manager --enable remi
+sudo yum install redis -y
+
+#rm -Rf grafana-tutorial-environment
+git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment
+cd grafana-tutorial-environment
+sed -i 's/8082:80/8083:80/g' docker-compose.yml
+echo "yo"
+docker-compose up -d
+
+#myredis
+#docker run -d -p 6379:6379 --name myredis redis || docker start myredis
+
+#REMOVE MYREDIS ?!?!
+docker kill myredis
+docker rm myredis
+docker run -d -p 6379:6379 -v ~/myredis:/usr/local/etc/redis --name myredis redis redis-server /usr/local/etc/redis/redis.conf || docker start myredis
+
+#REMOVE REDIS-COMMANDER ?!?!
+#docker kill redis-commander
+#docker rm redis-commander
+docker run --name redis-commander -d \
+  --env REDIS_HOSTS=myredis \
+  -p 8082:8081 \
+  --link myredis \
+  rediscommander/redis-commander:latest  || docker start redis-commander
+
+
+rm -Rf ~/retwis-go
+cd
+git clone https://github.com/gsempe/retwis-go || true
+
+cd ~/retwis-go
+go get github.com/gsempe/retwis-go
+go build
+rm -Rf ~/go
+
+nohup retwis-start </dev/null &>/dev/null &
+echo "retwis started"
+
+#sudo firewall-cmd --add-port=8080/tcp --permanent
+#sudo firewall-cmd --add-port=8080/tcp
+
+EOF

@@ -108,9 +108,9 @@ EOF
 
 
 ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
-#git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
-#cd grafana-tutorial-environment
-#docker-compose up -d
+git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
+cd grafana-tutorial-environment
+docker-compose up -d
 
 #myredis
 
@@ -123,7 +123,6 @@ docker run --name redis-commander -d \
   -p 8082:8081 \
   rediscommander/redis-commander:latest  || docker start redis-commander
 
-kill $(ps fax |grep retwis-go | grep -v grep | awk {'print $1'}) || true
 rm -Rf ~/retwis-go
 git clone https://github.com/gsempe/retwis-go || true
 

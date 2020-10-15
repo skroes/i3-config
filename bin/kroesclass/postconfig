@@ -33,10 +33,17 @@ sleep 2
 
 HOST=$INSTANCENAME
 
+<<<<<<< HEAD
+ssh -v -i kroescontrol  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
+
+scp -i kroescontrol -o "StrictHostKeyChecking no" -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
+scp -i kroescontrol -o "StrictHostKeyChecking no" -r staging/*     kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
+=======
 ssh -i kroescontrol -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
 scp -i kroescontrol -o "StrictHostKeyChecking no" -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
 
 scp -i kroescontrol -o "StrictHostKeyChecking no" -r staging/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
+>>>>>>> 8c10b0a32702dc622cba5b79125ada9ab162548a
 
 ssh -i kroescontrol -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
 sudo su -
@@ -106,6 +113,13 @@ source /etc/bash_completion.d/docker-compose
 EOF
 
 
+<<<<<<< HEAD
+#ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+#git clone https://github.com/grafana/tutorial-environment.git
+#cd tutorial-environment
+#docker-compose up -d
+#EOF
+=======
 
 ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
 git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
@@ -137,3 +151,4 @@ sudo firewall-cmd --add-port=8080/tcp --permanent
 sudo firewall-cmd --add-port=8080/tcp
 
 EOF
+>>>>>>> 8c10b0a32702dc622cba5b79125ada9ab162548a

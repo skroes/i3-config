@@ -33,17 +33,12 @@ sleep 2
 
 HOST=$INSTANCENAME
 
-<<<<<<< HEAD
-ssh -v -i kroescontrol  -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
 
-scp -i kroescontrol -o "StrictHostKeyChecking no" -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
-scp -i kroescontrol -o "StrictHostKeyChecking no" -r staging/*     kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
-=======
+# root staging files
 ssh -i kroescontrol -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com mkdir stagingroot
 scp -i kroescontrol -o "StrictHostKeyChecking no" -r stagingroot/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:stagingroot/
-
-scp -i kroescontrol -o "StrictHostKeyChecking no" -r staging/* kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
->>>>>>> 8c10b0a32702dc622cba5b79125ada9ab162548a
+# user staging files
+scp -i kroescontrol -o "StrictHostKeyChecking no" -r staging/*     kroescontrol@${HOST}.westeurope.cloudapp.azure.com:
 
 ssh -i kroescontrol -o "StrictHostKeyChecking no" kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
 sudo su -
@@ -113,42 +108,34 @@ source /etc/bash_completion.d/docker-compose
 EOF
 
 
-<<<<<<< HEAD
-#ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
-#git clone https://github.com/grafana/tutorial-environment.git
-#cd tutorial-environment
-#docker-compose up -d
-#EOF
-=======
 
-ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
-git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
-cd grafana-tutorial-environment
-docker-compose up -d
+#ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+#git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
+#cd grafana-tutorial-environment
+#docker-compose up -d
 
 #myredis
 
-set -x
+#set -x
 
-docker run -d -p 6379:6379 --name myredis redis || docker start myredis
+#docker run -d -p 6379:6379 --name myredis redis || docker start myredis
 
-docker run --name redis-commander -d \
-  --env REDIS_HOSTS=10.10.20.30 \
-  -p 8082:8081 \
-  rediscommander/redis-commander:latest  || docker start redis-commander
+#docker run --name redis-commander -d \
+#  --env REDIS_HOSTS=10.10.20.30 \
+#  -p 8082:8081 \
+#  rediscommander/redis-commander:latest  || docker start redis-commander
 
-rm -Rf ~/retwis-go
-git clone https://github.com/gsempe/retwis-go || true
+#rm -Rf ~/retwis-go
+#git clone https://github.com/gsempe/retwis-go || true
 
-cd ~/retwis-go
-go get github.com/gsempe/retwis-go
-go build
-rm -Rf ~/go
+#cd ~/retwis-go
+#go get github.com/gsempe/retwis-go
+#go build
+#rm -Rf ~/go
 
-nohup retwis-start </dev/null &>/dev/null &
+#nohup retwis-start </dev/null &>/dev/null &
 
-sudo firewall-cmd --add-port=8080/tcp --permanent
-sudo firewall-cmd --add-port=8080/tcp
+#sudo firewall-cmd --add-port=8080/tcp --permanent
+#sudo firewall-cmd --add-port=8080/tcp
 
-EOF
->>>>>>> 8c10b0a32702dc622cba5b79125ada9ab162548a
+#EOF

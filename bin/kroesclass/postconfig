@@ -84,7 +84,7 @@ sudo semanage port -m -t websm_port_t -p tcp 9999
 sudo firewall-cmd --add-port=9999/tcp
 sudo firewall-cmd --add-port=9999/tcp --permanent
 sudo systemctl daemon-reload
-sudo systemctl enable --nowcockpit.socket
+sudo systemctl enable --now cockpit.socket
 
 echo DOCKER-COMPOSE
 sleep 3

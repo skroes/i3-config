@@ -1,5 +1,5 @@
 #!/bin/bash
 RESOURCEGROUP=kroescontrol
-for INSTANCENAME in `echo kroescontrol10 kroescontrol11 kroescontrol12 kroescontrol13 kroescontrol14 kroescontrol15`; do
+for INSTANCENAME in `echo kroescontrol10 kroescontrol11 kroescontrol12 kroescontrol13 kroescontrol14 kroescontrol15 kroescontrol16 kroescontrol17`; do
 az vm start --name ${INSTANCENAME}-vm --resource-group $RESOURCEGROUP
 done

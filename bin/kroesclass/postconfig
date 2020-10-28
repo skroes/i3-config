@@ -109,10 +109,11 @@ EOF
 
 
 
-#ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
-#git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
-#cd grafana-tutorial-environment
-#docker-compose up -d
+ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
+[ ! -d grafana-tutorial-environment/.git ] && rm -Rf grafana-tutorial-environment
+git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
+cd grafana-tutorial-environment
+docker-compose up -d
 
 #myredis
 
@@ -135,7 +136,15 @@ EOF
 
 #nohup retwis-start </dev/null &>/dev/null &
 
-#sudo firewall-cmd --add-port=8080/tcp --permanent
-#sudo firewall-cmd --add-port=8080/tcp
 
-#EOF
+sudo firewall-cmd --add-port=8080/tcp
+sudo firewall-cmd --add-port=3000/tcp
+sudo firewall-cmd --add-port=9090/tcp
+
+sudo firewall-cmd --add-port=20101/tcp
+sudo firewall-cmd --add-port=20102/tcp
+sudo firewall-cmd --add-port=20103/tcp
+
+sudo firewall-cmd --reload
+
+EOF

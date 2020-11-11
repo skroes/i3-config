@@ -6,10 +6,9 @@ services:
     image: redis:latest
     ports:
       - 6379:6379
-    command: ["redis-server", "--appendonly", "yes", "/usr/local/etc/redis/redis.conf"]
     volumes:
       - redis-data:/data
-      - /home/kroescontrol/redis-tutorial-environment/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
 
   redis-commander:
     image: rediscommander/redis-commander:latest
@@ -21,6 +20,6 @@ services:
       - 8083:8081
     depends_on:
       - redis
-    
+
 volumes:
   redis-data:

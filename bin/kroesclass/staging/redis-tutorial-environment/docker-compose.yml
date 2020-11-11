@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--appendonly", "yes", "/usr/local/etc/redis/redis.conf"]
+    volumes:
+      - redis-data:/data
+      - /home/kroescontrol/redis-tutorial-environment/redis.conf:/usr/local/etc/redis/redis.conf
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=kroescontrol
+      - HTTP_PASSWORD=SuperSecret
+    ports:
+      - 8083:8081
+    depends_on:
+      - redis
+    
+volumes:
+  redis-data:

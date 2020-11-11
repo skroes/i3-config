@@ -1,4 +1,6 @@
 #!/bin/bash
+#for i in `seq 11 17`; do echo $i; echo ./postconfig -n kroescontrol${i}; done
+
 set -e
 
 while [[ "$#" -gt 0 ]]; do
@@ -60,7 +62,6 @@ yum install wget curl git httpd golang -y
 rm /etc/httpd/conf.d/welcome.conf
 systemctl enable --now httpd
 firewall-cmd --add-service=http --permanent
-firewall-cmd --add-service=http
 
 sed -i "s/SHORTHOSTNAME/${HOST}/g" /var/www/html/index.html
 sudo restorecon -v /var/www/html/index.html
@@ -81,7 +82,6 @@ sudo usermod -aG docker kroescontrol
 yum install cockpit -y
 sudo semanage port -a -t websm_port_t -p tcp 9999 || true
 sudo semanage port -m -t websm_port_t -p tcp 9999
-sudo firewall-cmd --add-port=9999/tcp
 sudo firewall-cmd --add-port=9999/tcp --permanent
 sudo systemctl daemon-reload
 sudo systemctl enable --now cockpit.socket
@@ -105,6 +105,17 @@ source /etc/bash_completion.d/docker-compose
 #docker pull quay.io/vektorlab/ctop:latest
 #docker pull gcr.io/google-containers/cadvisor
 #docker pull prom/prometheus
+
+sudo firewall-cmd --add-port=8080/tcp --permanent
+sudo firewall-cmd --add-port=3000/tcp --permanent
+sudo firewall-cmd --add-port=9090/tcp --permanent
+
+sudo firewall-cmd --add-port=20101/tcp --permanent
+sudo firewall-cmd --add-port=20102/tcp --permanent
+sudo firewall-cmd --add-port=20103/tcp --permanent
+
+sudo firewall-cmd --reload
+
 EOF
 
 
@@ -113,18 +124,24 @@ ssh -i kroescontrol kroescontrol@${HOST}.westeurope.cloudapp.azure.com << EOF
 [ ! -d grafana-tutorial-environment/.git ] && rm -Rf grafana-tutorial-environment
 git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-environment || true
 cd grafana-tutorial-environment
-docker-compose up -d
+git pull
+#docker-compose up -d
+
+
+
+rm -Rf myredis
 
 #myredis
-
 #set -x
-
 #docker run -d -p 6379:6379 --name myredis redis || docker start myredis
-
 #docker run --name redis-commander -d \
 #  --env REDIS_HOSTS=10.10.20.30 \
 #  -p 8082:8081 \
 #  rediscommander/redis-commander:latest  || docker start redis-commander
+
+
+# REDIS APP
+
 
 #rm -Rf ~/retwis-go
 #git clone https://github.com/gsempe/retwis-go || true
@@ -135,16 +152,5 @@ docker-compose up -d
 #rm -Rf ~/go
 
 #nohup retwis-start </dev/null &>/dev/null &
-
-
-sudo firewall-cmd --add-port=8080/tcp
-sudo firewall-cmd --add-port=3000/tcp
-sudo firewall-cmd --add-port=9090/tcp
-
-sudo firewall-cmd --add-port=20101/tcp
-sudo firewall-cmd --add-port=20102/tcp
-sudo firewall-cmd --add-port=20103/tcp
-
-sudo firewall-cmd --reload
 
 EOF

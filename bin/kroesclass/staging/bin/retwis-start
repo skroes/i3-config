@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-kill $(ps fax|grep "retwis-go" | grep -v grep | awk {'print $1'}) && echo "retwis stopped."
+kill $(ps fax|grep "retwis-go" | grep -v grep | awk {'print $1'}) 2>/dev/null && echo "retwis stopped."
 
 cd ~/retwis-go/
 ./retwis-go 2>&1 1> ~/retwis-go/retwis-app.log &
-echo "rewtis started."
+echo "retwis started."

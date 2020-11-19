@@ -571,6 +571,9 @@ mode "display" {
   # using bigscreen secondairy, and hdmi 'same-as' laptop screen
   bindsym 8 exec xrandr --output HDMI-2 --mode 1920x1080 --pos 3440x0 --rotate normal --output HDMI-1 --off --output DP-1 --mode 3440x1440 --pos 0x0 --rotate normal --output eDP-1 --primary --mode 1920x1080 --pos 3440x0 --rotate normal --output DP-2 --off
 
+  # only DP1
+  bindsym 9 exec xrandr --output HDMI-2 --off --output HDMI-1 --off --output DP-1 --primary --mode 3440x1440 --pos 0x0 --rotate normal --output eDP-1 --off --output DP-2 --off
+
 
   #bindsym 2 exec ~/bin/lala_focus.sh
   #bindsym 3 exec ~/bin/lala_focus_DP12.sh
@@ -885,24 +888,24 @@ bar {
 }
 
 # output HDMI-2
-bar {
-  strip_workspace_numbers yes
-  output HDMI-2
-  mode dock
-  position top
-  modifier $mod
-  #tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
-  colors {
-    background $nord0
-	  statusline $nord8
-    focused_workspace  $nord3  $nord8
-	  active_workspace   $nord3  $nord8
-	  inactive_workspace $nord8  $nord3
-	  urgent_workspace   $nord3 $nord15
-  }
-}
-
+#bar {
+#  strip_workspace_numbers yes
+#  output HDMI-2
+#  mode dock
+#  position top
+#  modifier $mod
+#  tray_output none
+#  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
+#  colors {
+#    background $nord0
+#	  statusline $nord8
+#    focused_workspace  $nord3  $nord8
+#	  active_workspace   $nord3  $nord8
+#	  inactive_workspace $nord8  $nord3
+#	  urgent_workspace   $nord3 $nord15
+#  }
+#}
+#
 
 # output DP-1
 bar {

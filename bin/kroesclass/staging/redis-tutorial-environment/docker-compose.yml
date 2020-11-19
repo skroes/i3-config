@@ -6,9 +6,11 @@ services:
     image: redis:latest
     ports:
       - 6379:6379
+    command: [ "redis-server", "/etc/redis.conf" ]
     volumes:
       - redis-data:/data
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis.conf:/etc/redis.conf
+      - ./redis-acl.conf:/etc/redis-acl.conf
 
   redis-commander:
     image: rediscommander/redis-commander:latest
@@ -23,3 +25,8 @@ services:
 
 volumes:
   redis-data:
+
+networks:
+  default:
+    external:
+      name: grafana-tutorial-environment_grafana

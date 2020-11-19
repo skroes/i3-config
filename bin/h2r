@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /opt/user/h2r/linux-unpacked
+./h2r-graphics

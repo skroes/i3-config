@@ -114,6 +114,8 @@ sudo firewall-cmd --add-port=20101/tcp --permanent
 sudo firewall-cmd --add-port=20102/tcp --permanent
 sudo firewall-cmd --add-port=20103/tcp --permanent
 
+sudo firewall-cmd --add-port=9121/tcp --permanent
+
 sudo firewall-cmd --reload
 
 EOF

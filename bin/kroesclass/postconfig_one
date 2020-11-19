@@ -1,0 +1,40 @@
+#!/bin/bash
+#for i in `seq 11 17`; do echo $i; echo ./postconfig -n kroescontrol${i}; done
+
+set -e
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -n|--name) INSTANCENAME="$2"; shift ;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+echo
+echo
+echo "POSTCONFIG $INSTANCENAME"
+echo
+echo
+
+
+set -x
+
+instance=$INSTANCENAME
+
+fqdn="${instance}.westeurope.cloudapp.azure.com"
+sleep 2
+ip=$(dig +search +short $fqdn)
+sleep 2
+ssh-keygen -R $fqdn
+ssh-keygen -R $ip
+ssh-keyscan -H $ip >> ~/.ssh/known_hosts
+ssh-keyscan -H $fqdn >> ~/.ssh/known_hosts
+sync
+sleep 2
+
+HOST=$INSTANCENAME
+
+
+# user staging files
+scp -i kroescontrol -o "StrictHostKeyChecking no" -r staging/*     kroescontrol@${HOST}.westeurope.cloudapp.azure.com:

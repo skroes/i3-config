@@ -1,3 +1,2 @@
 #!/bin/bash
-cd /opt/user/h2r/linux-unpacked
-./h2r-graphics
+/opt/user/H2R.Graphics-0.3.2-linux.AppImage

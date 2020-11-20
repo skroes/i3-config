@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#ARPIE=$(arp)
+
+arp | grep 7c:2e:0d:10:2b:61 && echo "Atem Mini"
+arp | grep b4:e6:2d:7a:ed:38 && echo "Office Shelly"

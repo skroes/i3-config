@@ -16,7 +16,7 @@ exec ~/bin/xreset
 exec ~/bin/feature_enable_touchpad_touch
 exec ~/bin/wallpaper
 
-exec --no-startup-id  xautolock -time 15 -locker "~/bin/lockthescreens" &
+exec --no-startup-id  xautolock -time 45 -locker "~/bin/lockthescreens" &
 
 #exec ~/bin/wallpaper
 #exec ~/bin/middlebutton
@@ -33,7 +33,7 @@ exec --no-startup-id synergy
 
 #exec --no-startup-id /usr/bin/insync start
 exec --no-startup-id xscreensaver -no-splash
-#exec --no-startup-id sleep 0.5; xscreensaver-command-l
+#exec --no-startup-id sleep 0.5; xxver-command-l
 #exec gnome-settings-daemon
 
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!

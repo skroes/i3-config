@@ -28,7 +28,7 @@ github-enabled: git .git-configured-for-github ### ssh access enabled for github
 
 #GIT_SIGNING_KEY=$(shell gpg --list-keys $(GIT_AUTHOR_EMAIL) | grep -v "^pub\\|^uid" | grep -o '.\{8\}$$' || true)
 git/.gitconfig:
-	cp gitconfig.dist $@
+	cp git/.gitconfig.dist $@
 	git config --file git/.gitconfig user.name $(GIT_AUTHOR_NAME)
 	git config --file git/.gitconfig user.email $(GIT_AUTHOR_EMAIL)
 	git config --file git/.gitconfig github.user $(GITHUB_USER)

@@ -1,3 +1,6 @@
 #!/bin/bash
 set -e
-sudo apt install stow direnv tig exfat-fuse/bionic solaar parcellite workrave xautolock lxappearance gtk-chtheme qt4-qtconfig -qqy 
+set -x
+sudo apt install curl git stow direnv tig solaar parcellite workrave xautolock lxappearance gtk-chtheme -qqy
+# exfat-fuse/bionic 
+# qt4-qtconfig

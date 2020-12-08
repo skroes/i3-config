@@ -46,11 +46,11 @@ linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-cle
 puppet: puppet-agent
 puppet-agent: .puppet-agent # installs puppet5 agent
 .puppet-agent:
-	wget https://apt.puppetlabs.com/puppet5-release-bionic.deb
-	sudo dpkg -i puppet5-release-bionic.deb
-	rm puppet5-release-bionic.deb
+	wget https://apt.puppetlabs.com/puppet6-release-focal.deb
+	sudo dpkg -i puppet6-release-focal.deb
+	rm -f puppet6-release-focal.deb*
 	sudo apt update
-	sudo apt install puppet-agent
+	sudo apt install puppet-agent -y
 	touch $@
 
 packages-clean:

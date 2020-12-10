@@ -1,0 +1,10 @@
+
+[v] curl git stow direnv
+[v] ssh-key ed255
+[v] 1password
+[v] chrome browser
+[v] brave browser
+[v] github access via ssh key
+[v] synergy
+[v] ms code
+[ ] i3wm - https://kifarunix.com/install-and-setup-i3-windows-manager-on-ubuntu-20-04/

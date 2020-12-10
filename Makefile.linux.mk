@@ -18,7 +18,7 @@ core: git etckeeper github feature-all repo
 shell: fish fish-config repo
 	$(call oksign,$@)
 
-desktop: i3 chrome firefox repo ## desktop apps
+desktop: i3 chrome  repo ## desktop apps
 	$(call oksign,$@)
 
 services: ssh-server e2 repo ## system services
@@ -70,44 +70,17 @@ ssh-server: .ssh-server # Install sshd daemon
 /usr/sbin/sshd: latest-openssh-server
 
 ###
-### firefox
-###
-
-firefox: .firefox # Install firefox
-	$(call oksign,$@)
-
-.firefox: .repo
-	sudo apt-get install firefox -qqy
-	touch $@
-
-###
-### firefox plugins
-###
-
-firefox-plugins: .firefox-plugins
-.firefox-plugins:
-	#find .mozilla/ -name '*lastpass*' >/dev/null || firefox --new-tab https://lastpass.com/lastpassffx/
-	#firefox --new-tab https://addons.mozilla.org/nl/firefox/addon/tree-style-tab/
-  #grep -oP '(?<=\},\"name\":\")([^"]*)' ~/.mozilla/firefox/*.default/addons.json | grep -q µBlock || firefox --new-tab https://www.ublock.org/
-  #touch $@
-
-#https://addons.mozilla.org/en-US/firefox/addon/umatrix/
-#mv chrome/ ~/.mozilla/firefox/*defaults/
-#
-
-###
 ### google-chrome
 ###
 
 chrome: .chrome # Setup Google Chrome
 	$(call oksign,$@)
 .chrome:
-	@sudo su -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+	@sudo su -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 	sudo apt-get update -qqy
 	sudo apt-get install google-chrome-stable -qqy
 	touch $@
-#https://addons.mozilla.org/nl/firefox/addon/tridactyl-vim/
 
 chrome-clean:
 	sudo rm -f /etc/apt/sources.list.d/google-chrome.list
@@ -116,11 +89,16 @@ chrome-clean:
 ### i3
 ###
 
-i3: .i3-dependencies .i3-install .i3-settings # Setup i3
+i3: .i3-dependencies .i3-install .i3-settings .i3-stow # Setup i3
 	$(call oksign,$@)
 
 i3-repo-github-enabled: github-enabled .i3-git-update-remote repo ### ssh access enabled for i3 repository
 	$(call oksign,$@)
+
+.i3-stow:
+	test -d ~/.config/i3/.git || ( mv ~/.config/i3 ~/.config/i3-legacy && mkdir -p ~/.config/i3 )
+	stow --target ~/.config/i3/ i3/ --adopt
+	touch $@
 
 ###
 ### sub
@@ -136,12 +114,13 @@ i3-repo-github-enabled: github-enabled .i3-git-update-remote repo ### ssh access
 .i3-dependencies: .repo
 	sudo apt install \
 		suckless-tools i3-wm gnome-settings-daemon unclutter gnome-tweak-tool gnome-session \
-		alsa-utils volumeicon-alsa disper libnotify-bin meld s3cmd gconf2 wget curl\
+		alsa-utils volumeicon-alsa libnotify-bin meld s3cmd gconf2 wget curl\
 		feh xinput gnome-settings-daemon j4-dmenu-desktop i3status libxml2-utils jq \
-    	xdotool volumeicon-alsa i3blocks -y
-	sudo apt-get install python-pip -qqy
-	pip install i3-py
+    		xdotool volumeicon-alsa i3blocks -y
 	@touch $@
+	# disper
+	# sudo apt-get install python-pip -qqy
+	# pip install i3-py
 
 .i3-install: /var/lib/dpkg/info/i3.list | .i3-dependencies
 /var/lib/dpkg/info/i3.list:
@@ -165,55 +144,55 @@ i3-clean:
 ### e2
 ###
 
-# e2guardian
-e2: .e2-install .e2-config # Setup e2guardian
-	$(call oksign,$@)
-
-.e2-install: /var/lib/dpkg/info/e2guardian.list | .repo
-/var/lib/dpkg/info/e2guardian.list:
-	sudo apt install e2guardian -qy
-
-.e2-config: | .e2-install
-	-@test -L /etc/e2guardian && sudo unlink /etc/e2guardian
-	-@test -d /etc/e2guardian && sudo rm -Rf /etc/e2guardian
-	sudo stow -t /etc -S tag-e2guardian
-	touch $@
-
-e2-clean:
-	rm -f .e2-install .e2-config
-
-.e2-mrproper: e2-clean
-	-sudo stow -t /etc -D e2guardian || sudo unlink /etc/e2guardian
-	sudo apt purge e2guardian -qy
-
+## e2guardian
+##e2: .e2-install .e2-config # Setup e2guardian
+#	$(call oksign,$@)
+#
+#.e2-install: /var/lib/dpkg/info/e2guardian.list | .repo
+#/var/lib/dpkg/info/e2guardian.list:
+#	sudo apt install e2guardian -qy
+#
+#.e2-config: | .e2-install
+#	-@test -L /etc/e2guardian && sudo unlink /etc/e2guardian
+#	-@test -d /etc/e2guardian && sudo rm -Rf /etc/e2guardian
+#	sudo stow -t /etc -S tag-e2guardian
+#	touch $@
+#
+#e2-clean:
+#	rm -f .e2-install .e2-config
+#
+#.e2-mrproper: e2-clean
+#	-sudo stow -t /etc -D e2guardian || sudo unlink /etc/e2guardian
+#	sudo apt purge e2guardian -qy
+#
 ###
 ### emby
 ###
-
-EMBY_RELEASE=3.5.3.0
-EMBY_URL=https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/
-EMBY_DEBNAME=emby-server-deb_${EMBY_RELEASE}_amd64.deb
-
-emby: .emby-install ### Install emby server
-	@echo Open a web browser to http://localhost:8096
-	$(call oksign,$@)
-
-emby-status:
-	@sudo systemctl status emby-server --no-pager | GREP_COLOR='1;32' egrep -Hr 'active|running|loaded' - --color 2>/dev/null
-
-###
-### sub emby
-###
-
-.emby-install: | tmp/${EMBY_DEBNAME}
-	sudo dpkg -i tmp/${EMBY_DEBNAME}
-	sudo systemctl status emby-server --no-pager
-	rm -f tmp/${EMBY_DEBNAME}
-	touch $@
-
-tmp/${EMBY_DEBNAME}: | tmp
-	curl -L -S --progress-bar "${EMBY_URL}/${EMBY_DEBNAME}" -o $@
-
+#
+#EMBY_RELEASE=3.5.3.0#
+#EMBY_URL=https://github.com/MediaBrowser/Emby.Releases#/releases/download/${EMBY_RELEASE}/
+#EMBY_DEBNAME=emby-server-deb_${EMBY_RELEASE}_amd64.deb#
+#
+#emby: .emby-install #### Install emby server#
+#	@echo Open a web #browser to http://loca#lhost:8096
+#	$(call oksign,$@)#
+#
+#emby-status:#
+#	@sudo sy#stemctl s#tatus emby-server --no#-pager | GREP_COLOR='1;32' egrep -Hr 'active|running|loaded' - --color 2>/dev/null
+#
+#####
+#### sub emby#
+#####
+#
+#.emby-instal#l: | tmp/#${EMBY_DEBNAME}#
+#	sudo dpk#g -i tmp/#${EMBY_DEBNAME}#
+#	sudo sys#temctl st#atus emby-server --no-pager
+#	rm -f tm#p/${EMBY_DEBNAME}
+#	touch $@#
+#
+#tmp/${EMBY_DEBNAME}: | tmp
+#	curl -L -S --progress-bar "${EMBY_URL}/${EMBY_DEBNAME}" -o $@
+#
 ###
 ### etckeeper
 ###

@@ -96,7 +96,7 @@ i3-repo-github-enabled: github-enabled .i3-git-update-remote repo ### ssh access
 	$(call oksign,$@)
 
 .i3-stow:
-	test -d ~/.config/i3/.git || ( mv ~/.config/i3 ~/.config/i3-legacy && mkdir -p ~/.config/i3 )
+	test -d ~/.config/i3/.git || ( mv ~/.config/i3 ~/.config/i3-config && mkdir -p ~/.config/i3 )
 	stow --target ~/.config/i3/ i3/ --adopt
 	touch $@
 

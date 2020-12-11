@@ -21,12 +21,12 @@ shell: fish fish-config repo
 desktop: i3 chrome  repo ## desktop apps
 	$(call oksign,$@)
 
-services: ssh-server e2 repo ## system services
+services: ssh-server repo ## system services
 	$(call oksign,$@)
 
 specials: emby repo
 
-linux-clean: packages-clean i3-clean git-clean e2-clean feature-clean latest-clean fish-clean
+linux-clean: packages-clean i3-clean git-clean feature-clean latest-clean fish-clean
 
 ###
 ### repo
@@ -139,6 +139,17 @@ i3-repo-github-enabled: github-enabled .i3-git-update-remote repo ### ssh access
 
 i3-clean:
 	rm -f .i3-dependencies .i3-settings
+
+###
+### scripts
+###
+
+.scripts-bin:
+	stow -v scripts --target ~ --adopt
+	@touch $@
+
+#~/.bash_aliases:
+#	echo hoiiiii
 
 ###
 ### e2

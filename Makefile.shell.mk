@@ -2,7 +2,7 @@
 fish-config: .fish-config
 .fish-config: | ${HOME}/.local/share/omf/init.fish fish .fish.omf.theme.yimmy ### install fish stow config
 	-unlink ~/.config/fish/functions/fish_prompt.fish
-	stow --target ~/.config/fish/ tag-fish --adopt
+	stow --target ~/.config/fish/ fish --adopt
 	touch $@
 
 .fish.omf.theme.yimmy: /home/serkroes/.local/share/omf/themes/yimmy

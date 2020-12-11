@@ -60,7 +60,7 @@ WARN_STRING=[WARNING]
 ERROR_STRING=[ERROR]
 
 # EXECUTABLES is variable wuth a list of expected executables
-EXECUTABLES = stow gpg git sudo
+EXECUTABLES = stow gpg git sudo curl
 K := $(foreach exec,$(EXECUTABLES),\
 	$(if $(shell which $(exec)),some string,$(warning "${WARN_STRING} No $(exec) in PATH")))
 
@@ -91,7 +91,7 @@ git-commit-and-push:
 	git push
 
 ###
-### features
+### /OS/ features
 ###
 
 # objects are a list of 'feature-xyz' strings

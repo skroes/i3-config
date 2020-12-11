@@ -1,6 +1,7 @@
 uname  = $(shell uname -s)
 USER   = $(shell whoami)
 TOPDIR = $(shell pwd)
+OSRELEASE = $(shell grep UBUNTU_CODENAME /etc/os-release | cut  -f 2 -d"=")
 SHELL  = /bin/bash
 
 ifeq ($(shell uname), Darwin)
@@ -106,7 +107,7 @@ ${featureobjects}: $(addprefix .,${featureobjects}) .repo tmp
 	bash -e ${TOPDIR}/${OS}/feature/$*.sh
 	touch $@
 
-feature-clean:
+feature-clean: 
 	rm -f .feature-*
 
 ###
@@ -181,7 +182,7 @@ include Makefile.git.mk
 include Makefile.ssh.mk
 include Makefile.shell.mk
 
-clean: ${OS}-clean
+clean: ${OS}-clean feature-clean latest-clean
 	$(call oksign,$@)
 
 mrproper: clean

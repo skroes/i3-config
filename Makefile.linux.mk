@@ -46,9 +46,9 @@ linux-clean: packages-clean i3-clean git-clean feature-clean latest-clean fish-c
 puppet: puppet-agent
 puppet-agent: .puppet-agent # installs puppet5 agent
 .puppet-agent:
-	wget https://apt.puppetlabs.com/puppet6-release-focal.deb
-	sudo dpkg -i puppet6-release-focal.deb
-	rm -f puppet6-release-focal.deb*
+	wget https://apt.puppetlabs.com/puppet6-release-${OSRELEASE}.deb
+	sudo dpkg -i puppet6-release-${OSRELEASE}.deb
+	rm -f puppet6-release-${OSRELEASE}.deb
 	sudo apt update
 	sudo apt install puppet-agent -y
 	touch $@
@@ -96,8 +96,9 @@ i3-repo-github-enabled: github-enabled .i3-git-update-remote repo ### ssh access
 	$(call oksign,$@)
 
 .i3-stow:
-	test -d ~/.config/i3/.git || ( mv ~/.config/i3 ~/.config/i3-config && mkdir -p ~/.config/i3 )
-	stow --target ~/.config/i3/ i3/ --adopt
+	#test -d ~/.config/i3/.git || ( mv ~/.config/i3 ~/.config/i3-config && mkdir -p ~/.config/i3 )
+	mkdir -p ~/.config/i3
+	stow --target ~/.config/i3/ i3 --adopt
 	touch $@
 
 ###

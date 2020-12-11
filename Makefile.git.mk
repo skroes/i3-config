@@ -18,13 +18,13 @@ github-enabled: git .git-configured-for-github ### ssh access enabled for github
 ###
 
 .git-configured-for-github: | ssh-public-key .local.known_hosts.github.com
-	@test -f ~/.ssh/known_hosts || cp .local.known_hosts.github.com ~/.ssh/known_hosts
-	@ssh -T git@github.com -o UserKnownHostsFile=.local.known_hosts.github.com 2>&1 | GREP_COLOR='1;32' grep "You've successfully authenticated" --color \
+	test -f ~/.ssh/known_hosts || cp .local.known_hosts.github.com ~/.ssh/known_hosts
+	ssh -T git@github.com -o UserKnownHostsFile=.local.known_hosts.github.com 2>&1 | GREP_COLOR='1;32' grep "You've successfully authenticated" --color \
 	|| (echo -e "\n\033[36m ... You need to add this public key to github ... \033[0m\n" \
 	&& cat ~/.ssh/id_rsa.pub \
 	&& echo -e "\n\033[36m ... What are your waiting for? head to https://github.com/login ... \033[0m\n" \
 	&& exit 1)
-	@touch $@
+	touch $@
 
 #GIT_SIGNING_KEY=$(shell gpg --list-keys $(GIT_AUTHOR_EMAIL) | grep -v "^pub\\|^uid" | grep -o '.\{8\}$$' || true)
 git/.gitconfig:

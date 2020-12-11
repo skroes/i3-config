@@ -8,7 +8,8 @@ git: .git-stow git/.gitconfig ### basic local gitconfig
 	$(call oksign,$@)
 
 git-clean:
-	rm -f git/.gitconfig
+	rm -f .git-stow
+	rm -f .git-configured-for-github
 
 github-enabled: git .git-configured-for-github ### ssh access enabled for github
 	$(call oksign,$@)

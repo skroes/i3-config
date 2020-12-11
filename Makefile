@@ -182,7 +182,7 @@ include Makefile.git.mk
 include Makefile.ssh.mk
 include Makefile.shell.mk
 
-clean: ${OS}-clean feature-clean latest-clean
+clean: ${OS}-clean feature-clean latest-clean github-clean
 	$(call oksign,$@)
 
 mrproper: clean

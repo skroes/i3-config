@@ -2,7 +2,7 @@
 # major targets:
 #
 
-linux: core shell desktop services ### This will setup targets
+linux: core shell desktop services .scripts-bin ### This will setup targets
 	$(call oksign,$@)
 
 repo: .repo ## Update repository metadata
@@ -26,7 +26,7 @@ services: ssh-server repo ## system services
 
 specials: emby repo
 
-linux-clean: packages-clean i3-clean git-clean feature-clean latest-clean fish-clean
+linux-clean: packages-clean i3-clean git-clean feature-clean latest-clean fish-clean chrome-clean etckeeper-clean
 
 ###
 ### repo
@@ -220,4 +220,4 @@ etckeeper: | .etckeeper-install /etc/.git
 	etckeeper init
 
 etckeeper-clean:
-	@#nothing here
+	rm -f .etckeeper-install

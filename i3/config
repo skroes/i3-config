@@ -786,7 +786,8 @@ bar {
   position top
   modifier $mod
 #  #tray_output eDP-1
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+  status_command i3status
+  #SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
   # -c /home/serkroes/workspace/personal/i3blocks-contrib/i3block-config
   #previous: ~/.config/i3/bin/myi3status.sh
   colors {
@@ -812,8 +813,8 @@ bar {
   position top
   modifier $mod
   ##tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
-   #status_command /.config/i3/bin/myi3status.sh
+  #status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+  #status_command /.config/i3/bin/myi3status.sh
   colors {
     background $nord0
 	  statusline $nord8
@@ -832,8 +833,8 @@ bar {
   position top
   modifier $mod
   ##tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
-   #status_command /.config/i3/bin/myi3status.sh
+  #status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+  #status_command /.config/i3/bin/myi3status.sh
   colors {
     background $nord0
 	  statusline $nord8
@@ -852,7 +853,8 @@ bar {
   position top
   modifier $mod
   #tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
+  #status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+  #status_command /.config/i3/bin/myi3status.sh
   colors {
     background $nord0
 	  statusline $nord8
@@ -872,7 +874,8 @@ bar {
   position top
   modifier $mod
   #tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
+  #status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+  #status_command /.config/i3/bin/myi3status.sh
   colors {
     background $nord0
 	  statusline $nord8
@@ -894,7 +897,8 @@ bar {
   position top
   modifier $mod
   #tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
+  #status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+  #status_command /.config/i3/bin/myi3status.sh
   colors {
     background $nord0
 	  statusline $nord8
@@ -913,7 +917,8 @@ bar {
 #  position top
 #  modifier $mod
 #  tray_output none
-#  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
+#  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+#  status_command /.config/i3/bin/myi3status.sh
 #  colors {
 #    background $nord0
 #	  statusline $nord8
@@ -932,8 +937,9 @@ bar {
   mode dock
   position top
   modifier $mod
-#  #tray_output none
-  status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf  #status_command /.config/i3/bin/myi3status.sh
+  #tray_output none
+  #status_command SCRIPT_DIR=/home/serkroes/workspace/personal/i3blocks-contrib i3blocks -c /home/serkroes/workspace/personal/i3-config/i3blocks.conf
+  #status_command /.config/i3/bin/myi3status.sh
   colors {
     background $nord0
 	  statusline $nord8

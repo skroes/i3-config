@@ -31,3 +31,8 @@ fish-exec: /usr/bin/fish
 
 fish-clean:
 	rm -f .fish .fish-config .fish-add-to-shell
+
+nord-theme-gnome-terminal:
+	git clone https://github.com/arcticicestudio/nord-gnome-terminal.git /tmp/nord-gnome-terminal
+	/tmp/nord-gnome-terminal/src/nord.sh
+	rm -Rf /tmp/nord-gnome-terminal/

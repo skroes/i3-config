@@ -187,8 +187,8 @@ floating_modifier $mod
 # ?
 # bindsym $mod+0 exec ~/bin/hack_w
 
-# start a terminal, the configured x-terminal-emulator
-bindsym $mod+Return exec x-terminal-emulator
+# start a terminal
+bindsym $mod+Return exec gnome-terminal --profile Nord
 #bindsym Shift+$CTRL+Return exec gnome-terminal
 
 # kill focused window

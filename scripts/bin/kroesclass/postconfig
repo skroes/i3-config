@@ -128,7 +128,7 @@ git clone https://github.com/grafana/tutorial-environment.git grafana-tutorial-e
 cd grafana-tutorial-environment
 git pull
 cd ~
-#docker-compose up -d
+docker-compose up -d
 
 
 

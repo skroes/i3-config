@@ -1,6 +1,7 @@
 #!/bin/bash
+source ./env
 RESOURCEGROUP=kroescontrol
-for INSTANCENAME in `echo kroescontrol10 kroescontrol11 kroescontrol12 kroescontrol13 kroescontrol14 kroescontrol15 kroescontrol16 kroescontrol17 `; do
+for INSTANCENAME in `echo ${ALL_HOSTS} `; do
 az vm stop --name ${INSTANCENAME}-vm --resource-group $RESOURCEGROUP
 az vm deallocate --name ${INSTANCENAME}-vm --resource-group $RESOURCEGROUP
 done

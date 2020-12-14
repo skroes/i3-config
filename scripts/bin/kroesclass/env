@@ -1,0 +1,5 @@
+
+#ALL_HOSTS="kroescontrol10 kroescontrol11 kroescontrol12 kroescontrol13 kroescontrol14 kroescontrol15 kroescontrol16 kroescontrol17"
+ALL_HOSTS="kroescontrol10 kroescontrol11 kroescontrol12"
+
+RESOURCEGROUP=kroescontrol

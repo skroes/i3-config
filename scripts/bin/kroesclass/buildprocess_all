@@ -1,5 +1,6 @@
 #!/bin/bash
+. ./env
 
-for instance in `echo kroescontrol10 kroescontrol11 kroescontrol12 kroescontrol13 kroescontrol14 kroescontrol15`; do
+for instance in `echo ${ALL_HOSTS}`; do
   ./buildprocess -n $instance -g kroescontrol
 done

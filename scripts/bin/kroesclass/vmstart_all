@@ -1,6 +1,7 @@
 #!/bin/bash
-RESOURCEGROUP=kroescontrol
-for INSTANCENAME in `echo kroescontrol10 kroescontrol11 kroescontrol12 kroescontrol13 kroescontrol14 kroescontrol15 kroescontrol16 kroescontrol17`; do
+source ./env
+
+for INSTANCENAME in `echo ${ALL_HOSTS}`; do
 az vm start --name ${INSTANCENAME}-vm --resource-group $RESOURCEGROUP
 echo ${INSTANCENAME} up ...
 done

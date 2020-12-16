@@ -2,7 +2,7 @@
 # major targets:
 #
 
-linux: core shell desktop services .scripts-bin ### This will setup targets
+linux: core shell desktop services .scripts-bin .bash-stow ### This will setup targets
 	$(call oksign,$@)
 
 repo: .repo ## Update repository metadata
@@ -149,7 +149,10 @@ i3-clean:
 	stow -v scripts --target ~ --adopt
 	@touch $@
 
-#~/.bash_aliases:
+.bash-stow:
+	stow -v bash --target ~ --adopt
+
+~/.bash_aliases:
 #	echo hoiiiii
 
 ###

@@ -1,7 +1,6 @@
 #!/bin/bash
+source ./env
 
-#kroescontrol1
-
-for instance in `echo  ${ALL_HOSTS}`; do
+for instance in `echo ${ALL_HOSTS}`; do
   ./azwhitelist -n $instance
 done

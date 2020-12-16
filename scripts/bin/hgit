@@ -1,4 +1,8 @@
 #!/bin/bash
-export GIT_DIR="${HOME}/.homeconfig.git"
-[ "$1" == "submodule" ] || export GIT_WORK_TREE="${HOME}"
+#export GIT_DIR="${WORK_DIR}/.git"
+#[ "$1" == "submodule" ] || export GIT_WORK_TREE="${HOME}"
+#cd 
+#export WORK_DIR="${HOME}/.config/i3-config/"
+
+cd ${HOME}/.config/i3-config/
 git "$@"

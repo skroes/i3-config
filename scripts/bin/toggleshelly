@@ -1,8 +1,10 @@
 #!/bin/bash
 
-for i in `seq 100 110`; do
-  timeout 5 curl -s "http://192.168.8.${i}/relay/0?turn=toggle" 2>/dev/null >/dev/null &
-done
+timeout 5 curl -s "http://192.168.8.$1/relay/0?turn=toggle" 2>/dev/null >/dev/null &
+
+#for i in `seq 100 110`; do
+#  timeout 5 curl -s "http://192.168.8.${i}/relay/0?turn=toggle" 2>/dev/null >/dev/null &
+#done
 
 #for i in `seq 100 120`; do
 #  echo $i; timeout 5 curl -s "http://192.168.8.${i}/relay/0?turn=toggle" | jq .

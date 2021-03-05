@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+if [ -z "$1" ]; then
+    # List projects if no arguments given
+    cat /home/serkroes/.config/BraveSoftware/Brave-Browser/Default/Bookmarks | jq -r '.. | objects | select(.type=="url"?) | .name'
+else
+    # do something with $1
+    URL=$(bravebookmarksall | grep "$1" -A 1 | tail -n1)
+    brave-browser "$URL" && exit 1
+fi
+

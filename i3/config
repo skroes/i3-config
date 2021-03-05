@@ -14,7 +14,8 @@ exec echo $bindir > YOLO
 # controls the xset stuff
 exec ~/bin/xreset
 exec ~/bin/feature_enable_touchpad_touch
-exec ~/bin/wallpaper
+
+exec --no-startup-id ~/.local/scripts/lswc/lswc &
 
 exec --no-startup-id  xautolock -time 45 -locker "~/bin/lockthescreens" &
 
@@ -59,6 +60,10 @@ bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+
 bindsym --release $mod+f exec --no-startup-id xdotool key --clearmodifiers ctrl+f
 bindsym --release $mod+q exec --no-startup-id xdotool key --clearmodifiers ctrl+q
 bindsym $mod+Shift+q kill
+
+#bindsym XF86MonBrightnessUp exec backlight 200
+
+
 
 # TEST
 #bindsym $mod+Caps_Lock exec notify-send "press"
@@ -203,7 +208,8 @@ bindsym $ALT+F2 exec "dmenu_run -nb black -p run"
 
 # i3-dmenu-desktop which only displays applications shipping a .desktop file.
 # It is a wrapper around dmenu, so you need that installed.
-bindsym $mod+space exec --no-startup-id j4-dmenu-desktop
+bindsym $mod+space exec --no-startup-id rofi -show combi
+#--no-startup-id j4-dmenu-desktop
 
 
 # start dmenu (a program launcher)
